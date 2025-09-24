@@ -245,42 +245,65 @@ export default function Index() {
     };
   }, [isGalleryOpen]);
 
-  // Image preloading effect for critical images
+  // Optimized image preloading with priority loading
   useEffect(() => {
+    // Only preload above-the-fold critical images
     const criticalImages = [
-      getAssetPath("images/profile/profile.png"), // Hero profile image (corrected extension)
+      getAssetPath("images/profile/profile.png"), // Hero profile image - highest priority
+    ];
+    
+    // Secondary images to preload after critical ones
+    const secondaryImages = [
       getAssetPath("images/projects/swishstrokes.png"), // First featured project
       getAssetPath("images/projects/culturajoin.png"), // Second featured project
-      getAssetPath("images/projects/uvex_2.png"), // Third featured project - using uvex_2 which exists
-      getAssetPath("images/projects/virtual_10.png"), // Fourth featured project
     ];
 
-    const preloadImages = async () => {
-      const imagePromises = criticalImages.map((src) => {
-        return new Promise<void>((resolve) => {
+    const preloadImage = (src: string, priority = false) => {
+      return new Promise<void>((resolve) => {
+        // Use link preload for higher priority
+        if (priority) {
+          const link = document.createElement('link');
+          link.rel = 'preload';
+          link.as = 'image';
+          link.href = src;
+          link.onload = () => {
+            setImagesLoaded(prev => ({ ...prev, [src]: true }));
+            resolve();
+          };
+          link.onerror = () => {
+            setImagesLoaded(prev => ({ ...prev, [src]: false }));
+            resolve();
+          };
+          document.head.appendChild(link);
+        } else {
+          // Use Image() for lower priority
           const img = new Image();
           img.onload = () => {
             setImagesLoaded(prev => ({ ...prev, [src]: true }));
             resolve();
           };
           img.onerror = () => {
-            // Silently handle missing images without console warnings
             setImagesLoaded(prev => ({ ...prev, [src]: false }));
-            resolve(); // Don't fail the whole process
+            resolve();
           };
           img.src = src;
-        });
+        }
       });
-
-      try {
-        await Promise.all(imagePromises);
-      } catch (error) {
-        // Silently handle preload errors
-        console.debug('Image preload completed with some failures');
-      }
     };
 
-    preloadImages();
+    const preloadSequentially = async () => {
+      // Load critical images first with high priority
+      await Promise.all(criticalImages.map(src => preloadImage(src, true)));
+      
+      // Then load secondary images with a small delay to not block critical ones
+      setTimeout(() => {
+        secondaryImages.forEach(src => preloadImage(src, false));
+      }, 100);
+    };
+
+    // Start preloading after a small delay to not block initial render
+    const timer = setTimeout(preloadSequentially, 50);
+    return () => clearTimeout(timer);
   }, []);
 
   // Image loading handler
@@ -288,7 +311,7 @@ export default function Index() {
     setImagesLoaded(prev => ({ ...prev, [src]: true }));
   };
 
-  // Image component with loading state and better error handling
+  // Enhanced image component with better performance optimizations
   const OptimizedImage = ({ 
     src, 
     alt, 
@@ -304,9 +327,40 @@ export default function Index() {
   }) => {
     const [imageError, setImageError] = useState(false);
     const [localLoaded, setLocalLoaded] = useState(false);
+    const [isInView, setIsInView] = useState(priority);
     const imgRef = useRef<HTMLImageElement>(null);
+    const observerRef = useRef<IntersectionObserver | null>(null);
     const isPreloaded = imagesLoaded[src];
     const shouldShowImage = isPreloaded || localLoaded;
+    
+    // Intersection Observer for lazy loading with larger threshold
+    useEffect(() => {
+      if (priority || isInView) return;
+
+      observerRef.current = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setIsInView(true);
+              observerRef.current?.disconnect();
+            }
+          });
+        },
+        {
+          rootMargin: '100px', // Start loading 100px before entering viewport
+          threshold: 0.1
+        }
+      );
+
+      const currentRef = imgRef.current;
+      if (currentRef) {
+        observerRef.current.observe(currentRef);
+      }
+
+      return () => {
+        observerRef.current?.disconnect();
+      };
+    }, [priority, isInView]);
     
     const handleImageLoad = () => {
       setLocalLoaded(true);
@@ -318,15 +372,28 @@ export default function Index() {
       setLocalLoaded(true);
     };
 
-    // Set fetchpriority attribute after component mounts
+    // Set fetchpriority and optimize loading
     useEffect(() => {
       if (imgRef.current) {
         imgRef.current.setAttribute('fetchpriority', priority ? 'high' : 'auto');
+        
+        // Preload critical images
+        if (priority && !isPreloaded) {
+          const link = document.createElement('link');
+          link.rel = 'preload';
+          link.as = 'image';
+          link.href = src;
+          document.head.appendChild(link);
+        }
       }
-    }, [priority]);
+    }, [priority, src, isPreloaded]);
     
     return (
-      <div className={`relative overflow-hidden ${className}`}>
+      <div 
+        ref={imgRef}
+        className={`relative overflow-hidden ${className}`}
+        style={{ contentVisibility: 'auto', containIntrinsicSize: '400px 300px' }}
+      >
         {!shouldShowImage && !imageError && (
           <div className="absolute inset-0 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 animate-pulse">
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent animate-shimmer"></div>
@@ -337,17 +404,22 @@ export default function Index() {
             <div className="text-gray-400 text-sm">Image not available</div>
           </div>
         ) : (
-          <img
-            ref={imgRef}
-            src={src}
-            alt={alt}
-            className={`transition-opacity duration-500 ${shouldShowImage ? 'opacity-100' : 'opacity-0'} ${className}`}
-            onLoad={handleImageLoad}
-            onError={handleImageError}
-            loading={priority ? 'eager' : 'lazy'}
-            decoding="async"
-            {...props}
-          />
+          (isInView || priority) && (
+            <img
+              src={src}
+              alt={alt}
+              className={`transition-opacity duration-300 ${shouldShowImage ? 'opacity-100' : 'opacity-0'} ${className}`}
+              onLoad={handleImageLoad}
+              onError={handleImageError}
+              loading={priority ? 'eager' : 'lazy'}
+              decoding="async"
+              style={{ 
+                willChange: shouldShowImage ? 'auto' : 'opacity',
+                transform: 'translateZ(0)' // Force hardware acceleration
+              }}
+              {...props}
+            />
+          )
         )}
       </div>
     );

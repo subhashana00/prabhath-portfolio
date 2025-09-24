@@ -707,11 +707,11 @@ const Freelance = () => {
                 <div className="bg-white border-2 border-black rounded-[15px] shadow-[3px_3px_0_0_#000] p-6">
                   <div className="grid grid-cols-2 gap-4 text-center">
                     <div>
-                      <div className="text-2xl font-bold text-[#007BFF] tracking-[1.23px]">50+</div>
+                      <div className="text-2xl font-bold text-[#007BFF] tracking-[1.23px]">10+</div>
                       <div className="text-xs text-gray-600 tracking-[1.23px]">Projects</div>
                     </div>
                     <div>
-                      <div className="text-2xl font-bold text-[#007BFF] tracking-[1.23px]">98%</div>
+                      <div className="text-2xl font-bold text-[#007BFF] tracking-[1.23px]">100%</div>
                       <div className="text-xs text-gray-600 tracking-[1.23px]">Satisfaction</div>
                     </div>
                     <div>
@@ -770,7 +770,7 @@ const Freelance = () => {
                   <Star className="w-5 h-5 text-yellow-400 fill-current" />
                   <Star className="w-5 h-5 text-yellow-400 fill-current" />
                   <Star className="w-5 h-5 text-yellow-400 fill-current" />
-                  <span className="text-sm text-gray-600 ml-2 tracking-[1.23px]">5.0 from 50+ clients</span>
+                  <span className="text-sm text-gray-600 ml-2 tracking-[1.23px]">5.0 from 5+ clients</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Shield className="w-5 h-5 text-green-500" />
@@ -778,7 +778,7 @@ const Freelance = () => {
                 </div>
                 <div className="flex items-center gap-2">
                   <Clock className="w-5 h-5 text-blue-500" />
-                  <span className="text-sm text-gray-600 tracking-[1.23px]">3 years experience</span>
+                  <span className="text-sm text-gray-600 tracking-[1.23px]">2 years experience</span>
                 </div>
               </div>
             </div>
