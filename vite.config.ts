@@ -5,7 +5,7 @@ import { createServer } from "./server";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: "/portfolio_uiux/",
+  base: "/prabhath-portfolio",
   server: {
     host: "localhost",
     port: 5173,
