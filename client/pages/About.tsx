@@ -410,7 +410,7 @@ export default function About() {
                       <Link to="/contact">
                         <Button
                           variant="outline"
-                          className="border-[#007BFF] bg-[#007BFF] text-white hover:bg-white hover:text-[#007BFF] shadow-[4px_4px_0_0_#007BFF] text-[16px] font-medium px-[40px] py-[24px] rounded-lg transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_#007BFF]"
+                          className="border-[#007BFF] bg-[#007BFF] text-white hover:bg-white hover:text-[#007BFF] shadow-[4px_4px_0_0_#000000] text-[16px] font-medium px-[40px] py-[24px] rounded-lg transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_#007BFF]"
                         >
                           <Mail className="w-5 h-5 mr-2" />
                           Let's Connect
@@ -655,7 +655,7 @@ export default function About() {
             {/* Summary Stats */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
               <div className="text-center bg-[#FCF9F8] border-2 border-black rounded-[15px] shadow-[4px_4px_0_0_#000] p-6 hover:shadow-[6px_6px_0_0_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-300">
-                <div className="text-2xl lg:text-3xl font-medium text-[#007BFF] mb-2">3+</div>
+                <div className="text-2xl lg:text-3xl font-medium text-[#007BFF] mb-2">2+</div>
                 <div className="text-[12px] lg:text-[13px] font-medium text-black uppercase tracking-[1.23px]">Years Experience</div>
               </div>
               <div className="text-center bg-[#FCF9F8] border-2 border-black rounded-[15px] shadow-[4px_4px_0_0_#000] p-6 hover:shadow-[6px_6px_0_0_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-300">
@@ -953,7 +953,7 @@ export default function About() {
                 <Link to="/projects">
                   <Button
                     variant="outline"
-                    className="border-black bg-white hover:bg-black hover:text-white shadow-[4px_4px_0_0_#000] text-[16px] font-medium px-[40px] py-[24px] rounded-lg transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_#000]"
+                    className="border-black bg-white hover:bg-black hover:text-white shadow-[4px_4px_0_0_#000] text-[16px] font-medium px-[40px] py-[24px] rounded-lg transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_#007BFF]"
                   >
                     View My Projects
                     <ArrowRight className="w-5 h-5 ml-2" />
@@ -962,7 +962,7 @@ export default function About() {
                 <Link to="/freelance">
                   <Button
                     variant="outline"
-                    className="border-[#007BFF] bg-[#007BFF] text-white hover:bg-white hover:text-[#007BFF] shadow-[4px_4px_0_0_#007BFF] text-[16px] font-medium px-[40px] py-[24px] rounded-lg transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_#007BFF]"
+                    className="border-[#007BFF] bg-[#007BFF] text-white hover:bg-white hover:text-[#007BFF] shadow-[4px_4px_0_0_#000000] text-[16px] font-medium px-[40px] py-[24px] rounded-lg transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_#007BFF]"
                   >
                     <Mail className="w-5 h-5 mr-2" />
                     Let's Work Together

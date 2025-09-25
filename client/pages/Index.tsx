@@ -40,6 +40,10 @@ export default function Index() {
     quote: false,
     projects: false
   });
+  
+  // Expandable card states
+  const [expandedCard, setExpandedCard] = useState<string | null>(null);
+  const [isHovering, setIsHovering] = useState<string | null>(null);
 
   // Static roles array to prevent re-renders
   const roles = useMemo(() => ["UI/UX Designer", "Front-end Developer"], []);
@@ -474,6 +478,27 @@ export default function Index() {
     </svg>
   );
 
+  // Function to render description with Uvexzon link
+  const renderDescriptionWithLinks = (description: string) => {
+    const parts = description.split(/(Uvexzon)/g);
+    return parts.map((part, index) => {
+      if (part === 'Uvexzon') {
+        return (
+          <a
+            key={index}
+            href="https://uvexzon.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-600 hover:text-blue-800 underline font-medium"
+          >
+            Uvexzon
+          </a>
+        );
+      }
+      return part;
+    });
+  };
+
   return (
     <div className="min-h-screen bg-white">
       {/* CSS for paint drip animation */}
@@ -827,7 +852,7 @@ export default function Index() {
                 transitionDelay: isVisible.stats ? '300ms' : '0ms'
               }}>
                 <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-[#007BFF] rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4 group-hover:bg-black transition-colors">
-                  <span className="text-white font-bold text-lg sm:text-xl lg:text-xl">15+</span>
+                  <span className="text-white font-bold text-lg sm:text-xl lg:text-xl">8+</span>
                 </div>
                 <h3 className="text-base sm:text-lg font-medium text-black mb-2">Technologies</h3>
                 <p className="text-xs sm:text-sm text-gray-600 leading-relaxed tracking-[1.23px]">
@@ -1062,11 +1087,21 @@ export default function Index() {
             style={{
               transitionDelay: isVisible.projects ? '200ms' : '0ms'
             }}>
-              <div className="bg-white border-2 border-black rounded-[15px] sm:rounded-[18px] lg:rounded-[20px] overflow-hidden shadow-[3px_3px_0_0_#000] sm:shadow-[6px_6px_0_0_#000] lg:shadow-[8px_8px_0_0_#000] hover:shadow-[4px_4px_0_0_#000] sm:hover:shadow-[8px_8px_0_0_#000] lg:hover:shadow-[12px_12px_0_0_#000] transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 lg:hover:-translate-x-1 lg:hover:-translate-y-1">
+              <div 
+                className={`bg-white border-2 border-black rounded-[15px] sm:rounded-[18px] lg:rounded-[20px] overflow-hidden shadow-[3px_3px_0_0_#000] sm:shadow-[6px_6px_0_0_#000] lg:shadow-[8px_8px_0_0_#000] hover:shadow-[4px_4px_0_0_#000] sm:hover:shadow-[8px_8px_0_0_#000] lg:hover:shadow-[12px_12px_0_0_#000] transition-all duration-500 hover:-translate-x-0.5 hover:-translate-y-0.5 lg:hover:-translate-x-1 lg:hover:-translate-y-1 cursor-pointer ${
+                  expandedCard === 'swish-strokes' ? 'transform scale-105 z-10 relative' : ''
+                }`}
+                onMouseEnter={() => setIsHovering('swish-strokes')}
+                onMouseLeave={() => setIsHovering(null)}
+                onClick={() => setExpandedCard(expandedCard === 'swish-strokes' ? null : 'swish-strokes')}
+              >
                 {/* Project Image */}
                 <div 
                   className="relative aspect-[4/3] bg-gradient-to-br from-purple-100 to-orange-100 overflow-hidden cursor-pointer group-hover:scale-[1.02] transition-transform duration-300"
-                  onClick={() => openGallery('swishstrokes')}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    openGallery('swishstrokes');
+                  }}
                 >
                   <OptimizedImage 
                     src={getAssetPath("images/projects/swishstrokes.png")} 
@@ -1095,20 +1130,21 @@ export default function Index() {
                   <h3 className="text-lg sm:text-xl lg:text-[28px] font-medium leading-tight text-black mb-2 sm:mb-3">
                     Swish Strokes
                   </h3>
-                  <p className="text-xs sm:text-sm lg:text-[14px] leading-[18px] sm:leading-[20px] lg:leading-[22px] tracking-[1.23px] text-black mb-3 sm:mb-4 line-clamp-3">
-                    Mandala art coloring and music relaxation mobile app with tournaments, mood tracking, and motivational features.
+                  <p className={`text-xs sm:text-sm lg:text-[14px] leading-[18px] sm:leading-[20px] lg:leading-[22px] tracking-[1.23px] text-black mb-3 sm:mb-4 transition-all duration-300 ${
+                    expandedCard === 'swish-strokes' || isHovering === 'swish-strokes' 
+                      ? 'line-clamp-none' 
+                      : 'line-clamp-3'
+                  }`}>
+                    {renderDescriptionWithLinks("Collaborated with Uvexzon as a UX Designer on the Mandala Art Colouring & Music Relaxation Mobile App, focused on mindfulness and creativity. The app includes mandala colouring, relaxing music, tournaments, mood tracking, and motivational prompts. Also contributed to designing the landing page to enhance user engagement and brand presence. All project content and rights belong to Uvexzon.")}
                   </p>
+                  
+
+                  
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Mobile App</span>
-                    <a
-                      href="https://www.figma.com/design/b0qNg998YbKboek2S68FE8/Swish-Strokes?node-id=1-2&t=7lj4xH6SiD4o9CWm-1"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 sm:gap-2 text-xs sm:text-sm lg:text-[16px] font-bold tracking-[1.23px] text-black hover:opacity-70 transition-opacity"
-                    >
-                      View design
-                      <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4" />
-                    </a>
+                    <span className="inline-flex items-center gap-1 sm:gap-2 text-xs sm:text-sm lg:text-[16px] font-bold tracking-[1.23px] text-gray-400">
+                      Design Unavailable
+                    </span>
                   </div>
                 </div>
               </div>
@@ -1123,11 +1159,21 @@ export default function Index() {
             style={{
               transitionDelay: isVisible.projects ? '400ms' : '0ms'
             }}>
-              <div className="bg-white border-2 border-black rounded-[15px] sm:rounded-[18px] lg:rounded-[20px] overflow-hidden shadow-[3px_3px_0_0_#000] sm:shadow-[6px_6px_0_0_#000] lg:shadow-[8px_8px_0_0_#000] hover:shadow-[4px_4px_0_0_#000] sm:hover:shadow-[8px_8px_0_0_#000] lg:hover:shadow-[12px_12px_0_0_#000] transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 lg:hover:-translate-x-1 lg:hover:-translate-y-1">
+              <div 
+                className={`bg-white border-2 border-black rounded-[15px] sm:rounded-[18px] lg:rounded-[20px] overflow-hidden shadow-[3px_3px_0_0_#000] sm:shadow-[6px_6px_0_0_#000] lg:shadow-[8px_8px_0_0_#000] hover:shadow-[4px_4px_0_0_#000] sm:hover:shadow-[8px_8px_0_0_#000] lg:hover:shadow-[12px_12px_0_0_#000] transition-all duration-500 hover:-translate-x-0.5 hover:-translate-y-0.5 lg:hover:-translate-x-1 lg:hover:-translate-y-1 cursor-pointer ${
+                  expandedCard === 'culturajoin' ? 'transform scale-105 z-10 relative' : ''
+                }`}
+                onMouseEnter={() => setIsHovering('culturajoin')}
+                onMouseLeave={() => setIsHovering(null)}
+                onClick={() => setExpandedCard(expandedCard === 'culturajoin' ? null : 'culturajoin')}
+              >
                 {/* Project Image */}
                 <div 
                   className="relative aspect-[4/3] bg-gradient-to-br from-blue-100 to-green-100 overflow-hidden cursor-pointer group-hover:scale-[1.02] transition-transform duration-300"
-                  onClick={() => openGallery('culturajoin')}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    openGallery('culturajoin');
+                  }}
                 >
                   <OptimizedImage 
                     src={getAssetPath("images/projects/culturajoin.png")} 
@@ -1156,20 +1202,21 @@ export default function Index() {
                   <h3 className="text-lg sm:text-xl lg:text-[28px] font-medium leading-tight text-black mb-2 sm:mb-3">
                     CulturaJoin
                   </h3>
-                  <p className="text-xs sm:text-sm lg:text-[14px] leading-[18px] sm:leading-[20px] lg:leading-[22px] tracking-[1.23px] text-black mb-3 sm:mb-4 line-clamp-3">
-                    Cultural and event management platform for locals, tourists, and planners. Features invitation purchases and event hosting.
+                  <p className={`text-xs sm:text-sm lg:text-[14px] leading-[18px] sm:leading-[20px] lg:leading-[22px] tracking-[1.23px] text-black mb-3 sm:mb-4 transition-all duration-300 ${
+                    expandedCard === 'culturajoin' || isHovering === 'culturajoin' 
+                      ? 'line-clamp-none' 
+                      : 'line-clamp-3'
+                  }`}>
+                    {renderDescriptionWithLinks("At Uvexzon, I worked on a cultural and event management platform designed for locals, tourists, and planners. The platform supported invitation purchases and event hosting, improving accessibility for diverse users. All project content and rights belong to Uvexzon.")}
                   </p>
+                  
+
+                  
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Web Platform</span>
-                    <a
-                      href="https://www.figma.com/design/Gru9BD0mtJJNtX4rjX0Qrc/CulturaJoin?node-id=2-2&t=zHZ3XVs7k6CwharC-1"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 sm:gap-2 text-xs sm:text-sm lg:text-[16px] font-bold tracking-[1.23px] text-black hover:opacity-70 transition-opacity"
-                    >
-                      View design
-                      <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4" />
-                    </a>
+                    <span className="inline-flex items-center gap-1 sm:gap-2 text-xs sm:text-sm lg:text-[16px] font-bold tracking-[1.23px] text-gray-400">
+                      Design Unavailable
+                    </span>
                   </div>
                 </div>
               </div>
@@ -1184,11 +1231,21 @@ export default function Index() {
             style={{
               transitionDelay: isVisible.projects ? '600ms' : '0ms'
             }}>
-              <div className="bg-white border-2 border-black rounded-[15px] sm:rounded-[18px] lg:rounded-[20px] overflow-hidden shadow-[3px_3px_0_0_#000] sm:shadow-[6px_6px_0_0_#000] lg:shadow-[8px_8px_0_0_#000] hover:shadow-[4px_4px_0_0_#000] sm:hover:shadow-[8px_8px_0_0_#000] lg:hover:shadow-[12px_12px_0_0_#000] transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 lg:hover:-translate-x-1 lg:hover:-translate-y-1">
+              <div 
+                className={`bg-white border-2 border-black rounded-[15px] sm:rounded-[18px] lg:rounded-[20px] overflow-hidden shadow-[3px_3px_0_0_#000] sm:shadow-[6px_6px_0_0_#000] lg:shadow-[8px_8px_0_0_#000] hover:shadow-[4px_4px_0_0_#000] sm:hover:shadow-[8px_8px_0_0_#000] lg:hover:shadow-[12px_12px_0_0_#000] transition-all duration-500 hover:-translate-x-0.5 hover:-translate-y-0.5 lg:hover:-translate-x-1 lg:hover:-translate-y-1 cursor-pointer ${
+                  expandedCard === 'uvexzon-redesign' ? 'transform scale-105 z-10 relative' : ''
+                }`}
+                onMouseEnter={() => setIsHovering('uvexzon-redesign')}
+                onMouseLeave={() => setIsHovering(null)}
+                onClick={() => setExpandedCard(expandedCard === 'uvexzon-redesign' ? null : 'uvexzon-redesign')}
+              >
                 {/* Project Image */}
                 <div 
                   className="relative aspect-[4/3] bg-gradient-to-br from-indigo-100 to-pink-100 overflow-hidden cursor-pointer group-hover:scale-[1.02] transition-transform duration-300"
-                  onClick={() => openGallery('uvexzon')}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    openGallery('uvexzon');
+                  }}
                 >
                   <OptimizedImage 
                     src={getAssetPath("images/projects/uvex_1.png")} 
@@ -1217,20 +1274,21 @@ export default function Index() {
                   <h3 className="text-lg sm:text-xl lg:text-[28px] font-medium leading-tight text-black mb-2 sm:mb-3">
                     Uvexzon Redesign
                   </h3>
-                  <p className="text-xs sm:text-sm lg:text-[14px] leading-[18px] sm:leading-[20px] lg:leading-[22px] tracking-[1.23px] text-black mb-3 sm:mb-4 line-clamp-3">
-                    Complete company website redesign from research to prototyping. Modern, user-friendly interface with improved UX.
+                  <p className={`text-xs sm:text-sm lg:text-[14px] leading-[18px] sm:leading-[20px] lg:leading-[22px] tracking-[1.23px] text-black mb-3 sm:mb-4 transition-all duration-300 ${
+                    expandedCard === 'uvexzon-redesign' || isHovering === 'uvexzon-redesign' 
+                      ? 'line-clamp-none' 
+                      : 'line-clamp-3'
+                  }`}>
+                    {renderDescriptionWithLinks("Contributed to Uvexzon's complete website redesign from research through prototyping, creating a modern, user-friendly interface that significantly enhanced the user experience. All project content and rights belong to Uvexzon.")}
                   </p>
+                  
+
+                  
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Website</span>
-                    <a
-                      href="https://www.figma.com/design/ytcDmDViltMj2WVPErE7zx/Uvexzon-Company-Website-Redesign?node-id=0-1&t=CY7PX8wpbpPlYgR9-1"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 sm:gap-2 text-xs sm:text-sm lg:text-[16px] font-bold tracking-[1.23px] text-black hover:opacity-70 transition-opacity"
-                    >
-                      View design
-                      <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4" />
-                    </a>
+                    <span className="inline-flex items-center gap-1 sm:gap-2 text-xs sm:text-sm lg:text-[16px] font-bold tracking-[1.23px] text-gray-400">
+                      Design Unavailable
+                    </span>
                   </div>
                 </div>
               </div>
@@ -1245,7 +1303,14 @@ export default function Index() {
             style={{
               transitionDelay: isVisible.projects ? '800ms' : '0ms'
             }}>
-              <div className="bg-white border-2 border-black rounded-[15px] sm:rounded-[18px] lg:rounded-[20px] overflow-hidden shadow-[3px_3px_0_0_#000] sm:shadow-[6px_6px_0_0_#000] lg:shadow-[8px_8px_0_0_#000] hover:shadow-[4px_4px_0_0_#000] sm:hover:shadow-[8px_8px_0_0_#000] lg:hover:shadow-[12px_12px_0_0_#000] transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 lg:hover:-translate-x-1 lg:hover:-translate-y-1">
+              <div 
+                className={`group bg-white border-2 border-black rounded-[15px] sm:rounded-[18px] lg:rounded-[20px] overflow-hidden shadow-[3px_3px_0_0_#000] sm:shadow-[6px_6px_0_0_#000] lg:shadow-[8px_8px_0_0_#000] hover:shadow-[4px_4px_0_0_#000] sm:hover:shadow-[8px_8px_0_0_#000] lg:hover:shadow-[12px_12px_0_0_#000] transition-all duration-500 hover:-translate-x-0.5 hover:-translate-y-0.5 lg:hover:-translate-x-1 lg:hover:-translate-y-1 cursor-pointer ${
+                  expandedCard === 'virtualtry' ? 'transform scale-105 z-10 relative' : ''
+                }`}
+                onMouseEnter={() => setIsHovering('virtualtry')}
+                onMouseLeave={() => setIsHovering(null)}
+                onClick={() => setExpandedCard(expandedCard === 'virtualtry' ? null : 'virtualtry')}
+              >
                 {/* Project Image */}
                 <div 
                   className="relative aspect-[4/3] bg-gradient-to-br from-red-100 to-yellow-100 overflow-hidden cursor-pointer group-hover:scale-[1.02] transition-transform duration-300"
@@ -1255,7 +1320,7 @@ export default function Index() {
                     src={getAssetPath("images/projects/virtual_10.png")} 
                     alt="Virtual Try-on E-commerce Platform"
                     className="w-full h-full object-cover"
-                    priority={false}
+                    priority={true}
                   />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
                     <div className="opacity-0 group-hover:opacity-100 transition-all duration-300 bg-white border-2 border-black rounded-full p-3 shadow-[4px_4px_0_0_#000] transform scale-75 group-hover:scale-100">
@@ -1284,10 +1349,13 @@ export default function Index() {
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Web App</span>
                     <a
-                      href="#"
+                      href="https://github.com/subhashana00/E-Commerce_Clothing-_WEB-VTON_Reasearch.git"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
                       className="inline-flex items-center gap-1 sm:gap-2 text-xs sm:text-sm lg:text-[16px] font-bold tracking-[1.23px] text-black hover:opacity-70 transition-opacity"
                     >
-                      View project
+                      GitHub
                       <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4" />
                     </a>
                   </div>
@@ -1384,13 +1452,13 @@ export default function Index() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Link
                 to="/freelance"
-                className="bg-[#007BFF] hover:bg-black text-white border-2 border-black rounded-[12px] shadow-[4px_4px_0_0_#000] hover:shadow-[6px_6px_0_0_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 px-6 py-3 font-medium text-sm tracking-[1.23px] transition-all duration-300 flex items-center gap-2 min-w-[200px] justify-center"
+                className="bg-[#007BFF] hover:bg-black text-white border-2 border-[#007BFF] rounded-[12px] shadow-[4px_4px_0_0_#000] hover:shadow-[6px_6px_0_0_#007BFF] hover:-translate-x-0.5 hover:-translate-y-0.5 px-6 py-3 font-medium text-sm tracking-[1.23px] transition-all duration-300 flex items-center gap-2 min-w-[200px] justify-center"
               >
                 View My Services <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
                 to="/contact"
-                className="bg-white hover:bg-gray-50 text-black border-2 border-black rounded-[12px] shadow-[4px_4px_0_0_#000] hover:shadow-[6px_6px_0_0_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 px-6 py-3 font-medium text-sm tracking-[1.23px] transition-all duration-300 flex items-center gap-2 min-w-[200px] justify-center"
+                className="bg-white hover:bg-gray-50 text-[#007BFF] border-2 border-[#007BFF] rounded-[12px] shadow-[4px_4px_0_0_#007BFF] hover:text-black hover:shadow-[6px_6px_0_0_#000] hover:border-[#000] hover:-translate-x-0.5 hover:-translate-y-0.5 px-6 py-3 font-medium text-sm tracking-[1.23px] transition-all duration-300 flex items-center gap-2 min-w-[200px] justify-center"
               >
                 Get a Free Quote <MessageCircle className="w-4 h-4" />
               </Link>

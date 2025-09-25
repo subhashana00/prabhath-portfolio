@@ -35,6 +35,27 @@ import {
 } from 'lucide-react';
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 
+// Function to render description with Uvexzon link
+const renderDescriptionWithLinks = (description: string) => {
+  const parts = description.split(/(Uvexzon)/g);
+  return parts.map((part, index) => {
+    if (part === 'Uvexzon') {
+      return (
+        <a
+          key={index}
+          href="https://uvexzon.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-600 hover:text-blue-800 underline font-medium"
+        >
+          Uvexzon
+        </a>
+      );
+    }
+    return part;
+  });
+};
+
 // Helper functions for project card styling
 const getProjectGradient = (id: number) => {
   const gradients = [
@@ -78,12 +99,12 @@ const featuredProjectsData = [
     id: 1,
     slug: 'swish-strokes',
     name: "Swish Strokes",
-    description: "Mandala art coloring and music relaxation mobile app with tournaments, mood tracking, and motivational features. Includes landing page design.",
+    description: "Mandala art colouring and music relaxation mobile app with tournaments, mood tracking, and motivational features. Includes landing page design. All project content and rights belong to Uvexzon.",
     image: getAssetPath("images/projects/swishstrokes.png"),
     type: "App",
     industry: "Health & Wellness",
     links: {
-      design: "https://www.figma.com/design/b0qNg998YbKboek2S68FE8/Swish-Strokes?node-id=1-2&t=7lj4xH6SiD4o9CWm-1",
+      // design: "https://www.figma.com/design/b0qNg998YbKboek2S68FE8/Swish-Strokes?node-id=1-2&t=7lj4xH6SiD4o9CWm-1",
       caseStudy: "https://www.figma.com/design/LgofmkbLsKLSai0tFhzCgr/Swish-Stroke-Case-Study?node-id=0-1&t=rVm4Zl935YHhYFZf-1"
     }
   },
@@ -91,43 +112,43 @@ const featuredProjectsData = [
     id: 2,
     slug: 'culturajoin',
     name: "CulturaJoin",
-    description: "Cultural and event management platform for locals, tourists, and planners. Features invitation purchases and event hosting capabilities.",
+    description: "Cultural and event management platform for locals, tourists, and planners. Features invitation purchases and event hosting capabilities. All project content and rights belong to Uvexzon.",
     image: getAssetPath("images/projects/culturajoin.png"),
     type: "Web",
     industry: "Events & Tourism",
     links: {
-      design: "https://www.figma.com/design/Gru9BD0mtJJNtX4rjX0Qrc/CulturaJoin?node-id=2-2&t=zHZ3XVs7k6CwharC-1"
+      // design: "https://www.figma.com/design/Gru9BD0mtJJNtX4rjX0Qrc/CulturaJoin?node-id=2-2&t=zHZ3XVs7k6CwharC-1"
     }
   },
   {
     id: 3,
     slug: 'uvexzon-website-redesign',
     name: "Uvexzon Website Redesign",
-    description: "Complete company website redesign from research to prototyping. Modern, user-friendly interface with improved user experience.",
+    description: "Complete company website redesign from research to prototyping. Modern, user-friendly interface with improved user experience. All project content and rights belong to Uvexzon.",
     image: getAssetPath("images/projects/uvex_2.png"),
     type: "Web",
     industry: "Technology",
     links: {
-      design: "https://www.figma.com/design/ytcDmDViltMj2WVPErE7zx/Uvexzon-Company-Website-Redesign?node-id=0-1&t=CY7PX8wpbpPlYgR9-1"
+      // design: "https://www.figma.com/design/ytcDmDViltMj2WVPErE7zx/Uvexzon-Company-Website-Redesign?node-id=0-1&t=CY7PX8wpbpPlYgR9-1"
     }
   },
   {
     id: 4,
     slug: 'virtual-try-on-ecommerce',
     name: "Virtual Try-on E-commerce",
-    description: "MERN stack e-commerce platform with virtual try-on technology, account management, shopping cart, and admin panel.",
+    description: "Redesigned prototypes (desktop and mobile) in German language for improved usability and client requirements.",
     image: getAssetPath("images/projects/virtual_10.png"),
     type: "Web",
     industry: "E-commerce",
     links: {
-      github: "https://github.com/subhashana00"
+      github: "https://github.com/subhashana00/E-Commerce_Clothing-_WEB-VTON_Reasearch.git"
     }
   },
   {
     id: 5,
     slug: 'combank-app-redesign',
     name: "ComBank App Redesign",
-    description: "Redesigned the ComBank Digital App as a practice project to enhance UI/UX skills. Focused on simplifying navigation and modern layout.",
+    description: "Produced web and mobile design improvements for usability and branding alignment with modern interface design.",
     image: getAssetPath("images/projects/com_1.png"),
     type: "App",
     industry: "Banking",
@@ -140,7 +161,7 @@ const featuredProjectsData = [
     id: 6,
     slug: 'coffee-shop-mobile-app',
     name: "Coffee Shop Mobile App",
-    description: "Mobile app UI including login, home, product categories, item details, cart, and delivery options with seamless navigation.",
+    description: "Developed a refreshed homepage design with focus on clean layout and user navigation for enhanced user experience.",
     image: getAssetPath("images/projects/coffeeapp_1.png"),
     type: "App",
     industry: "Food & Beverage",
@@ -170,6 +191,7 @@ const Freelance = () => {
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+
 
   const heroRef = useRef<HTMLDivElement>(null);
   const servicesRef = useRef<HTMLDivElement>(null);
@@ -750,16 +772,10 @@ const Freelance = () => {
               <div className="flex flex-col sm:flex-row gap-4 justify-start mb-8">
                 <Link
                   to="/contact"
-                  className="bg-[#007BFF] hover:bg-[#0056b3] text-white border-2 border-black rounded-[15px] shadow-[4px_4px_0_0_#000] hover:shadow-[6px_6px_0_0_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 px-8 py-4 font-bold text-base transition-all duration-300 flex items-center justify-center gap-2 min-w-[200px] tracking-[1.23px]"
+                  className="bg-[#007BFF] hover:bg-white text-white hover:text-black border-2 border-black rounded-[15px] shadow-[4px_4px_0_0_#000] hover:shadow-[6px_6px_0_0_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 px-8 py-4 font-bold text-base transition-all duration-300 flex items-center justify-center gap-2 min-w-[200px] tracking-[1.23px]"
                 >
                   Start Your Project <ArrowRight className="w-5 h-5" />
                 </Link>
-                <a
-                  href="mailto:prabathsubashana18@gmail.com"
-                  className="bg-white hover:bg-gray-50 text-black border-2 border-black rounded-[15px] shadow-[4px_4px_0_0_#000] hover:shadow-[6px_6px_0_0_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 px-8 py-4 font-bold text-base transition-all duration-300 flex items-center justify-center gap-2 min-w-[200px] tracking-[1.23px]"
-                >
-                  Book Free Consultation <Calendar className="w-5 h-5" />
-                </a>
               </div>
 
               {/* Trust Indicators */}
@@ -876,68 +892,7 @@ const Freelance = () => {
             ))}
           </div>
 
-          {/* Bottom CTA Section */}
-          <div className={`text-center mt-16 sm:mt-20 transition-all duration-1000 delay-600 ${
-            isVisible.services ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}>
-            <div className="bg-white border-2 border-black rounded-[20px] shadow-[4px_4px_0_0_#000] p-8 sm:p-12 max-w-4xl mx-auto">
-              {/* Badge */}
-              <div className="inline-flex items-center gap-2 bg-[#007BFF] text-white border-2 border-black rounded-full px-4 py-2 mb-6 shadow-[2px_2px_0_0_#000]">
-                <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-                <span className="text-sm font-medium tracking-[1.23px]">
-                  Ready to Get Started?
-                </span>
-              </div>
 
-              <h3 className="text-2xl sm:text-3xl font-bold text-black mb-4 tracking-[1.23px]">
-                Let's Build Something{" "}
-                <span className="relative">
-                  <span className="relative z-10 text-[#007BFF]">Amazing</span>
-                  <div className="absolute -bottom-1 left-0 w-full h-3 bg-[#007BFF] -rotate-1 opacity-20"></div>
-                </span>
-              </h3>
-              
-              <p className="text-gray-600 mb-6 max-w-2xl mx-auto leading-relaxed tracking-[0.5px]">
-                Ready to transform your ideas into exceptional digital experiences? 
-                Let's discuss your project and create something users will love.
-              </p>
-              
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-                <Link
-                  to="/contact"
-                  className="bg-[#007BFF] hover:bg-black text-white border-2 border-black rounded-[15px] shadow-[4px_4px_0_0_#000] hover:shadow-[6px_6px_0_0_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 px-8 py-4 font-bold text-base transition-all duration-300 flex items-center justify-center gap-2 tracking-[1.23px]"
-                >
-                  Start Your Project <ArrowRight className="w-5 h-5" />
-                </Link>
-                <a
-                  href="mailto:prabathsubashana18@gmail.com"
-                  className="bg-white hover:bg-gray-50 text-black border-2 border-black rounded-[15px] shadow-[4px_4px_0_0_#000] hover:shadow-[6px_6px_0_0_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 px-8 py-4 font-bold text-base transition-all duration-300 flex items-center justify-center gap-2 tracking-[1.23px]"
-                >
-                  Send Email <Mail className="w-5 h-5" />
-                </a>
-              </div>
-
-              {/* Trust Indicators */}
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-6 border-t-2 border-black">
-                <div className="flex items-center gap-2">
-                  <Star className="w-5 h-5 text-yellow-400 fill-current" />
-                  <Star className="w-5 h-5 text-yellow-400 fill-current" />
-                  <Star className="w-5 h-5 text-yellow-400 fill-current" />
-                  <Star className="w-5 h-5 text-yellow-400 fill-current" />
-                  <Star className="w-5 h-5 text-yellow-400 fill-current" />
-                  <span className="text-sm text-gray-600 ml-2 tracking-[1.23px]">5.0 from 50+ clients</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Shield className="w-5 h-5 text-green-500" />
-                  <span className="text-sm text-gray-600 tracking-[1.23px]">Quality guaranteed</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Clock className="w-5 h-5 text-blue-500" />
-                  <span className="text-sm text-gray-600 tracking-[1.23px]">3 years experience</span>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -1013,11 +968,11 @@ const Freelance = () => {
           </div>
 
           {/* Portfolio Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-10">
             {featuredProjectsData.map((project, index) => (
               <div
                 key={project.id}
-                className={`bg-white border-2 border-black rounded-[15px] sm:rounded-[18px] overflow-hidden shadow-[3px_3px_0_0_#000] sm:shadow-[4px_4px_0_0_#000] hover:shadow-[4px_4px_0_0_#000] sm:hover:shadow-[6px_6px_0_0_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-300 ${
+                className={`bg-white border-2 border-black rounded-[12px] sm:rounded-[14px] lg:rounded-[16px] overflow-hidden shadow-[2px_2px_0_0_#000] sm:shadow-[3px_3px_0_0_#000] hover:shadow-[3px_3px_0_0_#000] sm:hover:shadow-[4px_4px_0_0_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-500 ${
                   isVisible.portfolio ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
                 }`}
                 style={{
@@ -1050,13 +1005,15 @@ const Freelance = () => {
                 </div>
                 
                 {/* Project Content */}
-                <div className="p-4 sm:p-6 flex flex-col h-full">
+                <div className="p-3 sm:p-4 lg:p-5 flex flex-col h-full">
                   <h3 className="text-lg font-medium text-black mb-2">
                     {project.name}
                   </h3>
-                  <p className="text-sm text-gray-600 mb-4 line-clamp-2 flex-grow">
-                    {project.description}
+                  <p className="text-sm text-gray-600 mb-4 flex-grow">
+                    {renderDescriptionWithLinks(project.description)}
                   </p>
+                  
+
                   
                   {/* Bottom section with proper alignment */}
                   <div className="mt-auto">
@@ -1074,6 +1031,7 @@ const Freelance = () => {
                           href={project.links.design}
                           target="_blank"
                           rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
                           className="inline-flex items-center gap-1 text-xs sm:text-sm font-medium text-[#007BFF] hover:opacity-70 transition-opacity whitespace-nowrap"
                         >
                           View design
@@ -1085,6 +1043,7 @@ const Freelance = () => {
                           href={project.links.caseStudy}
                           target="_blank"
                           rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
                           className="inline-flex items-center gap-1 text-xs sm:text-sm font-medium text-[#007BFF] hover:opacity-70 transition-opacity whitespace-nowrap"
                         >
                           Case study
@@ -1096,6 +1055,7 @@ const Freelance = () => {
                           href={project.links.github}
                           target="_blank"
                           rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
                           className="inline-flex items-center gap-1 text-xs sm:text-sm font-medium text-[#007BFF] hover:opacity-70 transition-opacity whitespace-nowrap"
                         >
                           GitHub
@@ -1156,37 +1116,40 @@ const Freelance = () => {
 
               {/* Main Testimonial Card */}
               <div className="flex-1 max-w-4xl">
-                <div className="bg-white border-2 border-black rounded-[18px] shadow-[6px_6px_0_0_#000] p-8 sm:p-12 min-h-[420px] flex flex-col justify-center transition-all duration-300">
-                  {/* Quote Icon */}
-                  <div className="flex items-center justify-center mb-6">
-                    <Quote className="w-12 h-12 text-[#007BFF]" />
-                  </div>
-                  
-                  {/* Rating */}
-                  <div className="flex items-center justify-center mb-6">
-                    {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
-                      <Star key={i} className="w-6 h-6 text-yellow-400 fill-current mx-1" />
-                    ))}
+                <div className="bg-white border-2 border-black rounded-[18px] shadow-[6px_6px_0_0_#000] p-8 sm:p-12 min-h-[420px] flex flex-col justify-between transition-all duration-300">
+                  {/* Top Section */}
+                  <div className="flex-1 flex flex-col justify-center">
+                    {/* Quote Icon */}
+                    <div className="flex items-center justify-center mb-6">
+                      <Quote className="w-12 h-12 text-[#007BFF]" />
+                    </div>
+                    
+                    {/* Rating */}
+                    <div className="flex items-center justify-center mb-6">
+                      {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
+                        <Star key={i} className="w-6 h-6 text-yellow-400 fill-current mx-1" />
+                      ))}
+                    </div>
+
+                    {/* Testimonial Text */}
+                    <blockquote className="text-gray-600 text-lg sm:text-xl leading-relaxed text-center italic font-light flex-1 flex items-center justify-center min-h-[120px]">
+                      "{testimonials[currentTestimonial].testimonial}"
+                    </blockquote>
                   </div>
 
-                  {/* Testimonial Text */}
-                  <blockquote className="text-gray-600 text-lg sm:text-xl leading-relaxed mb-8 text-center italic font-light">
-                    "{testimonials[currentTestimonial].testimonial}"
-                  </blockquote>
-
-                  {/* Client Info */}
-                  <div className="flex items-center justify-center">
-                    <div className="w-12 h-12 bg-gray-200 rounded-full mr-4 flex items-center justify-center">
+                  {/* Client Info - Always at Bottom */}
+                  <div className="flex items-center justify-center mt-8 pt-6 border-t border-gray-100">
+                    <div className="w-12 h-12 bg-gray-200 rounded-full mr-4 flex items-center justify-center flex-shrink-0">
                       <Users className="w-6 h-6 text-gray-500" />
                     </div>
-                    <div className="text-center">
-                      <h4 className="font-medium text-black text-xl mb-1">
+                    <div className="text-left">
+                      <h4 className="font-medium text-black text-xl mb-1 leading-tight">
                         {testimonials[currentTestimonial].name}
                       </h4>
-                      <p className="text-sm text-gray-600 mb-1">
+                      <p className="text-sm text-gray-600 mb-1 leading-tight">
                         {testimonials[currentTestimonial].role}
                       </p>
-                      <p className="text-xs text-[#007BFF] font-medium">
+                      <p className="text-xs text-[#007BFF] font-medium leading-tight">
                         {testimonials[currentTestimonial].project}
                       </p>
                     </div>
@@ -1348,7 +1311,9 @@ const Freelance = () => {
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <a
-                href="mailto:prabathsubashana18@gmail.com"
+                href="https://wa.me/94758883751?text=Hi%20Prabhath!%20I'm%20interested%20in%20your%20UI/UX%20design%20services.%20Can%20we%20discuss%20my%20project?"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="bg-transparent hover:bg-white/10 text-white border-2 border-white rounded-[15px] shadow-[4px_4px_0_0_rgba(255,255,255,0.3)] hover:shadow-[6px_6px_0_0_rgba(255,255,255,0.4)] hover:-translate-x-1 hover:-translate-y-1 px-6 sm:px-8 py-3 sm:py-4 font-medium text-sm sm:text-[16px] tracking-[1.23px] transition-all duration-300 flex items-center justify-center gap-2"
               >
                 Quick Chat 

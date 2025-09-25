@@ -17,6 +17,27 @@ const BehanceIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
+// Function to render description with Uvexzon link
+const renderDescriptionWithLinks = (description: string) => {
+  const parts = description.split(/(Uvexzon)/g);
+  return parts.map((part, index) => {
+    if (part === 'Uvexzon') {
+      return (
+        <a
+          key={index}
+          href="https://uvexzon.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-600 hover:text-blue-800 underline font-medium"
+        >
+          Uvexzon
+        </a>
+      );
+    }
+    return part;
+  });
+};
+
 // Helper functions for project card styling
 const getProjectGradient = (id: number) => {
   const gradients = [
@@ -139,13 +160,13 @@ const projectsData = [
     id: 1,
     slug: 'swish-strokes',
     name: "Swish Strokes",
-    description: "Mandala art coloring and music relaxation mobile app with tournaments, mood tracking, and motivational features. Includes landing page design.",
+    description: "Collaborated with Uvexzon as a UX Designer on the Mandala Art Colouring & Music Relaxation Mobile App, focused on mindfulness and creativity. The app includes mandala colouring, relaxing music, tournaments, mood tracking, and motivational prompts. Also contributed to designing the landing page to enhance user engagement and brand presence. All project content and rights belong to Uvexzon.",
     image: getAssetPath("images/projects/swishstrokes.png"),
     logo: "",
     type: "App",
     industry: "Health & Wellness",
     links: {
-      design: "https://www.figma.com/design/b0qNg998YbKboek2S68FE8/Swish-Strokes?node-id=1-2&t=7lj4xH6SiD4o9CWm-1",
+      // design: "https://www.figma.com/design/b0qNg998YbKboek2S68FE8/Swish-Strokes?node-id=1-2&t=7lj4xH6SiD4o9CWm-1",
       caseStudy: "https://www.figma.com/design/LgofmkbLsKLSai0tFhzCgr/Swish-Stroke-Case-Study?node-id=0-1&t=rVm4Zl935YHhYFZf-1"
     }
   },
@@ -153,26 +174,26 @@ const projectsData = [
     id: 2,
     slug: 'culturajoin',
     name: "CulturaJoin",
-    description: "Cultural and event management platform for locals, tourists, and planners. Features invitation purchases and event hosting capabilities.",
+    description: "At Uvexzon, I worked on a cultural and event management platform designed for locals, tourists, and planners. The platform supported invitation purchases and event hosting, improving accessibility for diverse users. All project content and rights belong to Uvexzon.",
     image: getAssetPath("images/projects/culturajoin.png"),
     logo: "",
     type: "Web",
     industry: "Events & Tourism",
     links: {
-      design: "https://www.figma.com/design/Gru9BD0mtJJNtX4rjX0Qrc/CulturaJoin?node-id=2-2&t=zHZ3XVs7k6CwharC-1"
+      // design: "https://www.figma.com/design/Gru9BD0mtJJNtX4rjX0Qrc/CulturaJoin?node-id=2-2&t=zHZ3XVs7k6CwharC-1"
     }
   },
   {
     id: 3,
     slug: 'uvexzon-website-redesign',
     name: "Uvexzon Website Redesign",
-    description: "Complete company website redesign from research to prototyping. Modern, user-friendly interface with improved user experience.",
+    description: "Contributed to Uvexzon's complete website redesign from research through prototyping, creating a modern, user-friendly interface that significantly enhanced the user experience. All project content and rights belong to Uvexzon.",
     image: getAssetPath("images/projects/uvex_2.png"),
     logo: "",
     type: "Web",
     industry: "Technology",
     links: {
-      design: "https://www.figma.com/design/ytcDmDViltMj2WVPErE7zx/Uvexzon-Company-Website-Redesign?node-id=0-1&t=CY7PX8wpbpPlYgR9-1"
+      // design: "https://www.figma.com/design/ytcDmDViltMj2WVPErE7zx/Uvexzon-Company-Website-Redesign?node-id=0-1&t=CY7PX8wpbpPlYgR9-1"
     }
   },
   {
@@ -185,7 +206,7 @@ const projectsData = [
     type: "Web",
     industry: "E-commerce",
     links: {
-      github: "https://github.com/subhashana00"
+      github: "https://github.com/subhashana00/E-Commerce_Clothing-_WEB-VTON_Reasearch.git"
     }
   },
   {
@@ -219,13 +240,14 @@ const projectsData = [
     id: 7,
     slug: 'real-estate-germany-website',
     name: "Real Estate Germany Website",
-    description: "Redesigned prototypes (desktop and mobile) in German language for improved usability and client requirements.",
+    description: "Redesigned German-language desktop and mobile prototypes at Uvexzon, focusing on usability improvements and tailoring the experience to meet client-specific requirements. All project content and rights belong to Uvexzon.",
     image: getAssetPath("images/projects/real_s2.png"),
     logo: "",
     type: "Web",
     industry: "Real Estate",
     links: {
-      design: "https://www.figma.com/design/5JksimZNVkXaxURfMRj0cO/Real-Estate-Germany-Web?node-id=0-1&t=dxlBtq7PLrdgvhAa-1"
+      design: "https://www.figma.com/design/5JksimZNVkXaxURfMRj0cO/Real-Estate-Germany-Web?node-id=0-1&t=dxlBtq7PLrdgvhAa-1",
+      hosted: "http://endrit-immobilien.de/"
     }
   },
   {
@@ -238,33 +260,33 @@ const projectsData = [
     type: "Web",
     industry: "Food & Beverage",
     links: {
-      github: "https://github.com/subhashana00"
+      github: "https://github.com/subhashana00/.Net-Web.git"
     }
   },
   {
     id: 9,
     slug: 'messiah-foundation-website',
     name: "Messiah Foundation Website Redesign",
-    description: "Produced web and mobile design improvements for usability and branding alignment with modern interface design.",
+    description: "Produced design enhancements for Uvexzon's web and mobile platforms, ensuring better usability, stronger branding alignment, and a modern interface that resonates with users. All project content and rights belong to Uvexzon.",
     image: getAssetPath("images/projects/messa_1.png"),
     logo: "",
     type: "Web",
     industry: "Charity Organizations",
     links: {
-      design: "https://www.figma.com/design/Bp8QrjS7zCic9BKuzLAhXc/Messiah-Foundation-Website?node-id=0-1&t=WLQCeHNttgg9hwiH-1"
+      // design: "https://www.figma.com/design/Bp8QrjS7zCic9BKuzLAhXc/Messiah-Foundation-Website?node-id=0-1&t=WLQCeHNttgg9hwiH-1"
     }
   },
   {
     id: 10,
     slug: 'aquarium-homepage-redesign',
     name: "Aquarium Homepage Redesign",
-    description: "Developed a refreshed homepage design with focus on clean layout and user navigation for enhanced user experience.",
+    description: "Developed a refreshed homepage design at Uvexzon, emphasizing a clean layout and intuitive navigation to deliver a smoother, more engaging user experience. All project content and rights belong to Uvexzon.",
     image: getAssetPath("images/projects/aqua_1.png"),
     logo: "",
     type: "Web",
     industry: "Entertainment",
     links: {
-      design: "https://www.figma.com/design/0EzOu4Bzf5JZUep25ZCB4F/Aquarium-Homepage-Redesign?node-id=0-1&t=dUfUFOAPZEGmmhrD-1"
+      // design: "https://www.figma.com/design/0EzOu4Bzf5JZUep25ZCB4F/Aquarium-Homepage-Redesign?node-id=0-1&t=dUfUFOAPZEGmmhrD-1"
     }
   },
   {
@@ -303,6 +325,10 @@ export default function Projects() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [scrollDirection, setScrollDirection] = useState<'up' | 'down'>('up');
+  
+  // Expandable card states
+  const [expandedCard, setExpandedCard] = useState<string | null>(null);
+  const [isHovering, setIsHovering] = useState<string | null>(null);
   
   const heroRef = useRef<HTMLElement>(null);
 
@@ -722,11 +748,21 @@ export default function Projects() {
           <div className="grid md:grid-cols-2 gap-8 sm:gap-12 lg:gap-8">
             {currentProjects.map((project) => (
               <div key={project.id} className="group">
-                <div className="bg-white border-2 border-black rounded-[20px] overflow-hidden shadow-[8px_8px_0_0_#000] hover:shadow-[12px_12px_0_0_#000] transition-all duration-300 hover:-translate-x-1 hover:-translate-y-1">
+                <div 
+                  className={`bg-white border-2 border-black rounded-[20px] overflow-hidden shadow-[8px_8px_0_0_#000] hover:shadow-[12px_12px_0_0_#000] transition-all duration-500 hover:-translate-x-1 hover:-translate-y-1 cursor-pointer ${
+                    expandedCard === project.slug ? 'transform scale-105 z-10 relative' : ''
+                  }`}
+                  onMouseEnter={() => setIsHovering(project.slug)}
+                  onMouseLeave={() => setIsHovering(null)}
+                  onClick={() => setExpandedCard(expandedCard === project.slug ? null : project.slug)}
+                >
                   {/* Project Image */}
                   <div 
                     className="relative aspect-[4/3] bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden cursor-pointer group-hover:scale-[1.02] transition-transform duration-300"
-                    onClick={() => openGallery(project.slug)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      openGallery(project.slug);
+                    }}
                   >
                     {project.image ? (
                       <img 
@@ -770,15 +806,23 @@ export default function Projects() {
                     <h3 className="text-[24px] sm:text-[28px] font-medium leading-[26px] sm:leading-[30px] text-black mb-3">
                       {project.name}
                     </h3>
-                    <p className="text-[13px] sm:text-[14px] leading-[20px] sm:leading-[22px] tracking-[1.23px] text-black mb-4 line-clamp-3">
-                      {project.description}
+                    <p className={`text-[13px] sm:text-[14px] leading-[20px] sm:leading-[22px] tracking-[1.23px] text-black mb-4 transition-all duration-300 ${
+                      expandedCard === project.slug || isHovering === project.slug 
+                        ? 'line-clamp-none' 
+                        : 'line-clamp-3'
+                    }`}>
+                      {renderDescriptionWithLinks(project.description)}
                     </p>
+                    
+
+                    
                     <div className="flex items-center justify-between">
                       <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">{project.type}</span>
                       <div className="flex gap-3">
                         {project.links.design && (
                           <a
                             href={project.links.design}
+                            onClick={(e) => e.stopPropagation()}
                             className="inline-flex items-center gap-1 text-[14px] sm:text-[15px] font-bold tracking-[1.23px] text-black hover:opacity-70 transition-opacity"
                           >
                             View design
@@ -788,6 +832,7 @@ export default function Projects() {
                         {project.links.caseStudy && (
                           <a
                             href={project.links.caseStudy}
+                            onClick={(e) => e.stopPropagation()}
                             className="inline-flex items-center gap-1 text-[14px] sm:text-[15px] font-bold tracking-[1.23px] text-black hover:opacity-70 transition-opacity"
                           >
                             Case study
@@ -799,9 +844,22 @@ export default function Projects() {
                             href={project.links.github}
                             target="_blank"
                             rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
                             className="inline-flex items-center gap-1 text-[14px] sm:text-[15px] font-bold tracking-[1.23px] text-black hover:opacity-70 transition-opacity"
                           >
                             GitHub
+                            <ExternalLink className="w-3 h-3" />
+                          </a>
+                        )}
+                        {project.links.hosted && (
+                          <a
+                            href={project.links.hosted}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            className="inline-flex items-center gap-1 text-[14px] sm:text-[15px] font-bold tracking-[1.23px] text-black hover:opacity-70 transition-opacity"
+                          >
+                            Hosted Web
                             <ExternalLink className="w-3 h-3" />
                           </a>
                         )}
