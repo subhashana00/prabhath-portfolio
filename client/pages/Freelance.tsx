@@ -2,8 +2,16 @@ import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { getAssetPath } from "@/lib/utils";
+import { Footer } from "@/components/Footer";
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
+
 import { 
-  ArrowRight, 
+  ArrowRight,
+  ArrowDown,
   CheckCircle, 
   Star, 
   MessageCircle, 
@@ -21,9 +29,9 @@ import {
   Mail,
   Calendar,
   Award,
-  Quote,
   ChevronDown,
   ChevronUp,
+  Quote,
   ChevronLeft,
   ChevronRight,
   Linkedin,
@@ -31,7 +39,18 @@ import {
   Menu,
   X,
   ExternalLink,
-  Eye
+  Eye,
+  Sparkles,
+  Brush,
+  PenTool,
+  Layout,
+  Package,
+  CreditCard,
+  HelpCircle,
+  Send,
+  Layers,
+  Lightbulb,
+  Repeat
 } from 'lucide-react';
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 
@@ -192,6 +211,77 @@ const Freelance = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
+  // GSAP Animations
+  useGSAP(() => {
+    // Hero Animation
+    gsap.fromTo(heroRef.current,
+      { opacity: 0, y: 50 },
+      { 
+        opacity: 1, 
+        y: 0, 
+        duration: 1, 
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: heroRef.current,
+          start: "top 80%",
+        }
+      }
+    );
+
+    // Stagger services cards
+    const serviceCards = document.querySelectorAll('.service-card');
+    gsap.fromTo(serviceCards,
+      { opacity: 0, y: 50 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: servicesRef.current,
+          start: "top 70%",
+        }
+      }
+    );
+
+    // Workflow steps animation
+    const workflowSteps = document.querySelectorAll('.workflow-step');
+    workflowSteps.forEach((step, index) => {
+      const direction = index % 2 === 0 ? -50 : 50;
+      gsap.fromTo(step,
+        { opacity: 0, x: direction },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: step,
+            start: "top 80%",
+          }
+        }
+      );
+    });
+
+    // Portfolio items stagger
+    const portfolioItems = document.querySelectorAll('.portfolio-item');
+    gsap.fromTo(portfolioItems,
+      { opacity: 0, scale: 0.9 },
+      {
+        opacity: 1,
+        scale: 1,
+        duration: 0.6,
+        stagger: 0.1,
+        ease: "back.out(1.7)",
+        scrollTrigger: {
+          trigger: portfolioRef.current,
+          start: "top 70%",
+        }
+      }
+    );
+
+  }, { scope: useRef(null) });
 
   const heroRef = useRef<HTMLDivElement>(null);
   const servicesRef = useRef<HTMLDivElement>(null);
@@ -469,17 +559,7 @@ const Freelance = () => {
     }
   ];
 
-  // Custom Behance Icon Component
-  const BehanceIcon = ({ className }: { className?: string }) => (
-    <svg
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      className={className}
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path d="M6.938 4.503c.702 0 1.34.06 1.92.188.577.13 1.07.33 1.485.61.41.28.733.65.96 1.12.225.47.34 1.05.34 1.73 0 .74-.17 1.36-.507 1.86-.338.5-.837.9-1.497 1.19.9.26 1.54.65 1.93 1.17.39.52.585 1.17.585 1.95 0 .75-.14 1.4-.425 1.96-.285.56-.68 1.03-1.188 1.41-.508.38-1.108.67-1.8.87-.69.2-1.44.3-2.25.3H0V4.51h6.938v-.007zM3.495 8.847h2.862c.577 0 1.03-.133 1.36-.4.33-.267.495-.7.495-1.3 0-.622-.165-1.055-.495-1.3-.33-.245-.783-.367-1.36-.367H3.495v3.367zm0 4.833h3.362c.693 0 1.215-.167 1.567-.5.35-.33.527-.853.527-1.567 0-.67-.177-1.18-.53-1.53-.353-.35-.874-.527-1.564-.527H3.495v4.124zM21.439 6.064c.966 0 1.844.155 2.635.465.79.31 1.463.744 2.017 1.304.554.56.98 1.24 1.286 2.04.305.8.458 1.697.458 2.693v.515H17.93c.058 1.177.29 1.988.696 2.434.407.446.856.67 1.348.67.653 0 1.151-.24 1.495-.72.344-.48.517-.98.517-1.503h3.62c-.02.972-.234 1.87-.641 2.697-.407.826-.955 1.508-1.644 2.048-.69.54-1.504.948-2.442 1.224-.938.276-1.938.414-3 .414-1.072 0-2.05-.153-2.933-.458-.884-.305-1.644-.738-2.284-1.297-.64-.56-1.136-1.247-1.488-2.056-.352-.81-.528-1.734-.528-2.772 0-1.106.193-2.084.579-2.934.386-.85.919-1.563 1.599-2.139.68-.576 1.486-1.01 2.418-1.302.932-.292 1.943-.438 3.033-.438zm-3.971 5.939h6.659c-.038-.67-.322-1.222-.853-1.657-.531-.435-1.146-.653-1.846-.653-.729 0-1.38.218-1.955.653-.575.435-.934.987-1.005 1.657zM17.367 1.661c.191 0 .363.028.516.085.153.057.284.143.393.26.109.116.194.26.255.43.061.17.092.37.092.6 0 .23-.031.43-.092.6-.061.17-.146.314-.255.43-.109.117-.24.203-.393.26-.153.057-.325.085-.516.085-.191 0-.363-.028-.516-.085-.153-.057-.284-.143-.393-.26-.109-.116-.194-.26-.255-.43-.061-.17-.092-.37-.092-.6 0-.23.031-.43.092-.6.061-.17.146-.314.255-.43.109-.117.24-.203.393-.26.153-.057.325-.085.516-.085z" />
-    </svg>
-  );
+  // Custom Behance Icon moved to Footer.tsx
 
   return (
     <div className="min-h-screen bg-[#FCF9F8]">
@@ -535,13 +615,10 @@ const Freelance = () => {
       </div>
       
       {/* Header */}
-      <header className={`bg-[#FCF9F8] px-4 sm:px-6 lg:px-[154px] py-4 sm:py-6 lg:py-[31px] transition-all duration-500 ease-in-out z-50 ${
-        // Sticky on mobile, conditional visibility on desktop
-        isMobile 
-          ? 'sticky top-0' 
-          : `relative ${showVerticalNav ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-auto'}`
+      <header className={`bg-[#FCF9F8] w-full transition-all duration-500 ease-in-out z-50 sticky top-0 md:relative md:top-auto shadow-sm md:shadow-none ${
+        showVerticalNav ? 'md:opacity-0 md:pointer-events-none' : 'md:opacity-100 md:pointer-events-auto'
       }`}>
-        <div className="flex items-center justify-between">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-12 max-w-[1600px] py-4 sm:py-6 lg:py-8 flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center">
             <div className="flex items-center justify-center w-[80px] h-[45px] sm:w-[100px] sm:h-[55px] lg:w-[131px] lg:h-[70px] bg-black text-white text-sm sm:text-lg lg:text-xl font-medium hover:bg-[#007BFF] transition-colors">
@@ -575,7 +652,7 @@ const Freelance = () => {
           <Link to="/contact">
             <Button
               variant="outline"
-              className="hidden md:flex border-black bg-[#FCF9F8] hover:bg-[#007BFF] hover:text-white shadow-[2px_2px_0_0_#000] text-[14px] lg:text-[16px] font-medium px-[30px] lg:px-[50px] py-[15px] lg:py-[20px] rounded-none"
+              className="hidden md:flex text-white font-bold text-[14px] lg:text-[16px] tracking-[1.23px] px-[30px] lg:px-[50px] py-[15px] lg:py-[25px] rounded-none border-3 border-black bg-black shadow-[4px_4px_0_0_rgba(0,0,0,0.2)] hover:shadow-[2px_2px_0_0_rgba(0,0,0,0.2)] hover:translate-x-[2px] hover:translate-y-[2px] hover:bg-[#FFDE59] hover:text-black transition-all duration-200"
             >
               Contact Me
             </Button>
@@ -622,7 +699,7 @@ const Freelance = () => {
               <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>
                 <Button
                   variant="outline"
-                  className="border-black bg-[#FCF9F8] hover:bg-[#007BFF] hover:text-white shadow-[2px_2px_0_0_#000] text-[16px] font-medium px-[30px] py-[15px] rounded-none w-full justify-center mt-2"
+                  className="text-white font-bold text-[16px] tracking-[1.23px] px-[30px] py-[15px] rounded-none w-full justify-center mt-2 border-3 border-black bg-black shadow-[4px_4px_0_0_rgba(0,0,0,0.2)] hover:shadow-[2px_2px_0_0_rgba(0,0,0,0.2)] hover:translate-x-[2px] hover:translate-y-[2px] hover:bg-[#FFDE59] hover:text-black transition-all duration-200"
                 >
                   Contact Me
                 </Button>
@@ -678,566 +755,416 @@ const Freelance = () => {
         </div>
       </nav>
       
-      {/* Hero Section */}
-      <section ref={heroRef} className="relative bg-[#FCF9F8] py-16 sm:py-20 lg:py-24 xl:py-32 overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-10 left-10 w-32 h-32 border-2 border-black rounded-full"></div>
-          <div className="absolute top-20 right-20 w-24 h-24 bg-[#007BFF] rounded-lg rotate-12"></div>
-          <div className="absolute bottom-20 left-20 w-20 h-20 border-2 border-[#007BFF] rounded-lg -rotate-12"></div>
-          <div className="absolute bottom-10 right-10 w-28 h-28 border-2 border-black rounded-full"></div>
-        </div>
+      {/* Hero Section - Neo-Brutalist Redesign */}
+      <section ref={heroRef} className="relative bg-[#FFDE59] py-20 sm:py-32 overflow-hidden border-b-4 border-black">
+        {/* Abstract Art Background */}
+        <div className="absolute top-0 right-0 w-64 h-64 bg-[#FF9F9F] rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+        <div className="absolute top-0 -left-4 w-72 h-72 bg-[#A0E7E5] rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
+        <div className="absolute -bottom-8 left-20 w-72 h-72 bg-[#B8C0FF] rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
+        
+        {/* Grid Pattern Overlay */}
+        <div className="absolute inset-0 bg-transparent" style={{ backgroundImage: 'radial-gradient(#000 1px, transparent 1px)', backgroundSize: '20px 20px', opacity: 0.1 }}></div>
 
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 xl:px-[301px] relative z-10">
-          <div className="max-w-5xl mx-auto">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-12 max-w-[1600px] relative z-10">
+          <div className="max-w-6xl mx-auto text-center">
             
-            {/* Hero Content */}
             <div className={`transition-all duration-1000 ${
               isVisible.hero ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}>
-              {/* Badge */}
-              <div className="inline-flex items-center gap-2 bg-white border-2 border-black rounded-full px-4 py-2 mb-6 shadow-[2px_2px_0_0_#000]">
-                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                <span className="text-sm font-medium text-black tracking-[1.23px]">
-                  Available for Projects
-                </span>
-              </div>
+              {/* Floating Badge */}
+               <div className="inline-block transform -rotate-2 hover:rotate-2 transition-transform duration-300 mb-8">
+                  <div className="bg-black text-white text-sm sm:text-base font-bold py-2 px-6 shadow-[5px_5px_0_0_#fff]">
+                    🚀 AVAILABLE FOR NEW PROJECTS
+                  </div>
+               </div>
 
-              {/* Main Heading */}
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-black mb-6 sm:mb-8 leading-tight tracking-[1.23px]">
-                Freelance Design{" "}
-                <span className="relative">
-                  <span className="relative z-10">That Converts</span>
-                  <div className="absolute -bottom-2 left-0 w-full h-4 bg-[#007BFF] -rotate-1 opacity-80"></div>
-                </span>
+              {/* Excessive Title */}
+              <h1 className="text-4xl min-[480px]:text-5xl sm:text-7xl lg:text-8xl font-black text-black mb-8 leading-tight sm:leading-[0.9] tracking-tighter">
+                FREELANCE <br/>
+                <span className="text-white text-stroke-3 text-stroke-black relative inline-block">
+                  DESIGN
+                  <div className="absolute -top-4 -right-4 sm:-top-6 sm:-right-8 w-8 h-8 sm:w-12 sm:h-12 bg-[#FF6B6B] rounded-full text-black text-[10px] sm:text-xs flex items-center justify-center font-bold border-2 border-black rotate-12 animate-bounce">
+                    WOW!
+                  </div>
+                </span> <br/>
+                THAT CONVERTS
               </h1>
 
-              {/* Subtitle with Stats */}
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-                <div className="lg:col-span-2">
-                  <p className="text-lg sm:text-xl lg:text-2xl text-black mb-6 leading-relaxed tracking-[1.23px]">
-                    I help <span className="font-semibold text-[#007BFF]">startups & businesses</span> create 
-                    stunning digital experiences that turn visitors into customers. From concept to conversion.
-                  </p>
-                  <p className="text-sm sm:text-[16px] leading-[22px] sm:leading-[26px] tracking-[1.23px] text-gray-600 max-w-2xl">
-                    Strategic design approach focused on user experience and business goals. 
-                    Every pixel serves a purpose, every interaction drives results.
-                  </p>
-                </div>
-                
-                {/* Quick Stats */}
-                <div className="bg-white border-2 border-black rounded-[15px] shadow-[3px_3px_0_0_#000] p-6">
-                  <div className="grid grid-cols-2 gap-4 text-center">
-                    <div>
-                      <div className="text-2xl font-bold text-[#007BFF] tracking-[1.23px]">10+</div>
-                      <div className="text-xs text-gray-600 tracking-[1.23px]">Projects</div>
-                    </div>
-                    <div>
-                      <div className="text-2xl font-bold text-[#007BFF] tracking-[1.23px]">100%</div>
-                      <div className="text-xs text-gray-600 tracking-[1.23px]">Satisfaction</div>
-                    </div>
-                    <div>
-                      <div className="text-2xl font-bold text-[#007BFF] tracking-[1.23px]">24h</div>
-                      <div className="text-xs text-gray-600 tracking-[1.23px]">Response</div>
-                    </div>
-                    <div>
-                      <div className="text-2xl font-bold text-[#007BFF] tracking-[1.23px]">2-3w</div>
-                      <div className="text-xs text-gray-600 tracking-[1.23px]">Delivery</div>
-                    </div>
-                  </div>
-                </div>
+              {/* Subtext Box */}
+              <div className="bg-white border-4 border-black p-4 sm:p-8 max-w-3xl mx-auto shadow-[8px_8px_0_0_#000] transform rotate-1 mb-12">
+                <p className="text-lg sm:text-xl md:text-2xl font-bold text-black leading-tight">
+                  I help founders and startups build <span className="text-[#007BFF] bg-[#B8C0FF] px-1">swoon-worthy</span> digital products. No fluff, just pixels that pay the bills.
+                </p>
               </div>
               
-              {/* Value Propositions */}
-              <div className="flex flex-wrap gap-4 mb-8">
-                <div className="flex items-center gap-2 bg-white border border-black rounded-full px-4 py-2">
-                  <CheckCircle className="w-4 h-4 text-green-500" />
-                  <span className="text-sm font-medium text-black tracking-[1.23px]">Professional Quality</span>
-                </div>
-                <div className="flex items-center gap-2 bg-white border border-black rounded-full px-4 py-2">
-                  <CheckCircle className="w-4 h-4 text-green-500" />
-                  <span className="text-sm font-medium text-black tracking-[1.23px]">Fast Turnaround</span>
-                </div>
-                <div className="flex items-center gap-2 bg-white border border-black rounded-full px-4 py-2">
-                  <CheckCircle className="w-4 h-4 text-green-500" />
-                  <span className="text-sm font-medium text-black tracking-[1.23px]">Unlimited Revisions*</span>
-                </div>
-                <div className="flex items-center gap-2 bg-white border border-black rounded-full px-4 py-2">
-                  <CheckCircle className="w-4 h-4 text-green-500" />
-                  <span className="text-sm font-medium text-black tracking-[1.23px]">100% Satisfaction</span>
-                </div>
+              {/* Stats - Brutalist Boxes */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-12">
+                 {[
+                   { label: "Projects", val: "10+" },
+                   { label: "Result", val: "100%" },
+                   { label: "Reply", val: "24h" },
+                   { label: "Speed", val: "2-3w" }
+                 ].map((stat, i) => (
+                    <div key={i} className="bg-black text-white p-3 sm:p-4 border-3 border-transparent hover:bg-white hover:text-black hover:border-black transition-colors duration-300 shadow-[4px_4px_0_0_rgba(0,0,0,0.2)]">
+                      <div className="text-2xl sm:text-3xl font-black">{stat.val}</div>
+                      <div className="text-[10px] sm:text-xs uppercase tracking-widest font-bold">{stat.label}</div>
+                    </div>
+                 ))}
               </div>
 
-              {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 justify-start mb-8">
-                <Link
-                  to="/contact"
-                  className="bg-[#007BFF] hover:bg-white text-white hover:text-black border-2 border-black rounded-[15px] shadow-[4px_4px_0_0_#000] hover:shadow-[6px_6px_0_0_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 px-8 py-4 font-bold text-base transition-all duration-300 flex items-center justify-center gap-2 min-w-[200px] tracking-[1.23px]"
-                >
-                  Start Your Project <ArrowRight className="w-5 h-5" />
-                </Link>
+              {/* CTAs */}
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center w-full sm:w-auto">
+                 <Link to="/contact" className="w-full sm:w-auto">
+                   <Button className="h-14 sm:h-16 px-6 sm:px-10 text-lg sm:text-xl font-black border-4 border-black bg-[#FF6B6B] text-black hover:bg-black hover:text-[#FF6B6B] shadow-[8px_8px_0_0_#000] hover:shadow-[12px_12px_0_0_#000] hover:-translate-y-1 transition-all rounded-none w-full sm:w-auto">
+                     START PROJECT <Zap className="ml-2 w-5 sm:w-6 h-5 sm:h-6 fill-current" />
+                   </Button>
+                 </Link>
+                 <a href="#services" onClick={(e) => { e.preventDefault(); servicesRef.current?.scrollIntoView({ behavior: 'smooth' }); }} className="w-full sm:w-auto">
+                    <Button variant="ghost" className="h-14 sm:h-16 px-6 sm:px-8 text-lg font-bold text-black border-4 border-black bg-white hover:bg-gray-100 shadow-[8px_8px_0_0_rgba(0,0,0,0.2)] hover:shadow-[8px_8px_0_0_#000] rounded-none w-full sm:w-auto">
+                      Explore Services <ArrowDown className="ml-2 w-5 h-5" />
+                    </Button>
+                 </a>
               </div>
 
-              {/* Trust Indicators */}
-              <div className="flex flex-col sm:flex-row items-center gap-6 pt-6 border-t border-gray-200">
-                <div className="flex items-center gap-2">
-                  <Star className="w-5 h-5 text-yellow-400 fill-current" />
-                  <Star className="w-5 h-5 text-yellow-400 fill-current" />
-                  <Star className="w-5 h-5 text-yellow-400 fill-current" />
-                  <Star className="w-5 h-5 text-yellow-400 fill-current" />
-                  <Star className="w-5 h-5 text-yellow-400 fill-current" />
-                  <span className="text-sm text-gray-600 ml-2 tracking-[1.23px]">5.0 from 5+ clients</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Shield className="w-5 h-5 text-green-500" />
-                  <span className="text-sm text-gray-600 tracking-[1.23px]">Quality guaranteed</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Clock className="w-5 h-5 text-blue-500" />
-                  <span className="text-sm text-gray-600 tracking-[1.23px]">2 years experience</span>
-                </div>
-              </div>
             </div>
           </div>
         </div>
-
-        {/* Decorative Elements */}
-        <div className="absolute -top-10 -right-10 w-40 h-40 bg-gradient-to-br from-[#007BFF] to-purple-500 rounded-full opacity-10 blur-3xl"></div>
-        <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-gradient-to-br from-orange-400 to-pink-500 rounded-full opacity-10 blur-3xl"></div>
       </section>
 
-      {/* Services Section */}
-      <section ref={servicesRef} className="bg-white py-16 sm:py-20 lg:py-24 relative overflow-hidden">
-        {/* Background Decorations */}
-        <div className="absolute top-0 left-0 w-full h-full opacity-5">
-          <div className="absolute top-20 left-10 w-16 h-16 border-2 border-[#007BFF] rounded-full"></div>
-          <div className="absolute bottom-20 right-10 w-20 h-20 bg-black rounded-lg rotate-45"></div>
-          <div className="absolute top-1/2 left-1/4 w-12 h-12 bg-[#007BFF] rounded-full"></div>
-        </div>
-
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 xl:px-[301px] relative z-10">
+      {/* Services Section - Neo-Brutalist Redesign */}
+      <section ref={servicesRef} className="bg-white py-20 relative overflow-hidden border-b-4 border-black">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-12 max-w-[1600px] relative z-10">
           
-          {/* Section Header */}
-          <div className={`text-center mb-16 sm:mb-20 transition-all duration-1000 ${
+          <div className={`text-center mb-16 transition-all duration-1000 ${
             isVisible.services ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}>
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 bg-white border-2 border-black rounded-full px-6 py-2 mb-6 shadow-[2px_2px_0_0_#000]">
-              <div className="w-2 h-2 bg-[#007BFF] rounded-full"></div>
-              <span className="text-sm font-medium text-black tracking-[1.23px]">
-                PROFESSIONAL SERVICES
-              </span>
-            </div>
-            
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-[52px] font-bold text-black mb-6 leading-tight tracking-[1.23px]">
-              My <span className="relative">
-                <span className="relative z-10 text-[#007BFF]">Services</span>
-                <div className="absolute -bottom-2 left-0 w-full h-4 bg-[#007BFF] -rotate-1 opacity-20"></div>
-              </span>
+            <span className="inline-block bg-black text-white text-sm font-bold px-4 py-2 transform -rotate-2 mb-4">
+              WHAT I DO BEST
+            </span>
+            <h2 className="text-4xl sm:text-6xl font-black text-black mb-6">
+              MY <span className="bg-[#A0E7E5] px-2 border-2 border-black shadow-[4px_4px_0_0_#000]">SERVICES</span>
             </h2>
-            
-            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed tracking-[0.5px]">
-              Professional design solutions that drive results. From concept to conversion, 
-              I help businesses create digital experiences that users love.
+            <p className="text-xl font-bold text-gray-700 max-w-2xl mx-auto">
+              I don't just "design". I solve expensive problems with pixels and code.
             </p>
           </div>
 
-          {/* Services Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8">
-            {services.map((service, index) => (
-              <div
-                key={index}
-                className={`group relative bg-white border-2 border-black rounded-[20px] shadow-[6px_6px_0_0_#000] p-6 sm:p-8 hover:shadow-[8px_8px_0_0_#000] hover:-translate-x-1 hover:-translate-y-1 transition-all duration-300 ${
-                  isVisible.services ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
-                }`}
-                style={{
-                  transitionDelay: isVisible.services ? `${index * 150}ms` : '0ms'
-                }}
-              >
-                {/* Service Icon */}
-                <div className="w-14 h-14 bg-black text-white rounded-[15px] flex items-center justify-center mb-6 group-hover:bg-[#007BFF] transition-colors duration-300 shadow-[3px_3px_0_0_rgba(0,0,0,0.3)]">
-                  {service.icon}
-                </div>
-                
-                {/* Service Title */}
-                <h3 className="text-xl sm:text-2xl font-bold text-black mb-4 group-hover:text-[#007BFF] transition-colors tracking-[1.23px]">
-                  {service.title}
-                </h3>
-                
-                {/* Service Description */}
-                <p className="text-gray-600 mb-6 leading-relaxed text-sm sm:text-base tracking-[0.5px]">
-                  {service.description}
-                </p>
-                
-                {/* Features List */}
-                <div className="space-y-3">
-                  <div className="text-sm font-semibold text-black mb-4 tracking-[1.23px]">What's Included:</div>
-                  <div className="space-y-2">
-                    {service.features.map((feature, featureIndex) => (
-                      <div key={featureIndex} className="flex items-start gap-3">
-                        <div className="w-5 h-5 bg-white border-2 border-black rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 shadow-[2px_2px_0_0_rgba(0,0,0,0.2)]">
-                          <CheckCircle className="w-3 h-3 text-green-600" />
-                        </div>
-                        <span className="text-sm text-gray-700 leading-relaxed tracking-[0.5px]">{feature}</span>
-                      </div>
-                    ))}
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+            {services.map((service, index) => {
+              const bgColors = ['bg-[#FF9F9F]', 'bg-[#B8C0FF]', 'bg-[#A0E7E5]', 'bg-[#FFDE59]', 'bg-[#FF6B6B]', 'bg-white'];
+              const cardBg = bgColors[index % bgColors.length];
+              
+              return (
+                <div
+                  key={index}
+                  className={`service-card group relative ${cardBg} border-4 border-black p-6 sm:p-8 shadow-[8px_8px_0_0_#000] hover:shadow-[12px_12px_0_0_#000] hover:-translate-y-2 transition-all duration-300 opacity-0`}
+                >
+                  <div className="flex justify-between items-start mb-6">
+                    <div className="w-16 h-16 bg-white border-3 border-black rounded-full flex items-center justify-center shadow-[4px_4px_0_0_#000]">
+                       {service.icon}
+                    </div>
+                    <span className="text-4xl font-black text-black opacity-20 group-hover:opacity-100 transition-opacity">
+                      {(index + 1).toString().padStart(2, '0')}
+                    </span>
                   </div>
+                  
+                  <h3 className="text-2xl font-black text-black mb-4 uppercase leading-none">
+                    {service.title}
+                  </h3>
+                  
+                  <p className="text-black font-medium mb-6 leading-relaxed border-b-2 border-black/10 pb-6">
+                    {service.description}
+                  </p>
+                  
+                  <ul className="space-y-3">
+                    {service.features.map((feature, idx) => (
+                      <li key={idx} className="flex items-center gap-3 text-sm font-bold text-black/80">
+                        <div className="w-1.5 h-1.5 bg-black rounded-full"></div>
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-
-                {/* Service Number Badge */}
-                <div className="absolute top-4 right-4 w-8 h-8 bg-[#007BFF] text-white text-sm font-bold rounded-full flex items-center justify-center shadow-[2px_2px_0_0_#000] group-hover:bg-black transition-colors duration-300">
-                  {(index + 1).toString().padStart(2, '0')}
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
-
-
         </div>
       </section>
 
-      {/* Workflow Section */}
-      <section ref={workflowRef} className="bg-[#FCF9F8] py-12 sm:py-16 lg:py-20">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 xl:px-[301px]">
+      {/* Workflow Section - Neo-Brutalist Redesign */}
+      <section ref={workflowRef} className="bg-[#B8C0FF] py-20 relative border-b-4 border-black">
+        {/* Background Patterns */}
+        <div className="absolute top-0 left-0 w-full h-full" style={{ backgroundImage: 'radial-gradient(#fff 2px, transparent 2px)', backgroundSize: '30px 30px', opacity: 0.3 }}></div>
+
+        <div className="container mx-auto px-4 sm:px-6 lg:px-12 max-w-[1600px] relative z-10">
           
-          {/* Section Header */}
-          <div className={`text-center mb-12 sm:mb-16 transition-all duration-1000 ${
+          <div className={`text-center mb-16 transition-all duration-1000 ${
             isVisible.workflow ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-[39px] font-medium text-black mb-4 sm:mb-6">
-              How It Works
+             <div className="inline-block bg-white border-2 border-black px-4 py-1 mb-4 shadow-[4px_4px_0_0_#000] rounded-full">
+                <span className="font-bold text-black uppercase tracking-widest">The Process</span>
+             </div>
+            <h2 className="text-4xl sm:text-6xl font-black text-black mb-6">
+              HOW I <span className="text-white text-stroke-2 text-stroke-black">WORK</span>
             </h2>
-            <p className="text-sm sm:text-[16px] leading-[22px] sm:leading-[26px] lg:leading-[30px] tracking-[1.23px] text-black max-w-2xl mx-auto">
-              My proven 5-step process ensures your project is delivered on time and exceeds expectations
+            <p className="text-xl font-bold text-black max-w-2xl mx-auto">
+              Simple, transparent, and effective. No hidden surprises.
             </p>
           </div>
 
-          {/* Workflow Steps */}
-          <div className="space-y-8 sm:space-y-12">
+          <div className="space-y-12 relative">
+            {/* Connecting Line (Desktop) */}
+            <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-black hidden lg:block -translate-x-1/2 z-0 border-r-2 border-dashed border-black"></div>
+
             {workflow.map((step, index) => (
               <div
                 key={index}
-                className={`flex flex-col lg:flex-row items-center gap-6 sm:gap-8 lg:gap-12 ${
+                className={`workflow-step flex flex-col lg:flex-row items-center gap-8 lg:gap-20 opacity-0 relative z-10 ${
                   index % 2 === 1 ? 'lg:flex-row-reverse' : ''
-                } transition-all duration-1000 ${
-                  isVisible.workflow ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
                 }`}
-                style={{
-                  transitionDelay: isVisible.workflow ? `${index * 200}ms` : '0ms'
-                }}
               >
                 {/* Step Card */}
-                <div className="bg-white border-2 border-black rounded-[15px] sm:rounded-[18px] shadow-[3px_3px_0_0_#000] sm:shadow-[4px_4px_0_0_#000] p-6 sm:p-8 flex-1 hover:shadow-[4px_4px_0_0_#000] sm:hover:shadow-[6px_6px_0_0_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-300">
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="w-12 h-12 sm:w-14 sm:h-14 bg-[#007BFF] rounded-full flex items-center justify-center text-white font-bold text-lg sm:text-xl">
-                      {step.step}
-                    </div>
-                    <h3 className="text-lg sm:text-xl font-medium text-black">
-                      {step.title}
-                    </h3>
-                  </div>
-                  <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-                    {step.description}
-                  </p>
+                <div className="bg-white border-4 border-black p-8 flex-1 w-full shadow-[8px_8px_0_0_#000] hover:shadow-[12px_12px_0_0_#000] hover:-translate-y-1 transition-all">
+                  <h3 className="text-2xl font-black text-black mb-2 uppercase">{step.title}</h3>
+                  <p className="text-black font-medium leading-relaxed">{step.description}</p>
                 </div>
 
-                {/* Step Icon */}
-                <div className="w-16 h-16 sm:w-20 sm:h-20 bg-black rounded-full flex items-center justify-center text-white flex-shrink-0">
-                  {step.icon}
+                {/* Step Number/Icon Connector */}
+                <div className="relative">
+                   <div className="w-20 h-20 bg-[#FFDE59] border-4 border-black rounded-full flex items-center justify-center text-3xl font-black shadow-[4px_4px_0_0_#000] z-20 relative">
+                     {step.step}
+                   </div>
+                   {/* Icon Floating Badge */}
+                   <div className="absolute -top-4 -right-4 w-10 h-10 bg-black text-white flex items-center justify-center border-2 border-white rounded-full z-30">
+                      {index === 0 && <Search className="w-5 h-5" />}
+                      {index === 1 && <PenTool className="w-5 h-5" />}
+                      {index === 2 && <Palette className="w-5 h-5" />}
+                      {index === 3 && <MessageCircle className="w-5 h-5" />}
+                      {index === 4 && <Package className="w-5 h-5" />}
+                   </div>
                 </div>
+                
+                {/* Spacer for alternating layout */}
+                <div className="flex-1 hidden lg:block"></div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Portfolio Samples Section */}
-      <section ref={portfolioRef} className="bg-white py-12 sm:py-16 lg:py-20">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 xl:px-[301px]">
+      {/* Portfolio Samples Section - Neo-Brutalist Redesign */}
+      <section ref={portfolioRef} className="bg-[#FCF9F8] py-20 relative border-b-4 border-black">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-12 xl:px-24 max-w-[1600px]">
           
-          {/* Section Header */}
-          <div className={`text-center mb-12 sm:mb-16 transition-all duration-1000 ${
+          <div className={`text-center mb-16 transition-all duration-1000 ${
             isVisible.portfolio ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-[39px] font-medium text-black mb-4 sm:mb-6">
-              Featured Work
+            <h2 className="text-4xl sm:text-6xl font-black text-black mb-6">
+              FEATURED <span className="bg-[#FF9F9F] px-2 text-black border-3 border-black transform inline-block -rotate-1 shadow-[4px_4px_0_0_#000]">WORK</span>
             </h2>
-            <p className="text-sm sm:text-[16px] leading-[22px] sm:leading-[26px] lg:leading-[30px] tracking-[1.23px] text-black max-w-2xl mx-auto">
-              Here are some recent projects that showcase my design capabilities
+            <p className="text-xl font-bold text-gray-700 max-w-2xl mx-auto">
+              Real projects. Real results.
             </p>
           </div>
 
-          {/* Portfolio Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
             {featuredProjectsData.map((project, index) => (
               <div
                 key={project.id}
-                className={`bg-white border-2 border-black rounded-[12px] sm:rounded-[14px] lg:rounded-[16px] overflow-hidden shadow-[2px_2px_0_0_#000] sm:shadow-[3px_3px_0_0_#000] hover:shadow-[3px_3px_0_0_#000] sm:hover:shadow-[4px_4px_0_0_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-500 ${
-                  isVisible.portfolio ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
-                }`}
-                style={{
-                  transitionDelay: isVisible.portfolio ? `${(index + 1) * 100}ms` : '0ms'
-                }}
+                className={`portfolio-item group h-full bg-white border-4 border-black rounded-[30px] overflow-hidden shadow-[8px_8px_0_0_#000] hover:shadow-[14px_14px_0_0_#000] hover:-translate-y-2 transition-all duration-300 opacity-0 flex flex-col`}
               >
+                  {/* Project Image Header */}
+                  <div className="h-10 bg-white border-b-4 border-black flex items-center px-4 justify-between shrink-0">
+                      <div className="flex gap-2">
+                          <div className="w-3 h-3 rounded-full bg-black"></div>
+                          <div className="w-3 h-3 rounded-full border-2 border-black"></div>
+                      </div>
+                      <div className="font-mono text-[10px] font-bold uppercase tracking-widest">{project.slug.substring(0, 10)}...exe</div>
+                  </div>
+
                 {/* Project Image */}
-                <div className="relative aspect-video bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden">
+                <div className="relative aspect-[4/3] bg-gray-100 border-b-4 border-black overflow-hidden group-hover:bg-[#FFDE59] transition-colors">
                   {project.image ? (
                     <img 
                       src={project.image} 
                       alt={project.name}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 group-hover:rotate-1"
                     />
                   ) : (
-                    <div className="p-4 sm:p-6 flex items-center justify-center h-full">
-                      <div className="text-center">
-                        <div className={`w-10 h-10 sm:w-12 sm:h-12 ${getProjectGradient(project.id)} rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-3 shadow-lg`}>
-                          <span className="text-white font-bold text-sm sm:text-lg">{getProjectInitials(project.name)}</span>
-                        </div>
-                        <h4 className="text-xs sm:text-sm font-bold text-gray-800 mb-1">{project.name}</h4>
-                        <p className="text-xs text-gray-600">{project.type} • {project.industry}</p>
-                      </div>
+                    <div className="flex items-center justify-center h-full bg-gray-200">
+                      <span className="font-bold text-gray-400">?</span>
                     </div>
                   )}
-                  
-                  <div className="absolute top-2 sm:top-3 right-2 sm:right-3">
-                    <div className={`w-2 h-2 sm:w-3 sm:h-3 ${getProjectDotColor(project.id)} rounded-full`}></div>
+                  {/* View Gallery Overlay Button */}
+                  <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
+                      <div className="bg-white border-3 border-black px-6 py-3 rounded-full shadow-[4px_4px_0_0_#000] flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                          <Eye className="w-5 h-5 text-black" />
+                          <span className="font-black uppercase tracking-wider text-sm">View</span>
+                      </div>
                   </div>
                 </div>
                 
                 {/* Project Content */}
-                <div className="p-3 sm:p-4 lg:p-5 flex flex-col h-full">
-                  <h3 className="text-lg font-medium text-black mb-2">
-                    {project.name}
-                  </h3>
-                  <p className="text-sm text-gray-600 mb-4 flex-grow">
+                <div className="p-6 sm:p-8 bg-white flex flex-col flex-grow relative">
+                  <div className="flex items-start justify-between mb-4 gap-2">
+                     <h3 className="text-2xl font-black leading-tight text-black line-clamp-2 uppercase tracking-tight">
+                       {project.name}
+                     </h3>
+                     <span className="text-[10px] font-black uppercase tracking-wider bg-[#FFDE59] text-black px-2 py-1 border-2 border-black shadow-[2px_2px_0_0_#000] min-w-fit transform rotate-1">
+                       {project.type}
+                     </span>
+                  </div>
+                  
+                  <p className="text-sm sm:text-base font-medium leading-relaxed text-gray-600 mb-6 flex-grow line-clamp-3">
                     {renderDescriptionWithLinks(project.description)}
                   </p>
                   
-
-                  
-                  {/* Bottom section with proper alignment */}
-                  <div className="mt-auto">
-                    {/* Project type - separate row */}
-                    <div className="mb-3">
-                      <span className="text-xs font-medium text-gray-500 uppercase tracking-wider bg-gray-100 px-2 py-1 rounded-full">
-                        {project.type}
-                      </span>
-                    </div>
-                    
-                    {/* Links section - properly aligned */}
-                    <div className="flex flex-wrap gap-2 sm:gap-3">
+                  {/* Links */}
+                  <div className="flex flex-wrap gap-3 mt-auto pt-6 border-t-2 border-black border-dashed">
                       {project.links.design && (
-                        <a
-                          href={project.links.design}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={(e) => e.stopPropagation()}
-                          className="inline-flex items-center gap-1 text-xs sm:text-sm font-medium text-[#007BFF] hover:opacity-70 transition-opacity whitespace-nowrap"
-                        >
-                          View design
-                          <ArrowRight className="w-3 h-3 flex-shrink-0" />
+                        <a href={project.links.design} target="_blank" rel="noopener noreferrer" className="text-xs font-bold uppercase hover:underline text-gray-500 hover:text-black">
+                           Figma
                         </a>
                       )}
                       {project.links.caseStudy && (
-                        <a
-                          href={project.links.caseStudy}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={(e) => e.stopPropagation()}
-                          className="inline-flex items-center gap-1 text-xs sm:text-sm font-medium text-[#007BFF] hover:opacity-70 transition-opacity whitespace-nowrap"
-                        >
-                          Case study
-                          <ExternalLink className="w-3 h-3 flex-shrink-0" />
+                        <a href={project.links.caseStudy} target="_blank" rel="noopener noreferrer" className="text-xs font-bold uppercase hover:underline text-gray-500 hover:text-black">
+                           Case Study
                         </a>
                       )}
-                      {project.links.github && (
-                        <a
-                          href={project.links.github}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={(e) => e.stopPropagation()}
-                          className="inline-flex items-center gap-1 text-xs sm:text-sm font-medium text-[#007BFF] hover:opacity-70 transition-opacity whitespace-nowrap"
-                        >
-                          GitHub
-                          <ExternalLink className="w-3 h-3 flex-shrink-0" />
-                        </a>
-                      )}
-                    </div>
                   </div>
                 </div>
               </div>
             ))}
           </div>
 
-          {/* View More Link */}
           <div className={`text-center transition-all duration-1000 delay-600 ${
             isVisible.portfolio ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}>
             <Link
               to="/projects"
-              className="bg-[#007BFF] hover:bg-[#0056b3] text-white border-2 border-black rounded-[12px] sm:rounded-[15px] shadow-[3px_3px_0_0_#000] hover:shadow-[4px_4px_0_0_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 px-6 sm:px-8 py-3 sm:py-4 font-medium text-sm sm:text-base transition-all duration-300 inline-flex items-center gap-2"
+              className="inline-flex items-center gap-2 bg-black text-white hover:bg-[#FFDE59] hover:text-black border-4 border-black px-10 py-4 font-black text-lg shadow-[8px_8px_0_0_#000] hover:shadow-[12px_12px_0_0_#000] hover:-translate-y-1 transition-all"
             >
-              View Full Portfolio <ArrowRight className="w-4 h-4" />
+              VIEW FULL PORTFOLIO <ArrowRight className="w-5 h-5" />
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section ref={testimonialsRef} className="bg-[#FCF9F8] py-12 sm:py-16 lg:py-20">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 xl:px-[301px]">
+      {/* Client Testimonials - Neo-Brutalist Redesign */}
+      <section ref={testimonialsRef} className="bg-[#FFDE59] py-20 relative border-b-4 border-black">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-12 xl:px-24 max-w-[1600px]">
           
-          {/* Section Header */}
-          <div className={`text-center mb-12 sm:mb-16 transition-all duration-1000 ${
+          <div className={`text-center mb-16 transition-all duration-1000 ${
             isVisible.testimonials ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-[39px] font-medium text-black mb-4 sm:mb-6">
-              Client Testimonials
+             <div className="inline-block bg-white border-2 border-black px-4 py-1 mb-4 shadow-[4px_4px_0_0_#000] rounded-full transform rotate-2">
+                <span className="font-bold text-black uppercase tracking-widest">Feedback</span>
+             </div>
+            <h2 className="text-4xl sm:text-6xl font-black text-black mb-6">
+              CLIENT <span className="text-white text-stroke-2 text-stroke-black">LOVE</span>
             </h2>
-            <p className="text-sm sm:text-[16px] leading-[22px] sm:leading-[26px] lg:leading-[30px] tracking-[1.23px] text-black max-w-2xl mx-auto">
-              Don't just take my word for it - here's what my clients say about working with me
-            </p>
           </div>
 
-          {/* Testimonials Carousel */}
           <div className={`relative transition-all duration-1000 delay-200 ${
             isVisible.testimonials ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}>
-            {/* Carousel Container with Navigation */}
-            <div className="relative max-w-6xl mx-auto flex items-center">
-              {/* Previous Button - Outside Left */}
+       
+            <div className="relative max-w-5xl mx-auto flex items-center">
+              {/* Previous Button  */}
               <button
                 onClick={prevTestimonial}
-                className="hidden lg:flex bg-white hover:bg-gray-50 border-2 border-black rounded-full p-4 shadow-[3px_3px_0_0_#000] hover:shadow-[4px_4px_0_0_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-300 group mr-8"
+                className="hidden lg:flex bg-white hover:bg-black border-4 border-black p-4 shadow-[4px_4px_0_0_#000] hover:shadow-[6px_6px_0_0_#000] hover:-translate-x-1 hover:-translate-y-1 transition-all duration-300 group mr-8 z-20"
                 aria-label="Previous testimonial"
               >
-                <ChevronLeft className="w-7 h-7 text-[#007BFF] group-hover:text-[#0056b3]" />
+                <ChevronLeft className="w-8 h-8 text-black group-hover:text-white stroke-[3]" />
               </button>
 
               {/* Main Testimonial Card */}
-              <div className="flex-1 max-w-4xl">
-                <div className="bg-white border-2 border-black rounded-[18px] shadow-[6px_6px_0_0_#000] p-8 sm:p-12 min-h-[420px] flex flex-col justify-between transition-all duration-300">
-                  {/* Top Section */}
-                  <div className="flex-1 flex flex-col justify-center">
-                    {/* Quote Icon */}
-                    <div className="flex items-center justify-center mb-6">
-                      <Quote className="w-12 h-12 text-[#007BFF]" />
-                    </div>
-                    
-                    {/* Rating */}
-                    <div className="flex items-center justify-center mb-6">
+              <div className="flex-1 max-w-4xl relative">
+                 {/* Decorative Quote Mark */}
+                 <div className="absolute -top-12 -left-8 text-[120px] leading-none text-black opacity-10 font-black font-serif hidden sm:block">
+                   "
+                 </div>
+
+                <div className="bg-white border-4 border-black shadow-[12px_12px_0_0_#000] p-6 sm:p-12 min-h-[350px] flex flex-col justify-between transition-all duration-300 rotate-1 hover:rotate-0">
+                  
+                  <div className="flex-1 flex flex-col justify-center text-center">
+                    {/* Stars */}
+                    <div className="flex items-center justify-center mb-6 gap-2">
                       {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
-                        <Star key={i} className="w-6 h-6 text-yellow-400 fill-current mx-1" />
+                        <Star key={i} className="w-5 sm:w-6 h-5 sm:h-6 text-[#000] fill-[#000]" />
                       ))}
                     </div>
 
-                    {/* Testimonial Text */}
-                    <blockquote className="text-gray-600 text-lg sm:text-xl leading-relaxed text-center italic font-light flex-1 flex items-center justify-center min-h-[120px]">
-                      "{testimonials[currentTestimonial].testimonial}"
+                    <blockquote className="text-lg sm:text-2xl md:text-3xl font-black text-black leading-tight mb-8">
+                       "{testimonials[currentTestimonial].testimonial}"
                     </blockquote>
                   </div>
 
-                  {/* Client Info - Always at Bottom */}
-                  <div className="flex items-center justify-center mt-8 pt-6 border-t border-gray-100">
-                    <div className="w-12 h-12 bg-gray-200 rounded-full mr-4 flex items-center justify-center flex-shrink-0">
-                      <Users className="w-6 h-6 text-gray-500" />
+                  {/* Client Info */}
+                  <div className="flex items-center justify-center pt-6 border-t-2 border-black border-dashed">
+                    <div className="w-14 h-14 bg-[#FF9F9F] border-3 border-black rounded-full mr-4 flex items-center justify-center flex-shrink-0 shadow-[2px_2px_0_0_#000]">
+                      <span className="font-bold text-lg">{testimonials[currentTestimonial].name.charAt(0)}</span>
                     </div>
                     <div className="text-left">
-                      <h4 className="font-medium text-black text-xl mb-1 leading-tight">
+                      <h4 className="font-black text-black text-xl mb-0 leading-none">
                         {testimonials[currentTestimonial].name}
                       </h4>
-                      <p className="text-sm text-gray-600 mb-1 leading-tight">
+                      <p className="text-sm font-bold text-gray-600 mb-0">
                         {testimonials[currentTestimonial].role}
                       </p>
-                      <p className="text-xs text-[#007BFF] font-medium leading-tight">
-                        {testimonials[currentTestimonial].project}
+                      <p className="text-xs font-bold text-[#007BFF] uppercase tracking-wider mt-1">
+                        PROJECT: {testimonials[currentTestimonial].project}
                       </p>
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* Next Button - Outside Right */}
+              {/* Next Button */}
               <button
                 onClick={nextTestimonial}
-                className="hidden lg:flex bg-white hover:bg-gray-50 border-2 border-black rounded-full p-4 shadow-[3px_3px_0_0_#000] hover:shadow-[4px_4px_0_0_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-300 group ml-8"
+                className="hidden lg:flex bg-white hover:bg-black border-4 border-black p-4 shadow-[4px_4px_0_0_#000] hover:shadow-[6px_6px_0_0_#000] hover:-translate-x-1 hover:-translate-y-1 transition-all duration-300 group ml-8 z-20"
                 aria-label="Next testimonial"
               >
-                <ChevronRight className="w-7 h-7 text-[#007BFF] group-hover:text-[#0056b3]" />
+                <ChevronRight className="w-8 h-8 text-black group-hover:text-white stroke-[3]" />
               </button>
             </div>
 
-            {/* Mobile Navigation Buttons */}
-            <div className="flex lg:hidden justify-center space-x-4 mt-6">
-              <button
-                onClick={prevTestimonial}
-                className="bg-white hover:bg-gray-50 border-2 border-black rounded-full p-3 shadow-[3px_3px_0_0_#000] hover:shadow-[4px_4px_0_0_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-300 group"
-                aria-label="Previous testimonial"
-              >
-                <ChevronLeft className="w-6 h-6 text-[#007BFF] group-hover:text-[#0056b3]" />
+            {/* Mobile Navigation */}
+            <div className="flex lg:hidden justify-center space-x-6 mt-10">
+              <button onClick={prevTestimonial} className="bg-white border-3 border-black p-3 shadow-[4px_4px_0_0_#000] active:shadow-[2px_2px_0_0_#000] active:translate-y-1 transition-all">
+                <ChevronLeft className="w-6 h-6 text-black" />
               </button>
-
-              <button
-                onClick={nextTestimonial}
-                className="bg-white hover:bg-gray-50 border-2 border-black rounded-full p-3 shadow-[3px_3px_0_0_#000] hover:shadow-[4px_4px_0_0_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-300 group"
-                aria-label="Next testimonial"
-              >
-                <ChevronRight className="w-6 h-6 text-[#007BFF] group-hover:text-[#0056b3]" />
+              <button onClick={nextTestimonial} className="bg-white border-3 border-black p-3 shadow-[4px_4px_0_0_#000] active:shadow-[2px_2px_0_0_#000] active:translate-y-1 transition-all">
+                <ChevronRight className="w-6 h-6 text-black" />
               </button>
             </div>
 
-            {/* Dots Indicator */}
-            <div className="flex items-center justify-center space-x-3 mt-8">
-              {testimonials.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => goToTestimonial(index)}
-                  className={`w-3 h-3 rounded-full border-2 border-black transition-all duration-300 ${
-                    index === currentTestimonial
-                      ? 'bg-[#007BFF] scale-125 shadow-[2px_2px_0_0_#000]'
-                      : 'bg-white hover:bg-gray-100 shadow-[1px_1px_0_0_#000] hover:shadow-[2px_2px_0_0_#000]'
-                  }`}
-                  aria-label={`Go to testimonial ${index + 1}`}
-                />
-              ))}
-            </div>
-
-            {/* Auto-play Indicator */}
-            <div className="flex items-center justify-center mt-6">
-              <button
-                onClick={() => setIsAutoPlaying(!isAutoPlaying)}
-                className="text-sm text-gray-600 hover:text-[#007BFF] transition-colors duration-300 flex items-center space-x-2 px-3 py-1 border border-gray-300 rounded-full hover:border-[#007BFF]"
-              >
-                <div className={`w-2 h-2 rounded-full ${isAutoPlaying ? 'bg-green-500' : 'bg-gray-400'}`} />
-                <span>{isAutoPlaying ? 'Auto-play on' : 'Auto-play off'}</span>
-              </button>
-            </div>
           </div>
         </div>
       </section>
 
-      {/* FAQ Section */}
-      <section ref={faqRef} className="bg-white py-12 sm:py-16 lg:py-20">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 xl:px-[301px]">
+      {/* FAQ Section - Neo-Brutalist Redesign */}
+      <section ref={faqRef} className="bg-white py-20 border-b-4 border-black">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-12 max-w-[1600px]">
           
-          {/* Section Header */}
-          <div className={`text-center mb-12 sm:mb-16 transition-all duration-1000 ${
+          <div className={`text-center mb-16 transition-all duration-1000 ${
             isVisible.faq ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-[39px] font-medium text-black mb-4 sm:mb-6">
-              Frequently Asked Questions
+             <div className="inline-block bg-[#FF9F9F] border-2 border-black px-4 py-1 mb-4 shadow-[4px_4px_0_0_#000] rounded-none transform -rotate-2">
+                <span className="font-bold text-black uppercase tracking-widest">Q&A</span>
+             </div>
+            <h2 className="text-4xl sm:text-6xl font-black text-black mb-6">
+              COMMON <span className="bg-[#B8C0FF] px-2 shadow-[4px_4px_0_0_#000] border-2 border-black">QUESTIONS</span>
             </h2>
-            <p className="text-sm sm:text-[16px] leading-[22px] sm:leading-[26px] lg:leading-[30px] tracking-[1.23px] text-black max-w-2xl mx-auto">
-              Got questions? Here are answers to the most common questions about my freelance services
-            </p>
           </div>
 
-          {/* FAQ List */}
-          <div className="max-w-3xl mx-auto space-y-4">
+          <div className="max-w-3xl mx-auto space-y-6">
             {faqs.map((faq, index) => (
               <div
                 key={index}
-                className={`bg-white border-2 border-black rounded-[15px] sm:rounded-[18px] shadow-[3px_3px_0_0_#000] sm:shadow-[4px_4px_0_0_#000] overflow-hidden transition-all duration-300 hover:shadow-[4px_4px_0_0_#000] sm:hover:shadow-[6px_6px_0_0_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 ${
+                className={`bg-white border-4 border-black shadow-[4px_4px_0_0_#000] hover:shadow-[8px_8px_0_0_#000] hover:-translate-x-1 hover:-translate-y-1 transition-all duration-300 ${
                   isVisible.faq ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
                 }`}
                 style={{
@@ -1246,21 +1173,23 @@ const Freelance = () => {
               >
                 <button
                   onClick={() => setExpandedFaq(expandedFaq === index ? null : index)}
-                  className="w-full p-6 sm:p-8 text-left flex items-center justify-between hover:bg-gray-50 transition-colors"
+                  className="w-full p-6 text-left flex items-center justify-between hover:bg-gray-50 transition-colors"
                 >
-                  <h3 className="text-lg sm:text-xl font-medium text-black pr-4">
+                  <h3 className="text-lg sm:text-xl font-black text-black pr-4 uppercase">
                     {faq.question}
                   </h3>
-                  {expandedFaq === index ? (
-                    <ChevronUp className="w-5 h-5 text-black flex-shrink-0" />
-                  ) : (
-                    <ChevronDown className="w-5 h-5 text-black flex-shrink-0" />
-                  )}
+                  <div className={`transition-transform duration-300 ${expandedFaq === index ? 'rotate-180' : ''}`}>
+                    {expandedFaq === index ? (
+                      <div className="bg-black text-white p-1 rounded-full"><ChevronUp className="w-6 h-6" /></div>
+                    ) : (
+                      <div className="bg-white border-2 border-black text-black p-1 rounded-full"><ChevronDown className="w-6 h-6" /></div>
+                    )}
+                  </div>
                 </button>
                 
                 {expandedFaq === index && (
-                  <div className="px-6 sm:px-8 pb-6 sm:pb-8">
-                    <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
+                  <div className="px-6 pb-6 border-t-2 border-dashed border-gray-300 pt-4">
+                    <p className="text-base text-gray-800 font-medium leading-relaxed">
                       {faq.answer}
                     </p>
                   </div>
@@ -1271,53 +1200,49 @@ const Freelance = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section ref={ctaRef} className="bg-[#007BFF] py-12 sm:py-16 lg:py-20 relative overflow-hidden">
+      {/* CTA Section - Neo-Brutalist Redesign */}
+      <section ref={ctaRef} className="bg-[#007BFF] py-24 relative overflow-hidden">
         {/* Simple Decorative Elements */}
-        <div className="absolute top-0 left-0 w-full h-full opacity-20">
-          <div className="absolute top-10 right-10 w-16 h-16 border border-white rounded-lg rotate-45"></div>
-          <div className="absolute bottom-10 left-10 w-12 h-12 border border-white rounded-full"></div>
-        </div>
-
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 xl:px-[301px] relative z-10">
+        <div className="absolute top-10 right-10 w-32 h-32 bg-white rounded-full opacity-10 animate-pulse"></div>
+        <div className="absolute bottom-10 left-10 w-24 h-24 bg-[#FFDE59] rounded-full opacity-20 hidden lg:block"></div>
+        
+        <div className="container mx-auto px-4 sm:px-6 lg:px-12 max-w-[1600px] relative z-10">
           <div className={`text-center transition-all duration-1000 ${
             isVisible.cta ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-[39px] font-medium text-white mb-4 sm:mb-6">
-              Ready to Start Your Dream Project?
+            <h2 className="text-4xl sm:text-6xl md:text-8xl font-black text-white mb-8 border-b-4 sm:border-b-8 border-white inline-block pb-4">
+              LET'S TALK
             </h2>
             
-            <p className="text-sm sm:text-[16px] leading-[22px] sm:leading-[26px] lg:leading-[30px] tracking-[1.23px] text-white/90 mb-8 sm:mb-12 max-w-2xl mx-auto">
-              Let's bring your vision to life with professional design that drives results.
+            <p className="text-lg sm:text-2xl font-bold text-white mb-12 max-w-2xl mx-auto">
+              Ready to create something annoying for your competitors?
             </p>
             
             {/* Availability Note */}
-            <div className="bg-white/15 border border-white/30 rounded-[15px] p-4 mb-8 max-w-md mx-auto">
-              <div className="flex items-center justify-center gap-2">
-                <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                <p className="text-white text-sm sm:text-[16px] font-medium tracking-[1.23px]">
-                  Available Now • Booking for <strong>October 2025</strong>
+            <div className="inline-flex items-center gap-3 bg-black/20 border-2 border-white/40 px-6 py-3 rounded-full mb-12 backdrop-blur-sm">
+                <div className="w-3 h-3 bg-[#00FF00] rounded-full animate-ping"></div>
+                <p className="text-white font-bold tracking-widest text-sm">
+                  OPEN FOR NEW PROJECTS
                 </p>
-              </div>
             </div>
             
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-lg mx-auto">
+            <div className="flex flex-col sm:flex-row gap-6 justify-center max-w-lg mx-auto w-full">
               <Link
                 to="/contact"
-                className="bg-white hover:bg-gray-50 text-[#007BFF] border-2 border-white rounded-[15px] shadow-[4px_4px_0_0_rgba(255,255,255,0.3)] hover:shadow-[6px_6px_0_0_rgba(255,255,255,0.4)] hover:-translate-x-1 hover:-translate-y-1 px-6 sm:px-8 py-3 sm:py-4 font-medium text-sm sm:text-[16px] tracking-[1.23px] transition-all duration-300 flex items-center justify-center gap-2"
+                className="bg-white text-black border-4 border-black px-6 sm:px-8 py-4 sm:py-5 font-black text-base sm:text-lg shadow-[8px_8px_0_0_rgba(0,0,0,1)] hover:shadow-[12px_12px_0_0_rgba(0,0,0,1)] hover:-translate-y-2 transition-all flex items-center justify-center gap-3 transform rotate-1 hover:rotate-0 w-full sm:w-auto"
               >
-                Start Your Project 
-                <ArrowRight className="w-4 h-4" />
+                START A PROJECT 
+                <ArrowRight className="w-5 sm:w-6 h-5 sm:h-6" />
               </Link>
               <a
-                href="https://wa.me/94758883751?text=Hi%20Prabhath!%20I'm%20interested%20in%20your%20UI/UX%20design%20services.%20Can%20we%20discuss%20my%20project?"
+                href="https://wa.me/94758883751?text=Hi%20Prabhath!%20I'm%20interested%20in%20your%20UI/UX%20design%20services."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-transparent hover:bg-white/10 text-white border-2 border-white rounded-[15px] shadow-[4px_4px_0_0_rgba(255,255,255,0.3)] hover:shadow-[6px_6px_0_0_rgba(255,255,255,0.4)] hover:-translate-x-1 hover:-translate-y-1 px-6 sm:px-8 py-3 sm:py-4 font-medium text-sm sm:text-[16px] tracking-[1.23px] transition-all duration-300 flex items-center justify-center gap-2"
+                className="bg-[#25D366] text-black border-4 border-black px-6 sm:px-8 py-4 sm:py-5 font-black text-base sm:text-lg shadow-[8px_8px_0_0_rgba(0,0,0,1)] hover:shadow-[12px_12px_0_0_rgba(0,0,0,1)] hover:-translate-y-2 transition-all flex items-center justify-center gap-3 transform -rotate-1 hover:rotate-0 w-full sm:w-auto"
               >
-                Quick Chat 
-                <MessageCircle className="w-4 h-4" />
+                WHATSAPP ME 
+                <MessageCircle className="w-5 sm:w-6 h-5 sm:h-6" />
               </a>
             </div>
           </div>
@@ -1325,57 +1250,7 @@ const Freelance = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-white border-t border-black relative z-10">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-[43px]">
-          <div className="flex flex-col lg:flex-row justify-between items-center gap-6">
-            {/* Social Links */}
-            <div className="flex items-center gap-3">
-              <a
-                href="https://linkedin.com/in/prabhath-subhashana-6b694a20a"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 sm:w-12 sm:h-12 border border-black rounded-full flex items-center justify-center hover:bg-black hover:text-white transition-colors"
-                title="LinkedIn Profile"
-              >
-                <Linkedin className="w-5 h-5 sm:w-6 sm:h-6" />
-              </a>
-              <a
-                href="https://behance.net/prabathsubasha"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 sm:w-12 sm:h-12 border border-black rounded-full flex items-center justify-center hover:bg-black hover:text-white transition-colors"
-                title="Behance Portfolio"
-              >
-                <BehanceIcon className="w-5 h-5 sm:w-6 sm:h-6" />
-              </a>
-              <a
-                href="https://github.com/subhashana00"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 sm:w-12 sm:h-12 border border-black rounded-full flex items-center justify-center hover:bg-black hover:text-white transition-colors"
-                title="GitHub Profile"
-              >
-                <Github className="w-5 h-5 sm:w-6 sm:h-6" />
-              </a>
-              <a
-                href="mailto:prabathsubashana18@gmail.com"
-                className="w-10 h-10 sm:w-12 sm:h-12 border border-black rounded-full flex items-center justify-center hover:bg-black hover:text-white transition-colors"
-                title="Email"
-              >
-                <Mail className="w-5 h-5 sm:w-6 sm:h-6" />
-              </a>
-            </div>
-
-            {/* Copyright */}
-            <div className="text-center">
-              <p className="text-[14px] sm:text-[15px] leading-[24px] sm:leading-[27px] tracking-[1.23px] text-black">
-                Created by Prabhath Subhashana
-              </p>
-            </div>
-          </div>
-        </div>
-      </footer>
-
+      <Footer />
       {/* WhatsApp Floating Button */}
       <WhatsAppFloat 
         phoneNumber="+94716903566"

@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 import { useToast } from "@/hooks/use-toast";
 import { getAssetPath } from "@/lib/utils";
+import { Footer, BehanceIcon } from "@/components/Footer";
 
 export default function About() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -83,7 +84,7 @@ export default function About() {
 
   // CV Download Function - Reliable Anchor Tag Method
   const downloadCV = () => {
-    const cvUrl = 'https://drive.google.com/uc?export=download&id=1dvw2UKuxrCdCgMlxvCDWy4s1KdkNXpA3';
+    const cvUrl = 'https://drive.google.com/file/d/1Qq3OMqzYpnMPj28L0cUf9joixUFPEfmg/view?usp=drive_link';
     
     try {
       // Show downloading toast with custom styling
@@ -147,17 +148,7 @@ export default function About() {
     }
   };
 
-  // Custom Behance Icon Component
-  const BehanceIcon = ({ className }: { className?: string }) => (
-    <svg
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      className={className}
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path d="M6.938 4.503c.702 0 1.34.06 1.92.188.577.13 1.07.33 1.485.61.41.28.733.65.96 1.12.225.47.34 1.05.34 1.73 0 .74-.17 1.36-.507 1.86-.338.5-.837.9-1.497 1.19.9.26 1.54.65 1.93 1.17.39.52.585 1.17.585 1.95 0 .75-.14 1.4-.425 1.96-.285.56-.68 1.03-1.188 1.41-.508.38-1.108.67-1.8.87-.69.2-1.44.3-2.25.3H0V4.51h6.938v-.007zM3.495 8.847h2.862c.577 0 1.03-.133 1.36-.4.33-.267.495-.7.495-1.3 0-.622-.165-1.055-.495-1.3-.33-.245-.783-.367-1.36-.367H3.495v3.367zm0 4.833h3.362c.693 0 1.215-.167 1.567-.5.35-.33.527-.853.527-1.567 0-.67-.177-1.18-.53-1.53-.353-.35-.874-.527-1.564-.527H3.495v4.124zM21.439 6.064c.966 0 1.844.155 2.635.465.79.31 1.463.744 2.017 1.304.554.56.98 1.24 1.286 2.04.305.8.458 1.697.458 2.693v.515H17.93c.058 1.177.29 1.988.696 2.434.407.446.856.67 1.348.67.653 0 1.151-.24 1.495-.72.344-.48.517-.98.517-1.503h3.62c-.02.972-.234 1.87-.641 2.697-.407.826-.955 1.508-1.644 2.048-.69.54-1.504.948-2.442 1.224-.938.276-1.938.414-3 .414-1.072 0-2.05-.153-2.933-.458-.884-.305-1.644-.738-2.284-1.297-.64-.56-1.136-1.247-1.488-2.056-.352-.81-.528-1.734-.528-2.772 0-1.106.193-2.084.579-2.934.386-.85.919-1.563 1.599-2.139.68-.576 1.486-1.01 2.418-1.302.932-.292 1.943-.438 3.033-.438zm-3.971 5.939h6.659c-.038-.67-.322-1.222-.853-1.657-.531-.435-1.146-.653-1.846-.653-.729 0-1.38.218-1.955.653-.575.435-.934.987-1.005 1.657zM17.367 1.661c.191 0 .363.028.516.085.153.057.284.143.393.26.109.116.194.26.255.43.061.17.092.37.092.6 0 .23-.031.43-.092.6-.061.17-.146.314-.255.43-.109.117-.24.203-.393.26-.153.057-.325.085-.516.085-.191 0-.363-.028-.516-.085-.153-.057-.284-.143-.393-.26-.109-.116-.194-.26-.255-.43-.061-.17-.092-.37-.092-.6 0-.23.031-.43.092-.6.061-.17.146-.314.255-.43.109-.117.24-.203.393-.26.153-.057.325-.085.516-.085z" />
-    </svg>
-  );
+
 
   return (
     <div className="min-h-screen bg-white">
@@ -213,8 +204,8 @@ export default function About() {
       </div>
       
       {/* Header */}
-      <header className={`bg-[#FCF9F8] px-4 sm:px-6 lg:px-[154px] py-4 sm:py-6 lg:py-[31px] transition-all duration-500 ease-in-out z-50 ${
-        // Sticky on mobile, conditional visibility on desktop
+      <header className={`bg-[#FCF9F8] px-4 sm:px-6 lg:px-12 py-4 sm:py-6 relative z-50 max-w-[1600px] mx-auto w-full transition-all duration-500 ease-in-out ${
+        /* Sticky on mobile, conditional visibility on desktop */
         isMobile 
           ? 'sticky top-0' 
           : `relative ${showVerticalNav ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-auto'}`
@@ -253,7 +244,7 @@ export default function About() {
           <Link to="/contact">
             <Button
               variant="outline"
-              className="hidden md:flex border-black bg-[#FCF9F8] hover:bg-[#007BFF] hover:text-white shadow-[2px_2px_0_0_#000] text-[14px] lg:text-[16px] font-medium px-[30px] lg:px-[50px] py-[15px] lg:py-[20px] rounded-none"
+              className="hidden md:flex text-white font-bold text-[14px] lg:text-[16px] tracking-[1.23px] px-[30px] lg:px-[50px] py-[15px] lg:py-[25px] rounded-none border-3 border-black bg-black shadow-[4px_4px_0_0_rgba(0,0,0,0.2)] hover:shadow-[2px_2px_0_0_rgba(0,0,0,0.2)] hover:translate-x-[2px] hover:translate-y-[2px] hover:bg-[#FFDE59] hover:text-black transition-all duration-200"
             >
               Contact Me
             </Button>
@@ -300,7 +291,7 @@ export default function About() {
               <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>
                 <Button
                   variant="outline"
-                  className="border-black bg-[#FCF9F8] hover:bg-[#007BFF] hover:text-white shadow-[2px_2px_0_0_#000] text-[16px] font-medium px-[30px] py-[15px] rounded-none w-full justify-center mt-2"
+                  className="text-white font-bold text-[16px] tracking-[1.23px] px-[30px] py-[15px] rounded-none w-full justify-center mt-2 border-3 border-black bg-black shadow-[4px_4px_0_0_rgba(0,0,0,0.2)] hover:shadow-[2px_2px_0_0_rgba(0,0,0,0.2)] hover:translate-x-[2px] hover:translate-y-[2px] hover:bg-[#FFDE59] hover:text-black transition-all duration-200"
                 >
                   Contact Me
                 </Button>
@@ -358,59 +349,78 @@ export default function About() {
 
       {/* Hero Section */}
       <section ref={heroRef} className="bg-[#FCF9F8] py-12 sm:py-16 lg:py-20">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-12">
           <div className="max-w-7xl mx-auto">
             
-            {/* Main About Card */}
-            <div className="bg-white border-2 border-black rounded-[20px] shadow-[8px_8px_0_0_#000] overflow-hidden mb-8 lg:mb-12">
-              <div className="grid lg:grid-cols-2 gap-0">
+            {/* Main About Card - Art Board Style */}
+            <div className="relative bg-white border-4 border-black rounded-[30px] shadow-[10px_10px_0_0_#000] overflow-hidden mb-8 lg:mb-12">
+              {/* Board Header / Window Controls */}
+              <div className="absolute top-0 left-0 w-full h-12 border-b-4 border-black bg-gray-100 flex items-center px-4 gap-2 z-20">
+                <div className="w-3 h-3 rounded-full bg-red-400 border border-black hover:bg-red-500 transition-colors"></div>
+                <div className="w-3 h-3 rounded-full bg-yellow-400 border border-black hover:bg-yellow-500 transition-colors"></div>
+                <div className="w-3 h-3 rounded-full bg-green-400 border border-black hover:bg-green-500 transition-colors"></div>
+                <div className="ml-4 text-xs font-bold font-sans text-gray-500 uppercase tracking-widest hidden sm:block">ABOUT_ME.ME</div>
+                <div className="ml-auto flex gap-2">
+                   <div className="w-4 h-4 border-2 border-gray-400 rounded-sm"></div>
+                   <div className="w-4 h-4 border-2 border-gray-400 rounded-sm"></div>
+                </div>
+              </div>
+
+               {/* Grid Background */}
+              <div className="absolute inset-0 top-12 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none z-0"></div>
+
+              <div className="grid lg:grid-cols-2 gap-0 pt-12 relative z-10">
                 
                 {/* Left side - Content */}
-                <div className="p-8 sm:p-12 lg:p-16 flex flex-col justify-center">
+                <div className="p-6 md:p-10 lg:p-16 flex flex-col justify-center">
                   <div className="space-y-6">
                     <div>
-                      <div className="inline-flex items-center gap-2 bg-[#007BFF] text-white px-4 py-2 rounded-full text-sm font-medium mb-6">
-                        <GraduationCap className="w-4 h-4" />
-                        Software Engineering Student
+                      <div className="inline-flex items-center gap-2 bg-black text-white px-4 py-2 rounded-xl text-sm font-bold border-2 border-transparent shadow-[4px_4px_0_0_#007BFF] mb-6">
+                        <GraduationCap className="w-4 h-4 text-[#007BFF]" />
+                        SOFTWARE ENGINEERING STUDENT
                       </div>
                       
-                      <h1 className="text-3xl sm:text-4xl lg:text-[48px] font-medium leading-tight text-black mb-6">
-                        About <span className="relative">Me<span className="absolute bottom-0 left-0 w-full h-2 bg-[#007BFF]/20"></span></span>
+                      <h1 className="text-4xl sm:text-5xl lg:text-[64px] font-black leading-none text-black mb-6 tracking-tight">
+                        ABOUT <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#007BFF] to-blue-600">ME</span>
                       </h1>
                     </div>
 
-                    <p className="text-[16px] leading-[28px] tracking-[1.23px] text-gray-700 max-w-lg">
+                    <p className="text-[16px] leading-[28px] text-gray-700 max-w-lg font-medium">
                       I'm Prabhath Subhashana, a BSc Software Engineering undergraduate and UI/UX Designer passionate about creating engaging, user-centered digital experiences. With over 2 years of hands-on experience in design and development, I specialize in transforming complex problems into intuitive, beautiful solutions that bridge the gap between aesthetics and functionality.
                     </p>
 
-                    <div className="space-y-4">
+                    <div className="space-y-4 font-medium">
                       <div className="flex items-center gap-3">
-                        <MapPin className="w-5 h-5 text-[#007BFF]" />
-                        <span className="text-[14px] tracking-[1.23px] text-gray-600">Gampaha, Western Province, Sri Lanka</span>
+                        <div className="w-8 h-8 rounded-lg bg-[#007BFF]/10 flex items-center justify-center border border-[#007BFF]">
+                           <MapPin className="w-4 h-4 text-[#007BFF]" />
+                        </div>
+                        <span className="text-[14px] text-black">Gampaha, Western Province, Sri Lanka</span>
                       </div>
                       <div className="flex items-center gap-3">
-                        <Calendar className="w-5 h-5 text-[#007BFF]" />
-                        <span className="text-[14px] tracking-[1.23px] text-gray-600">Expected graduation: August 2027</span>
+                        <div className="w-8 h-8 rounded-lg bg-[#007BFF]/10 flex items-center justify-center border border-[#007BFF]">
+                           <Calendar className="w-4 h-4 text-[#007BFF]" />
+                        </div>
+                        <span className="text-[14px] text-black">Expected graduation: August 2027</span>
                       </div>
                       <div className="flex items-center gap-3">
-                        <Building className="w-5 h-5 text-[#007BFF]" />
-                        <span className="text-[14px] tracking-[1.23px] text-gray-600">ICBT Campus (Cardiff Metropolitan University)</span>
+                         <div className="w-8 h-8 rounded-lg bg-[#007BFF]/10 flex items-center justify-center border border-[#007BFF]">
+                           <Building className="w-4 h-4 text-[#007BFF]" />
+                        </div>
+                        <span className="text-[14px] text-black">ICBT Campus (Cardiff Metropolitan University)</span>
                       </div>
                     </div>
 
-                    <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                    <div className="flex flex-col sm:flex-row gap-4 pt-6">
                       <Button
                         onClick={downloadCV}
-                        variant="outline"
-                        className="border-black bg-white hover:bg-black hover:text-white shadow-[4px_4px_0_0_#000] text-[16px] font-medium px-[40px] py-[24px] rounded-lg transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_#007BFF]"
+                        className="border-2 border-black bg-white text-black hover:bg-black hover:text-white shadow-[4px_4px_0_0_#000] text-[16px] font-bold px-[32px] py-[24px] rounded-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-[6px_6px_0_0_#007BFF] w-full sm:w-auto"
                       >
                         <Download className="w-5 h-5 mr-2" />
                         Download CV
                       </Button>
                       <Link to="/contact">
                         <Button
-                          variant="outline"
-                          className="border-[#007BFF] bg-[#007BFF] text-white hover:bg-white hover:text-[#007BFF] shadow-[4px_4px_0_0_#000000] text-[16px] font-medium px-[40px] py-[24px] rounded-lg transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_#007BFF]"
+                          className="border-2 border-black bg-[#007BFF] text-white hover:bg-white hover:text-[#007BFF] shadow-[4px_4px_0_0_#000] text-[16px] font-bold px-[32px] py-[24px] rounded-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-[6px_6px_0_0_#000000] w-full sm:w-auto"
                         >
                           <Mail className="w-5 h-5 mr-2" />
                           Let's Connect
@@ -421,33 +431,35 @@ export default function About() {
                 </div>
 
                 {/* Right side - Profile Image & Stats */}
-                <div className="relative p-8 sm:p-12 lg:p-16 flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100">
-                  {/* Decorative elements */}
-                  <div className="absolute top-8 left-8 w-6 h-6 bg-[#007BFF] rounded-full"></div>
-                  <div className="absolute top-12 right-12 w-8 h-8 border-2 border-black transform rotate-45"></div>
-                  <div className="absolute bottom-12 left-12 w-4 h-4 bg-black"></div>
+                <div className="relative p-6 md:p-10 lg:p-16 flex items-center justify-center bg-gray-50 border-l-0 lg:border-l-4 border-black">
                   
-                  <div className="relative">
-                    {/* Main profile image container */}
-                    <div className="relative w-[280px] h-[280px] sm:w-[320px] sm:h-[320px] lg:w-[350px] lg:h-[350px] mx-auto">
-                      <div className="w-full h-full border-4 border-black rounded-[20px] overflow-hidden shadow-[6px_6px_0_0_#000] bg-white p-2">
-                        <div className="w-full h-full rounded-[12px] overflow-hidden bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center">
+                  <div className="relative w-full max-w-md">
+                    {/* Main profile image container - Window Style */}
+                    <div className="relative w-full aspect-square mx-auto mb-8">
+                       <div className="w-full h-full border-2 border-black rounded-xl overflow-hidden shadow-[8px_8px_0_0_#000] bg-white flex flex-col">
+                        {/* Window Header */}
+                        <div className="h-8 border-b-2 border-black bg-gray-100 flex items-center px-3 gap-1.5 shrink-0">
+                          <div className="w-2 h-2 rounded-full border border-black bg-white"></div>
+                          <div className="w-2 h-2 rounded-full border border-black bg-white"></div>
+                          <div className="ml-auto text-[10px] font-sans font-semibold text-gray-500">profile.png</div>
+                        </div>
+                        
+                        {/* Image Content */}
+                        <div className="relative flex-1 bg-white p-0 overflow-hidden group">
                           <img
                             src={getAssetPath("images/profile/aa.png")}
                             alt="Prabhath Subhashana"
-                            className="w-full h-full object-cover object-center scale-110 hover:scale-115 transition-transform duration-500"
+                            className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
                             onError={(e) => {
-                              // Fallback if image doesn't exist
                               const target = e.target as HTMLImageElement;
                               target.style.display = 'none';
                               target.parentElement!.innerHTML = `
-                                <div class="w-full h-full flex items-center justify-center">
+                                <div class="w-full h-full flex items-center justify-center bg-gray-50">
                                   <div class="text-center">
-                                    <div class="w-32 h-32 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                                      <span class="text-white text-4xl font-bold">PS</span>
+                                    <div class="w-20 h-20 bg-black rounded-full flex items-center justify-center mx-auto mb-4">
+                                      <span class="text-white text-2xl font-bold">PS</span>
                                     </div>
-                                    <h3 class="text-xl font-semibold text-gray-800">Prabhath Subhashana</h3>
-                                    <p class="text-gray-600">UI/UX Designer</p>
+                                    <h3 class="text-lg font-bold text-black">Image N/A</h3>
                                   </div>
                                 </div>
                               `;
@@ -458,18 +470,18 @@ export default function About() {
                     </div>
 
                     {/* Stats cards below profile image */}
-                    <div className="flex justify-center gap-6 mt-8">
-                      <div className="bg-white border-2 border-black rounded-lg shadow-[4px_4px_0_0_#000] p-4 transform -rotate-3 hover:rotate-0 transition-transform duration-300">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="bg-white border-2 border-black rounded-xl shadow-[4px_4px_0_0_#000] p-4 group hover:-translate-y-1 transition-transform duration-300">
                         <div className="text-center">
-                          <span className="text-2xl font-bold text-[#007BFF] block">2+</span>
-                          <p className="text-sm font-medium text-black mt-1">Years Experience</p>
+                          <div className="w-10 h-10 bg-[#007BFF] rounded-lg border-2 border-black flex items-center justify-center mx-auto mb-2 text-white font-bold group-hover:bg-black transition-colors">2+</div>
+                          <p className="text-xs font-bold text-black uppercase tracking-wide">Years Exp.</p>
                         </div>
                       </div>
                       
-                      <div className="bg-white border-2 border-black rounded-lg shadow-[4px_4px_0_0_#000] p-4 transform rotate-3 hover:rotate-0 transition-transform duration-300">
+                      <div className="bg-white border-2 border-black rounded-xl shadow-[4px_4px_0_0_#000] p-4 group hover:-translate-y-1 transition-transform duration-300">
                         <div className="text-center">
-                          <span className="text-2xl font-bold text-[#007BFF] block">10+</span>
-                          <p className="text-sm font-medium text-black mt-1">Projects Completed</p>
+                           <div className="w-10 h-10 bg-[#007BFF] rounded-lg border-2 border-black flex items-center justify-center mx-auto mb-2 text-white font-bold group-hover:bg-black transition-colors">10+</div>
+                          <p className="text-xs font-bold text-black uppercase tracking-wide">Projects</p>
                         </div>
                       </div>
                     </div>
@@ -523,49 +535,61 @@ export default function About() {
       </section>
 
       {/* Experience & Education Section */}
-      <section className="bg-white py-12 sm:py-16 lg:py-20">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <section ref={experienceRef} className="bg-white py-12 sm:py-16 lg:py-20 relative">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none"></div>
+        <div className="container max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
           <div className="max-w-6xl mx-auto">
             
             {/* Section Header */}
             <div className="text-center mb-12 lg:mb-16">
-              <h2 className="text-2xl sm:text-3xl lg:text-[39px] font-medium leading-tight text-black mb-6">
-                Journey & Experience
+              <h2 className="text-3xl sm:text-4xl lg:text-[52px] font-black leading-none text-black mb-4 uppercase tracking-tight">
+                Journey & <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#007BFF] to-blue-600">Experience</span>
               </h2>
-              <p className="text-[14px] sm:text-[16px] leading-[26px] sm:leading-[30px] tracking-[1.23px] text-black max-w-2xl mx-auto">
-                My educational background and professional experience
-              </p>
+              <div className="inline-block bg-black text-white px-4 py-1 rounded-full text-xs font-bold tracking-widest">CAREER_PATH.LOG</div>
             </div>
 
             {/* Main Experience Cards */}
             <div className="space-y-8 mb-12">
               
-              {/* Current Education - Featured */}
-              <div className="bg-[#FCF9F8] border-2 border-black rounded-[20px] shadow-[6px_6px_0_0_#000] p-8 lg:p-10 hover:shadow-[8px_8px_0_0_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-300">
-                <div className="flex flex-col lg:flex-row items-start gap-6 lg:gap-8">
-                  <div className="w-16 h-16 bg-[#007BFF] border-2 border-black rounded-full flex items-center justify-center shadow-[3px_3px_0_0_rgba(0,0,0,0.3)]">
-                    <GraduationCap className="w-8 h-8 text-white" />
+              {/* Current Education - Featured Window */}
+              <div className="bg-[#FCF9F8] border-2 border-black rounded-xl shadow-[6px_6px_0_0_#000] overflow-hidden group hover:shadow-[8px_8px_0_0_#000] hover:-translate-y-1 transition-all duration-300">
+                {/* Window Header */}
+                <div className="h-10 border-b-2 border-black bg-gray-100 flex items-center px-4 gap-2">
+                    <div className="w-3 h-3 rounded-full bg-red-400 border border-black"></div>
+                    <div className="w-3 h-3 rounded-full bg-yellow-400 border border-black"></div>
+                    <div className="w-3 h-3 rounded-full bg-green-400 border border-black"></div>
+                    <div className="ml-auto text-xs font-mono font-bold text-gray-500">EDUCATION.CERT</div>
+                </div>
+
+                <div className="p-6 md:p-8 lg:p-10 flex flex-col lg:flex-row items-start gap-6 lg:gap-8">
+                  <div className="w-20 h-20 bg-[#007BFF] border-2 border-black rounded-xl flex items-center justify-center shadow-[4px_4px_0_0_#000]">
+                    <GraduationCap className="w-10 h-10 text-white" />
                   </div>
-                  <div className="flex-1">
+                  <div className="flex-1 w-full">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4">
                       <div>
-                        <h3 className="text-xl lg:text-2xl font-medium text-black mb-2">BSc (Hons) Software Engineering</h3>
-                        <p className="text-[14px] tracking-[1.23px] text-gray-700">ICBT Campus (Cardiff Metropolitan University)</p>
+                        <h3 className="text-2xl lg:text-3xl font-black text-black mb-1 uppercase">BSc (Hons) Software Engineering</h3>
+                        <p className="text-base font-medium text-gray-700">ICBT Campus (Cardiff Metropolitan University)</p>
                       </div>
                       <div className="flex items-center gap-3 mt-3 sm:mt-0">
-                        <span className="text-sm font-medium text-[#007BFF] tracking-[1.23px]">IN PROGRESS</span>
-                        <span className="text-sm text-gray-600 tracking-[1.23px]">2024 - 2027</span>
+                        <span className="bg-black text-white text-xs font-bold px-3 py-1 rounded-full">IN PROGRESS</span>
+                        <span className="text-sm font-bold text-gray-600">2024 - 2027</span>
                       </div>
                     </div>
-                    <div className="flex items-center gap-4 mb-4">
-                      <div className="flex-1">
-                        <div className="w-full bg-gray-200 border border-black rounded-full h-3">
-                          <div className="bg-[#007BFF] h-full rounded-full transition-all duration-1000" style={{ width: '75%' }}></div>
-                        </div>
-                      </div>
-                      <span className="text-sm font-medium text-[#007BFF]">75% Complete</span>
+                    
+                    {/* Retro Progress Bar */}
+                    <div className="space-y-2 mb-4">
+                       <div className="flex justify-between text-xs font-bold uppercase tracking-wide">
+                          <span>Completion Status</span>
+                          <span className="text-[#007BFF]">75%</span>
+                       </div>
+                       <div className="w-full h-6 border-2 border-black rounded-full p-1 bg-white">
+                          <div className="h-full bg-[#007BFF] rounded-full border border-black w-3/4 relative overflow-hidden">
+                             <div className="absolute inset-0 bg-[linear-gradient(45deg,rgba(255,255,255,0.2)_25%,transparent_25%,transparent_50%,rgba(255,255,255,0.2)_50%,rgba(255,255,255,0.2)_75%,transparent_75%,transparent)] bg-[size:1rem_1rem]"></div>
+                          </div>
+                       </div>
                     </div>
-                    <p className="text-[13px] tracking-[1.23px] text-gray-600">Expected graduation: August 2027</p>
+                    <p className="text-sm font-mono text-gray-500">// Expected graduation: August 2027</p>
                   </div>
                 </div>
               </div>
@@ -573,78 +597,102 @@ export default function About() {
               {/* Work Experience */}
               <div className="grid lg:grid-cols-2 gap-6">
                 
-                {/* Recent Work */}
-                <div className="bg-[#FCF9F8] border-2 border-black rounded-[20px] shadow-[6px_6px_0_0_#000] p-8 hover:shadow-[8px_8px_0_0_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-300">
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="w-14 h-14 bg-purple-500 border-2 border-black rounded-full flex items-center justify-center shadow-[3px_3px_0_0_rgba(0,0,0,0.3)]">
-                      <Code className="w-7 h-7 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-medium text-black">UI/UX Designer (Intern)</h3>
-                      <p className="text-sm text-purple-600 font-medium tracking-[1.23px]">May 2025 - Aug 2025</p>
-                    </div>
+                {/* Recent Work - Job File */}
+                <div className="bg-white border-2 border-black rounded-xl shadow-[6px_6px_0_0_#000] overflow-hidden group hover:shadow-[8px_8px_0_0_#000] hover:-translate-y-1 transition-all duration-300">
+                  <div className="h-8 border-b-2 border-black bg-purple-50 flex items-center px-3 justify-between">
+                     <div className="text-[10px] font-bold font-mono">WORK_LOG_01.TXT</div>
+                     <div className="flex gap-1">
+                        <div className="w-2 h-2 border border-black bg-white"></div>
+                        <div className="w-2 h-2 border border-black bg-white"></div>
+                     </div>
                   </div>
-                  <div className="mb-4">
-                    <p className="text-[14px] tracking-[1.23px] text-gray-700 font-medium mb-3">Uvexzon – Remote</p>
-                    <ul className="space-y-2">
-                      <li className="flex items-start gap-2 text-[13px] tracking-[1.23px] text-gray-700">
-                        <span className="text-purple-500 font-bold mt-1">•</span>
-                        <span>Designed Swish Strokes mobile app & landing page</span>
-                      </li>
-                      <li className="flex items-start gap-2 text-[13px] tracking-[1.23px] text-gray-700">
-                        <span className="text-purple-500 font-bold mt-1">•</span>
-                        <span>Created CulturaJoin event management platform</span>
-                      </li>
-                      <li className="flex items-start gap-2 text-[13px] tracking-[1.23px] text-gray-700">
-                        <span className="text-purple-500 font-bold mt-1">•</span>
-                        <span>Led complete Uvexzon website redesign</span>
-                      </li>
-                    </ul>
+                  <div className="p-6 md:p-8">
+                    <div className="flex items-center gap-4 mb-6">
+                      <div className="w-14 h-14 bg-purple-500 border-2 border-black rounded-xl flex items-center justify-center shadow-[3px_3px_0_0_#000]">
+                        <Code className="w-7 h-7 text-white" />
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-black text-black uppercase">UI/UX Designer (Intern)</h3>
+                        <p className="text-sm text-purple-600 font-bold bg-purple-100 px-2 py-0.5 rounded border border-purple-200 inline-block mt-1">May 2025 - Aug 2025</p>
+                      </div>
+                    </div>
+                    <div className="mb-4">
+                      <p className="font-bold text-black border-b-2 border-gray-100 pb-2 mb-3">Uvexzon – Remote</p>
+                      <ul className="space-y-3">
+                        <li className="flex items-start gap-3 text-sm font-medium text-gray-700">
+                          <span className="text-purple-500 font-black mt-0.5">{`>`}</span>
+                          <span>Designed Swish Strokes mobile app & landing page</span>
+                        </li>
+                        <li className="flex items-start gap-3 text-sm font-medium text-gray-700">
+                          <span className="text-purple-500 font-black mt-0.5">{`>`}</span>
+                          <span>Created CulturaJoin event management platform</span>
+                        </li>
+                        <li className="flex items-start gap-3 text-sm font-medium text-gray-700">
+                          <span className="text-purple-500 font-black mt-0.5">{`>`}</span>
+                          <span>Led complete Uvexzon website redesign</span>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
 
-                {/* Previous Work */}
-                <div className="bg-[#FCF9F8] border-2 border-black rounded-[20px] shadow-[6px_6px_0_0_#000] p-8 hover:shadow-[8px_8px_0_0_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-300">
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="w-14 h-14 bg-orange-500 border-2 border-black rounded-full flex items-center justify-center shadow-[3px_3px_0_0_rgba(0,0,0,0.3)]">
-                      <Building className="w-7 h-7 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-medium text-black">Pharmacy Regulatory & IT Assistant</h3>
-                      <p className="text-sm text-orange-600 font-medium tracking-[1.23px]">Aug 2022 - Dec 2024</p>
-                    </div>
+                {/* Previous Work - Job File */}
+                <div className="bg-white border-2 border-black rounded-xl shadow-[6px_6px_0_0_#000] overflow-hidden group hover:shadow-[8px_8px_0_0_#000] hover:-translate-y-1 transition-all duration-300">
+                  <div className="h-8 border-b-2 border-black bg-orange-50 flex items-center px-3 justify-between">
+                     <div className="text-[10px] font-bold font-mono">WORK_LOG_02.TXT</div>
+                     <div className="flex gap-1">
+                        <div className="w-2 h-2 border border-black bg-white"></div>
+                        <div className="w-2 h-2 border border-black bg-white"></div>
+                     </div>
                   </div>
-                  <div className="mb-4">
-                    <p className="text-[14px] tracking-[1.23px] text-gray-700 font-medium mb-3">Pharma Associates – Colombo-14</p>
-                    <ul className="space-y-2">
-                      <li className="flex items-start gap-2 text-[13px] tracking-[1.23px] text-gray-700">
-                        <span className="text-orange-500 font-bold mt-1">•</span>
-                        <span>Assisted NMRA with drug licensing & approval processes</span>
-                      </li>
-                      <li className="flex items-start gap-2 text-[13px] tracking-[1.23px] text-gray-700">
-                        <span className="text-orange-500 font-bold mt-1">•</span>
-                        <span>Streamlined workflows through IT solutions</span>
-                      </li>
-                    </ul>
+                  <div className="p-6 md:p-8">
+                    <div className="flex items-center gap-4 mb-6">
+                      <div className="w-14 h-14 bg-orange-500 border-2 border-black rounded-xl flex items-center justify-center shadow-[3px_3px_0_0_#000]">
+                        <Building className="w-7 h-7 text-white" />
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-black text-black uppercase leading-tight">Pharmacy Regulatory & IT Assistant</h3>
+                        <p className="text-sm text-orange-600 font-bold bg-orange-100 px-2 py-0.5 rounded border border-orange-200 inline-block mt-1">Aug 2022 - Dec 2024</p>
+                      </div>
+                    </div>
+                    <div className="mb-4">
+                      <p className="font-bold text-black border-b-2 border-gray-100 pb-2 mb-3">Pharma Associates – Colombo-14</p>
+                      <ul className="space-y-3">
+                        <li className="flex items-start gap-3 text-sm font-medium text-gray-700">
+                          <span className="text-orange-500 font-black mt-0.5">{`>`}</span>
+                          <span>Assisted NMRA with drug licensing & approval processes</span>
+                        </li>
+                        <li className="flex items-start gap-3 text-sm font-medium text-gray-700">
+                          <span className="text-orange-500 font-black mt-0.5">{`>`}</span>
+                          <span>Streamlined workflows through IT solutions</span>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              {/* Education Foundation */}
-              <div className="bg-[#FCF9F8] border-2 border-black rounded-[20px] shadow-[6px_6px_0_0_#000] p-8 hover:shadow-[8px_8px_0_0_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-300">
-                <div className="flex items-center gap-6">
-                  <div className="w-14 h-14 bg-green-500 border-2 border-black rounded-full flex items-center justify-center shadow-[3px_3px_0_0_rgba(0,0,0,0.3)]">
+              {/* Education Foundation - History File */}
+              <div className="bg-white border-2 border-black rounded-xl shadow-[6px_6px_0_0_#000] overflow-hidden group hover:shadow-[8px_8px_0_0_#000] hover:-translate-y-1 transition-all duration-300">
+                 <div className="h-8 border-b-2 border-black bg-green-50 flex items-center px-3 justify-between">
+                     <div className="text-[10px] font-bold font-mono">HISTORY.ARC</div>
+                     <div className="flex gap-1">
+                        <div className="w-2 h-2 border border-black bg-white"></div>
+                     </div>
+                  </div>
+                <div className="p-6 md:p-8 flex items-center gap-6">
+                  <div className="w-14 h-14 bg-green-500 border-2 border-black rounded-xl flex items-center justify-center shadow-[3px_3px_0_0_#000]">
                     <Award className="w-7 h-7 text-white" />
                   </div>
                   <div className="flex-1">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between">
                       <div>
-                        <h3 className="text-lg font-medium text-black mb-1">St. Peter's College, Colombo – 4</h3>
-                        <p className="text-[14px] tracking-[1.23px] text-gray-700">Secondary Education</p>
+                        <h3 className="text-lg font-black text-black mb-1 uppercase">St. Peter's College, Colombo – 4</h3>
+                        <p className="text-sm font-medium text-gray-700">Secondary Education</p>
                       </div>
                       <div className="flex items-center gap-3 mt-2 sm:mt-0">
-                        <span className="text-sm font-medium text-green-600 tracking-[1.23px]">COMPLETED</span>
-                        <span className="text-sm text-gray-600 tracking-[1.23px]">2014 - 2019</span>
+                        <span className="bg-green-100 text-green-700 border border-green-200 text-xs font-bold px-2 py-1 rounded">COMPLETED</span>
+                        <span className="text-sm font-bold text-gray-500">2014 - 2019</span>
                       </div>
                     </div>
                   </div>
@@ -652,23 +700,23 @@ export default function About() {
               </div>
             </div>
 
-            {/* Summary Stats */}
+            {/* Summary Stats - Widgets */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
-              <div className="text-center bg-[#FCF9F8] border-2 border-black rounded-[15px] shadow-[4px_4px_0_0_#000] p-6 hover:shadow-[6px_6px_0_0_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-300">
-                <div className="text-2xl lg:text-3xl font-medium text-[#007BFF] mb-2">2+</div>
-                <div className="text-[12px] lg:text-[13px] font-medium text-black uppercase tracking-[1.23px]">Years Experience</div>
+              <div className="text-center bg-white border-2 border-black rounded-xl shadow-[4px_4px_0_0_#000] p-6 hover:shadow-[6px_6px_0_0_#000] hover:-translate-y-1 transition-all duration-300">
+                <div className="text-3xl lg:text-4xl font-black text-[#007BFF] mb-2 leading-none">2+</div>
+                <div className="text-[11px] font-bold text-black uppercase tracking-widest bg-gray-100 inline-block px-2 py-1 rounded">Years Exp.</div>
               </div>
-              <div className="text-center bg-[#FCF9F8] border-2 border-black rounded-[15px] shadow-[4px_4px_0_0_#000] p-6 hover:shadow-[6px_6px_0_0_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-300">
-                <div className="text-2xl lg:text-3xl font-medium text-purple-500 mb-2">10+</div>
-                <div className="text-[12px] lg:text-[13px] font-medium text-black uppercase tracking-[1.23px]">Projects</div>
+              <div className="text-center bg-white border-2 border-black rounded-xl shadow-[4px_4px_0_0_#000] p-6 hover:shadow-[6px_6px_0_0_#000] hover:-translate-y-1 transition-all duration-300">
+                <div className="text-3xl lg:text-4xl font-black text-purple-500 mb-2 leading-none">10+</div>
+                <div className="text-[11px] font-bold text-black uppercase tracking-widest bg-gray-100 inline-block px-2 py-1 rounded">Projects</div>
               </div>
-              <div className="text-center bg-[#FCF9F8] border-2 border-black rounded-[15px] shadow-[4px_4px_0_0_#000] p-6 hover:shadow-[6px_6px_0_0_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-300">
-                <div className="text-2xl lg:text-3xl font-medium text-green-500 mb-2">2</div>
-                <div className="text-[12px] lg:text-[13px] font-medium text-black uppercase tracking-[1.23px]">Industries</div>
+              <div className="text-center bg-white border-2 border-black rounded-xl shadow-[4px_4px_0_0_#000] p-6 hover:shadow-[6px_6px_0_0_#000] hover:-translate-y-1 transition-all duration-300">
+                <div className="text-3xl lg:text-4xl font-black text-green-500 mb-2 leading-none">2</div>
+                <div className="text-[11px] font-bold text-black uppercase tracking-widest bg-gray-100 inline-block px-2 py-1 rounded">Industries</div>
               </div>
-              <div className="text-center bg-[#FCF9F8] border-2 border-black rounded-[15px] shadow-[4px_4px_0_0_#000] p-6 hover:shadow-[6px_6px_0_0_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-300">
-                <div className="text-2xl lg:text-3xl font-medium text-orange-500 mb-2">75%</div>
-                <div className="text-[12px] lg:text-[13px] font-medium text-black uppercase tracking-[1.23px]">Progress</div>
+              <div className="text-center bg-white border-2 border-black rounded-xl shadow-[4px_4px_0_0_#000] p-6 hover:shadow-[6px_6px_0_0_#000] hover:-translate-y-1 transition-all duration-300">
+                <div className="text-3xl lg:text-4xl font-black text-orange-500 mb-2 leading-none">75%</div>
+                <div className="text-[11px] font-bold text-black uppercase tracking-widest bg-gray-100 inline-block px-2 py-1 rounded">Progress</div>
               </div>
             </div>
 
@@ -677,81 +725,70 @@ export default function About() {
       </section>
 
       {/* Skills Section */}
-      <section className="bg-[#FCF9F8] py-12 sm:py-16 lg:py-20 relative overflow-hidden">
-        {/* Background Decorative Elements */}
-        <div className="absolute top-10 left-10 w-16 h-16 border-4 border-black rounded-full opacity-10"></div>
-        <div className="absolute top-32 right-16 w-8 h-8 bg-[#007BFF] transform rotate-45 opacity-15"></div>
-        <div className="absolute bottom-20 left-20 w-12 h-12 bg-purple-500 rounded-full opacity-15"></div>
-        <div className="absolute bottom-32 right-8 w-6 h-6 border-2 border-black opacity-10"></div>
+      <section ref={skillsRef} className="bg-[#FCF9F8] py-12 sm:py-16 lg:py-20 relative overflow-hidden">
+        {/* Background Grid */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#00000008_1px,transparent_1px),linear-gradient(to_bottom,#00000008_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none"></div>
         
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="container max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
           <div className="max-w-6xl mx-auto">
             
             {/* Section Header */}
             <div className="text-center mb-16 lg:mb-20">
-              <div className="inline-flex items-center gap-3 bg-white border-2 border-black rounded-full px-6 py-3 shadow-[4px_4px_0_0_#000] mb-8 transform hover:scale-105 transition-transform duration-300">
-                <Star className="w-5 h-5 text-[#007BFF]" />
-                <span className="text-[14px] font-medium tracking-[1.23px] text-black">MY TOOLKIT</span>
-                <Star className="w-5 h-5 text-[#007BFF]" />
+              <div className="inline-flex items-center gap-3 bg-white border-2 border-black rounded-lg px-6 py-3 shadow-[4px_4px_0_0_#000] mb-8 transform hover:scale-105 transition-transform duration-300">
+                <div className="w-2 h-2 bg-[#007BFF] rounded-full"></div>
+                <span className="text-sm font-black tracking-widest text-black uppercase">Technical Inventory</span>
+                <div className="w-2 h-2 bg-[#007BFF] rounded-full"></div>
               </div>
-              <h2 className="text-3xl sm:text-4xl lg:text-[48px] font-medium leading-tight text-black mb-6">
-                Skills & <span className="relative">Expertise<span className="absolute bottom-0 left-0 w-full h-3 bg-[#007BFF]/20"></span></span>
+              <h2 className="text-4xl sm:text-5xl lg:text-[64px] font-black leading-none text-black mb-6 uppercase">
+                Skills & <span className="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">Expertise</span>
               </h2>
-              <p className="text-[14px] sm:text-[16px] leading-[26px] sm:leading-[30px] tracking-[1.23px] text-black max-w-2xl mx-auto">
-                Technologies and tools I work with to bring ideas to life
-              </p>
             </div>
 
-            {/* Main Skills Grid - Balanced 3 Column Layout */}
+            {/* Main Skills Grid - Toolbox Style */}
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-12">
               
-              {/* Design Tools */}
-              <div className="bg-white border-2 border-black rounded-[20px] shadow-[6px_6px_0_0_#000] p-6 lg:p-8 group hover:shadow-[8px_8px_0_0_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-300 relative overflow-hidden">
-                {/* Background Pattern */}
-                <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-pink-100 to-purple-100 rounded-full transform translate-x-12 -translate-y-12 opacity-50"></div>
-                
-                <div className="relative z-10">
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="w-16 h-16 bg-gradient-to-br from-pink-400 to-purple-500 border-2 border-black rounded-[16px] flex items-center justify-center shadow-[3px_3px_0_0_#000] group-hover:scale-110 transition-transform duration-300">
-                      <Palette className="w-8 h-8 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-medium text-black mb-1">Design Tools</h3>
-                      <p className="text-[12px] tracking-[1.23px] text-gray-600 uppercase font-medium">Visual Creation</p>
-                    </div>
-                  </div>
-                  
-                  <div className="space-y-3">
-                    <div className="bg-[#FCF9F8] border border-black rounded-[8px] p-3 shadow-[2px_2px_0_0_#000] hover:shadow-[3px_3px_0_0_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-200">
-                      <div className="flex items-center gap-3">
-                        <div className="w-6 h-6 bg-pink-500 rounded-full flex items-center justify-center">
-                          <span className="text-white text-xs font-bold">F</span>
-                        </div>
-                        <div>
-                          <h4 className="text-[13px] font-medium text-black">Figma & FigJam</h4>
-                          <p className="text-[11px] text-gray-600">UI/UX Design</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="bg-[#FCF9F8] border border-black rounded-[8px] p-3 shadow-[2px_2px_0_0_#000] hover:shadow-[3px_3px_0_0_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-200">
-                      <div className="flex items-center gap-3">
-                        <div className="w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center">
-                          <span className="text-white text-xs font-bold">AI</span>
-                        </div>
-                        <div>
-                          <h4 className="text-[13px] font-medium text-black">Figma AI & Make</h4>
-                          <p className="text-[11px] text-gray-600">AI-Powered Design</p>
+              {/* Design Tools Box */}
+              <div className="bg-white border-2 border-black rounded-xl shadow-[8px_8px_0_0_#000] overflow-hidden group hover:-translate-y-1 transition-all duration-300">
+                <div className="bg-gray-50 border-b-2 border-black p-3 flex justify-between items-center">
+                   <span className="font-mono text-xs font-bold text-gray-500">TOOLBOX_01</span>
+                   <Palette className="w-4 h-4 text-gray-500" />
+                </div>
+                <div className="p-6 lg:p-8 relative">
+                   {/* Background Decor */}
+                   <div className="absolute right-[-20px] bottom-[-20px] text-gray-50 opacity-50">
+                      <Palette size={120} strokeWidth={1} />
+                   </div>
+                   
+                   <div className="relative z-10">
+                    <h3 className="text-2xl font-black text-black mb-1 uppercase">Design Tools</h3>
+                    <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-6 border-b-2 border-black pb-2 inline-block">Visual Creation</p>
+                    
+                    <div className="space-y-3">
+                      <div className="bg-white/80 backdrop-blur-sm border-2 border-black rounded-lg p-3 hover:translate-x-1 transition-transform cursor-default">
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 bg-pink-500 rounded border border-black flex items-center justify-center font-bold text-white shadow-sm">Fi</div>
+                          <div>
+                            <h4 className="text-sm font-bold text-black leading-none">Figma & FigJam</h4>
+                            <p className="text-[10px] uppercase font-bold text-gray-500 mt-1">PROTOTYPING</p>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div className="bg-[#FCF9F8] border border-black rounded-[8px] p-3 shadow-[2px_2px_0_0_#000] hover:shadow-[3px_3px_0_0_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-200">
-                      <div className="flex items-center gap-3">
-                        <div className="w-6 h-6 bg-pink-400 rounded-full flex items-center justify-center">
-                          <span className="text-white text-xs font-bold">CC</span>
+                      <div className="bg-white/80 backdrop-blur-sm border-2 border-black rounded-lg p-3 hover:translate-x-1 transition-transform cursor-default">
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 bg-purple-500 rounded border border-black flex items-center justify-center font-bold text-white shadow-sm">Ai</div>
+                          <div>
+                            <h4 className="text-sm font-bold text-black leading-none">Figma AI & Make</h4>
+                            <p className="text-[10px] uppercase font-bold text-gray-500 mt-1">AUTOMATION</p>
+                          </div>
                         </div>
-                        <div>
-                          <h4 className="text-[13px] font-medium text-black">Adobe Creative Suite</h4>
-                          <p className="text-[11px] text-gray-600">Creative Tools</p>
+                      </div>
+                      <div className="bg-white/80 backdrop-blur-sm border-2 border-black rounded-lg p-3 hover:translate-x-1 transition-transform cursor-default">
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 bg-blue-600 rounded border border-black flex items-center justify-center font-bold text-white shadow-sm">Ps</div>
+                          <div>
+                            <h4 className="text-sm font-bold text-black leading-none">Adobe Creative Suite</h4>
+                            <p className="text-[10px] uppercase font-bold text-gray-500 mt-1">GRAPHICS</p>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -759,53 +796,47 @@ export default function About() {
                 </div>
               </div>
 
-              {/* Frontend Development */}
-              <div className="bg-white border-2 border-black rounded-[20px] shadow-[6px_6px_0_0_#000] p-6 lg:p-8 group hover:shadow-[8px_8px_0_0_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-300 relative overflow-hidden">
-                {/* Background Pattern */}
-                <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-blue-100 to-cyan-100 rounded-full transform translate-x-12 -translate-y-12 opacity-50"></div>
-                
-                <div className="relative z-10">
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="w-16 h-16 bg-gradient-to-br from-blue-400 to-cyan-500 border-2 border-black rounded-[16px] flex items-center justify-center shadow-[3px_3px_0_0_#000] group-hover:scale-110 transition-transform duration-300">
-                      <Code className="w-8 h-8 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-medium text-black mb-1">Frontend</h3>
-                      <p className="text-[12px] tracking-[1.23px] text-gray-600 uppercase font-medium">Client-Side</p>
-                    </div>
-                  </div>
-                  
-                  <div className="space-y-3">
-                    <div className="bg-[#FCF9F8] border border-black rounded-[8px] p-3 shadow-[2px_2px_0_0_#000] hover:shadow-[3px_3px_0_0_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-200">
-                      <div className="flex items-center gap-3">
-                        <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
-                          <span className="text-white text-xs font-bold">H</span>
-                        </div>
-                        <div>
-                          <h4 className="text-[13px] font-medium text-black">HTML & CSS</h4>
-                          <p className="text-[11px] text-gray-600">Web Fundamentals</p>
+              {/* Frontend Box */}
+              <div className="bg-white border-2 border-black rounded-xl shadow-[8px_8px_0_0_#000] overflow-hidden group hover:-translate-y-1 transition-all duration-300">
+                <div className="bg-gray-50 border-b-2 border-black p-3 flex justify-between items-center">
+                   <span className="font-mono text-xs font-bold text-gray-500">TOOLBOX_02</span>
+                   <Code className="w-4 h-4 text-gray-500" />
+                </div>
+                <div className="p-6 lg:p-8 relative">
+                   <div className="absolute right-[-20px] bottom-[-20px] text-gray-50 opacity-50">
+                      <Code size={120} strokeWidth={1} />
+                   </div>
+                   
+                   <div className="relative z-10">
+                    <h3 className="text-2xl font-black text-black mb-1 uppercase">Frontend</h3>
+                    <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-6 border-b-2 border-black pb-2 inline-block">Client-Side</p>
+                    
+                    <div className="space-y-3">
+                      <div className="bg-white/80 backdrop-blur-sm border-2 border-black rounded-lg p-3 hover:translate-x-1 transition-transform cursor-default">
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 bg-orange-500 rounded border border-black flex items-center justify-center font-bold text-white shadow-sm">{`</>`}</div>
+                          <div>
+                            <h4 className="text-sm font-bold text-black leading-none">HTML & CSS</h4>
+                            <p className="text-[10px] uppercase font-bold text-gray-500 mt-1">STRUCTURE</p>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div className="bg-[#FCF9F8] border border-black rounded-[8px] p-3 shadow-[2px_2px_0_0_#000] hover:shadow-[3px_3px_0_0_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-200">
-                      <div className="flex items-center gap-3">
-                        <div className="w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center">
-                          <span className="text-white text-xs font-bold">JS</span>
-                        </div>
-                        <div>
-                          <h4 className="text-[13px] font-medium text-black">JavaScript</h4>
-                          <p className="text-[11px] text-gray-600">Dynamic Programming</p>
+                      <div className="bg-white/80 backdrop-blur-sm border-2 border-black rounded-lg p-3 hover:translate-x-1 transition-transform cursor-default">
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 bg-yellow-400 rounded border border-black flex items-center justify-center font-bold text-black shadow-sm">JS</div>
+                          <div>
+                            <h4 className="text-sm font-bold text-black leading-none">JavaScript</h4>
+                            <p className="text-[10px] uppercase font-bold text-gray-500 mt-1">LOGIC</p>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div className="bg-[#FCF9F8] border border-black rounded-[8px] p-3 shadow-[2px_2px_0_0_#000] hover:shadow-[3px_3px_0_0_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-200">
-                      <div className="flex items-center gap-3">
-                        <div className="w-6 h-6 bg-cyan-500 rounded-full flex items-center justify-center">
-                          <span className="text-white text-xs font-bold">R</span>
-                        </div>
-                        <div>
-                          <h4 className="text-[13px] font-medium text-black">React & TypeScript</h4>
-                          <p className="text-[11px] text-gray-600">Modern Frameworks</p>
+                      <div className="bg-white/80 backdrop-blur-sm border-2 border-black rounded-lg p-3 hover:translate-x-1 transition-transform cursor-default">
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 bg-cyan-400 rounded border border-black flex items-center justify-center font-bold text-black shadow-sm">Re</div>
+                          <div>
+                            <h4 className="text-sm font-bold text-black leading-none">React & TypeScript</h4>
+                            <p className="text-[10px] uppercase font-bold text-gray-500 mt-1">FRAMEWORKS</p>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -813,53 +844,47 @@ export default function About() {
                 </div>
               </div>
 
-              {/* Backend & Database */}
-              <div className="bg-white border-2 border-black rounded-[20px] shadow-[6px_6px_0_0_#000] p-6 lg:p-8 group hover:shadow-[8px_8px_0_0_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-300 relative overflow-hidden md:col-span-2 lg:col-span-1">
-                {/* Background Pattern */}
-                <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-green-100 to-emerald-100 rounded-full transform translate-x-12 -translate-y-12 opacity-50"></div>
-                
-                <div className="relative z-10">
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="w-16 h-16 bg-gradient-to-br from-green-400 to-emerald-500 border-2 border-black rounded-[16px] flex items-center justify-center shadow-[3px_3px_0_0_#000] group-hover:scale-110 transition-transform duration-300">
-                      <CheckCircle className="w-8 h-8 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-medium text-black mb-1">Backend</h3>
-                      <p className="text-[12px] tracking-[1.23px] text-gray-600 uppercase font-medium">Server-Side</p>
-                    </div>
-                  </div>
-                  
-                  <div className="space-y-3">
-                    <div className="bg-[#FCF9F8] border border-black rounded-[8px] p-3 shadow-[2px_2px_0_0_#000] hover:shadow-[3px_3px_0_0_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-200">
-                      <div className="flex items-center gap-3">
-                        <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
-                          <span className="text-white text-xs font-bold">N</span>
-                        </div>
-                        <div>
-                          <h4 className="text-[13px] font-medium text-black">Node.js & Express</h4>
-                          <p className="text-[11px] text-gray-600">Server Runtime</p>
+              {/* Backend Box */}
+              <div className="bg-white border-2 border-black rounded-xl shadow-[8px_8px_0_0_#000] overflow-hidden group hover:-translate-y-1 transition-all duration-300">
+                <div className="bg-gray-50 border-b-2 border-black p-3 flex justify-between items-center">
+                   <span className="font-mono text-xs font-bold text-gray-500">TOOLBOX_03</span>
+                   <CheckCircle className="w-4 h-4 text-gray-500" />
+                </div>
+                <div className="p-6 lg:p-8 relative">
+                   <div className="absolute right-[-20px] bottom-[-20px] text-gray-50 opacity-50">
+                      <CheckCircle size={120} strokeWidth={1} />
+                   </div>
+                   
+                   <div className="relative z-10">
+                    <h3 className="text-2xl font-black text-black mb-1 uppercase">Backend</h3>
+                    <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-6 border-b-2 border-black pb-2 inline-block">Server-Side</p>
+                    
+                    <div className="space-y-3">
+                      <div className="bg-white/80 backdrop-blur-sm border-2 border-black rounded-lg p-3 hover:translate-x-1 transition-transform cursor-default">
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 bg-green-500 rounded border border-black flex items-center justify-center font-bold text-white shadow-sm">No</div>
+                          <div>
+                            <h4 className="text-sm font-bold text-black leading-none">Node.js & Express</h4>
+                            <p className="text-[10px] uppercase font-bold text-gray-500 mt-1">RUNTIME</p>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div className="bg-[#FCF9F8] border border-black rounded-[8px] p-3 shadow-[2px_2px_0_0_#000] hover:shadow-[3px_3px_0_0_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-200">
-                      <div className="flex items-center gap-3">
-                        <div className="w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center">
-                          <span className="text-white text-xs font-bold">P</span>
-                        </div>
-                        <div>
-                          <h4 className="text-[13px] font-medium text-black">Python & Java</h4>
-                          <p className="text-[11px] text-gray-600">Programming Languages</p>
+                      <div className="bg-white/80 backdrop-blur-sm border-2 border-black rounded-lg p-3 hover:translate-x-1 transition-transform cursor-default">
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 bg-yellow-600 rounded border border-black flex items-center justify-center font-bold text-white shadow-sm">Py</div>
+                          <div>
+                            <h4 className="text-sm font-bold text-black leading-none">Python & Java</h4>
+                            <p className="text-[10px] uppercase font-bold text-gray-500 mt-1">LANGUAGES</p>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div className="bg-[#FCF9F8] border border-black rounded-[8px] p-3 shadow-[2px_2px_0_0_#000] hover:shadow-[3px_3px_0_0_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-200">
-                      <div className="flex items-center gap-3">
-                        <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
-                          <span className="text-white text-xs font-bold">DB</span>
-                        </div>
-                        <div>
-                          <h4 className="text-[13px] font-medium text-black">SQL & .NET MVC</h4>
-                          <p className="text-[11px] text-gray-600">Database & Framework</p>
+                      <div className="bg-white/80 backdrop-blur-sm border-2 border-black rounded-lg p-3 hover:translate-x-1 transition-transform cursor-default">
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 bg-blue-500 rounded border border-black flex items-center justify-center font-bold text-white shadow-sm">SQL</div>
+                          <div>
+                            <h4 className="text-sm font-bold text-black leading-none">SQL & .NET MVC</h4>
+                            <p className="text-[10px] uppercase font-bold text-gray-500 mt-1">DATABASE</p>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -868,163 +893,115 @@ export default function About() {
               </div>
             </div>
 
-            {/* Skills Proficiency Section */}
-            <div className="bg-white border-2 border-black rounded-[20px] shadow-[6px_6px_0_0_#000] p-8 lg:p-10 mb-12 hover:shadow-[8px_8px_0_0_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-300">
-              <div className="text-center mb-8">
-                <h3 className="text-2xl font-medium text-black mb-2 flex items-center justify-center gap-2">
-                  <Star className="w-6 h-6 text-[#007BFF]" />
-                  Skill Proficiency
-                  <Star className="w-6 h-6 text-[#007BFF]" />
-                </h3>
-                <p className="text-[14px] tracking-[1.23px] text-gray-600">My expertise level in different technologies</p>
+            {/* Skills Proficiency Section - System Status Style */}
+            <div className="bg-white border-2 border-black rounded-xl shadow-[8px_8px_0_0_#000] overflow-hidden mb-12 group hover:shadow-[10px_10px_0_0_#000] hover:-translate-y-1 transition-all duration-300">
+               <div className="h-10 border-b-2 border-black bg-gray-900 flex items-center px-4 justify-between">
+                   <div className="text-xs font-bold font-mono text-green-400 animate-pulse">SYSTEM_STATUS: ONLINE</div>
+                   <div className="flex gap-2">
+                      <div className="w-2 h-2 rounded-full bg-gray-600"></div>
+                      <div className="w-2 h-2 rounded-full bg-gray-600"></div>
+                   </div>
+               </div>
+              <div className="p-6 md:p-8 lg:p-10">
+                <div className="text-center mb-8">
+                  <h3 className="text-2xl font-black text-black mb-2 uppercase flex items-center justify-center gap-2">
+                    <Star className="w-6 h-6 text-black fill-yellow-400" />
+                    Proficiency Metrics
+                    <Star className="w-6 h-6 text-black fill-yellow-400" />
+                  </h3>
+                  <p className="text-sm font-medium text-gray-600">Live capability assessment</p>
               </div>
               
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <div className="text-center">
-                  <div className="w-20 h-20 bg-gradient-to-br from-pink-400 to-purple-500 border-2 border-black rounded-full flex items-center justify-center mx-auto mb-4 shadow-[3px_3px_0_0_#000]">
-                    <Palette className="w-10 h-10 text-white" />
+                  <div className="w-20 h-20 bg-black border-2 border-white outline outline-2 outline-black rounded-xl flex items-center justify-center mx-auto mb-4 shadow-[4px_4px_0_0_#808080]">
+                    <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEgMWgydjJIMUMxeiIgZmlsbD0iIzMzMyIgZmlsbC1vcGFjaXR5PSIwLjEiLz48L3N2Zz4=')] opacity-20"></div>
+                    <Palette className="w-10 h-10 text-white relative z-10" />
                   </div>
-                  <h4 className="text-lg font-medium text-black mb-3">UI/UX Design</h4>
-                  <div className="w-full bg-gray-200 border border-black rounded-full h-3 mb-2">
-                    <div className="bg-[#007BFF] h-full rounded-full transition-all duration-1000" style={{ width: '90%' }}></div>
+                  <h4 className="text-lg font-black text-black mb-3 uppercase tracking-wide">UI/UX Design</h4>
+                  <div className="w-full bg-gray-200 border-2 border-black rounded-lg h-4 mb-2 p-0.5">
+                    <div className="bg-[#007BFF] h-full rounded transition-all duration-1000 relative overflow-hidden" style={{ width: '90%' }}>
+                        <div className="absolute inset-0 bg-[linear-gradient(45deg,rgba(255,255,255,0.2)_25%,transparent_25%,transparent_50%,rgba(255,255,255,0.2)_50%,rgba(255,255,255,0.2)_75%,transparent_75%,transparent)] bg-[size:1rem_1rem] animate-pulse"></div>
+                    </div>
                   </div>
-                  <span className="text-[12px] text-[#007BFF] font-medium">90% Expert</span>
+                  <div className="flex justify-between items-center px-1">
+                     <span className="text-[10px] font-bold text-gray-500 uppercase">Status</span>
+                     <span className="text-xs text-[#007BFF] font-black">90% EXPERT</span>
+                  </div>
                 </div>
                 
                 <div className="text-center">
-                  <div className="w-20 h-20 bg-gradient-to-br from-blue-400 to-cyan-500 border-2 border-black rounded-full flex items-center justify-center mx-auto mb-4 shadow-[3px_3px_0_0_#000]">
-                    <Code className="w-10 h-10 text-white" />
+                  <div className="w-20 h-20 bg-black border-2 border-white outline outline-2 outline-black rounded-xl flex items-center justify-center mx-auto mb-4 shadow-[4px_4px_0_0_#808080]">
+                    <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEgMWgydjJIMUMxeiIgZmlsbD0iIzMzMyIgZmlsbC1vcGFjaXR5PSIwLjEiLz48L3N2Zz4=')] opacity-20"></div>
+                    <Code className="w-10 h-10 text-white relative z-10" />
                   </div>
-                  <h4 className="text-lg font-medium text-black mb-3">Frontend Development</h4>
-                  <div className="w-full bg-gray-200 border border-black rounded-full h-3 mb-2">
-                    <div className="bg-cyan-500 h-full rounded-full transition-all duration-1000" style={{ width: '65%' }}></div>
+                  <h4 className="text-lg font-black text-black mb-3 uppercase tracking-wide">Frontend Dev</h4>
+                  <div className="w-full bg-gray-200 border-2 border-black rounded-lg h-4 mb-2 p-0.5">
+                    <div className="bg-purple-500 h-full rounded transition-all duration-1000 relative overflow-hidden" style={{ width: '65%' }}>
+                        <div className="absolute inset-0 bg-[linear-gradient(45deg,rgba(255,255,255,0.2)_25%,transparent_25%,transparent_50%,rgba(255,255,255,0.2)_50%,rgba(255,255,255,0.2)_75%,transparent_75%,transparent)] bg-[size:1rem_1rem] animate-pulse"></div>
+                    </div>
                   </div>
-                  <span className="text-[12px] text-cyan-600 font-medium">65% Advanced</span>
+                  <div className="flex justify-between items-center px-1">
+                     <span className="text-[10px] font-bold text-gray-500 uppercase">Status</span>
+                     <span className="text-xs text-purple-600 font-black">65% ADVANCED</span>
+                  </div>
                 </div>
                 
                 <div className="text-center md:col-span-2 lg:col-span-1">
-                  <div className="w-20 h-20 bg-gradient-to-br from-green-400 to-emerald-500 border-2 border-black rounded-full flex items-center justify-center mx-auto mb-4 shadow-[3px_3px_0_0_#000]">
-                    <CheckCircle className="w-10 h-10 text-white" />
+                  <div className="w-20 h-20 bg-black border-2 border-white outline outline-2 outline-black rounded-xl flex items-center justify-center mx-auto mb-4 shadow-[4px_4px_0_0_#808080]">
+                    <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEgMWgydjJIMUMxeiIgZmlsbD0iIzMzMyIgZmlsbC1vcGFjaXR5PSIwLjEiLz48L3N2Zz4=')] opacity-20"></div>
+                    <CheckCircle className="w-10 h-10 text-white relative z-10" />
                   </div>
-                  <h4 className="text-lg font-medium text-black mb-3">Backend Development</h4>
-                  <div className="w-full bg-gray-200 border border-black rounded-full h-3 mb-2">
-                    <div className="bg-green-500 h-full rounded-full transition-all duration-1000" style={{ width: '45%' }}></div>
+                  <h4 className="text-lg font-black text-black mb-3 uppercase tracking-wide">Backend Dev</h4>
+                  <div className="w-full bg-gray-200 border-2 border-black rounded-lg h-4 mb-2 p-0.5">
+                    <div className="bg-green-500 h-full rounded transition-all duration-1000 relative overflow-hidden" style={{ width: '45%' }}>
+                        <div className="absolute inset-0 bg-[linear-gradient(45deg,rgba(255,255,255,0.2)_25%,transparent_25%,transparent_50%,rgba(255,255,255,0.2)_50%,rgba(255,255,255,0.2)_75%,transparent_75%,transparent)] bg-[size:1rem_1rem] animate-pulse"></div>
+                    </div>
                   </div>
-                  <span className="text-[12px] text-green-600 font-medium">45% Intermediate</span>
+                  <div className="flex justify-between items-center px-1">
+                     <span className="text-[10px] font-bold text-gray-500 uppercase">Status</span>
+                     <span className="text-xs text-green-600 font-black">45% INTERMEDIATE</span>
+                  </div>
                 </div>
               </div>
             </div>
-
-            {/* Stats Row */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-12">
-              <div className="text-center bg-white border-2 border-black rounded-[15px] shadow-[4px_4px_0_0_#000] p-6 hover:shadow-[6px_6px_0_0_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-300 group">
-                <div className="w-12 h-12 bg-[#007BFF] border-2 border-black rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">
-                  <Palette className="w-6 h-6 text-white" />
-                </div>
-                <div className="text-2xl lg:text-3xl font-medium text-[#007BFF] mb-1">5+</div>
-                <div className="text-[12px] lg:text-[13px] font-medium text-black uppercase tracking-[1.23px]">Design Tools</div>
-              </div>
-              <div className="text-center bg-white border-2 border-black rounded-[15px] shadow-[4px_4px_0_0_#000] p-6 hover:shadow-[6px_6px_0_0_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-300 group">
-                <div className="w-12 h-12 bg-cyan-500 border-2 border-black rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">
-                  <Code className="w-6 h-6 text-white" />
-                </div>
-                <div className="text-2xl lg:text-3xl font-medium text-cyan-500 mb-1">8+</div>
-                <div className="text-[12px] lg:text-[13px] font-medium text-black uppercase tracking-[1.23px]">Technologies</div>
-              </div>
-              <div className="text-center bg-white border-2 border-black rounded-[15px] shadow-[4px_4px_0_0_#000] p-6 hover:shadow-[6px_6px_0_0_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-300 group">
-                <div className="w-12 h-12 bg-green-500 border-2 border-black rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">
-                  <CheckCircle className="w-6 h-6 text-white" />
-                </div>
-                <div className="text-2xl lg:text-3xl font-medium text-green-500 mb-1">3</div>
-                <div className="text-[12px] lg:text-[13px] font-medium text-black uppercase tracking-[1.23px]">Categories</div>
-              </div>
-              <div className="text-center bg-white border-2 border-black rounded-[15px] shadow-[4px_4px_0_0_#000] p-6 hover:shadow-[6px_6px_0_0_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-300 group">
-                <div className="w-12 h-12 bg-purple-500 border-2 border-black rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">
-                  <Star className="w-6 h-6 text-white" />
-                </div>
-                <div className="text-2xl lg:text-3xl font-medium text-purple-500 mb-1">2+</div>
-                <div className="text-[12px] lg:text-[13px] font-medium text-black uppercase tracking-[1.23px]">Years Experience</div>
-              </div>
             </div>
 
             {/* CTA Buttons */}
-            <div className="text-center">
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link to="/projects">
-                  <Button
-                    variant="outline"
-                    className="border-black bg-white hover:bg-black hover:text-white shadow-[4px_4px_0_0_#000] text-[16px] font-medium px-[40px] py-[24px] rounded-lg transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_#007BFF]"
-                  >
-                    View My Projects
-                    <ArrowRight className="w-5 h-5 ml-2" />
-                  </Button>
-                </Link>
-                <Link to="/freelance">
-                  <Button
-                    variant="outline"
-                    className="border-[#007BFF] bg-[#007BFF] text-white hover:bg-white hover:text-[#007BFF] shadow-[4px_4px_0_0_#000000] text-[16px] font-medium px-[40px] py-[24px] rounded-lg transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_#007BFF]"
-                  >
-                    <Mail className="w-5 h-5 mr-2" />
-                    Let's Work Together
-                  </Button>
-                </Link>
-              </div>
+            <div className="text-center mt-16 lg:mt-24">
+               <div className="relative inline-block p-8 bg-white border-2 border-black rounded-xl shadow-[8px_8px_0_0_#000]">
+                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#007BFF] text-white px-4 py-1 border-2 border-black text-xs font-black uppercase tracking-widest rounded-full">
+                     Ready to Deploy?
+                  </div>
+                  <h3 className="text-2xl font-black text-black mb-6 uppercase">Initialize Collaboration</h3>
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                    <Link to="/projects">
+                      <Button
+                        variant="outline"
+                        className="bg-white text-black border-2 border-black shadow-[4px_4px_0_0_#000] text-base font-black uppercase tracking-wide px-8 py-6 rounded-lg hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all"
+                      >
+                        Scanner.exe (Projects)
+                        <ArrowRight className="w-5 h-5 ml-2" />
+                      </Button>
+                    </Link>
+                    <Link to="/contact">
+                      <Button
+                        variant="outline"
+                        className="bg-[#007BFF] text-white border-2 border-black shadow-[4px_4px_0_0_#000] text-base font-black uppercase tracking-wide px-8 py-6 rounded-lg hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all hover:bg-[#0069d9]"
+                      >
+                        <Mail className="w-5 h-5 mr-2" />
+                        Send Transmission
+                      </Button>
+                    </Link>
+                  </div>
+               </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-white border-t border-black">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-[43px]">
-          <div className="flex flex-col lg:flex-row justify-between items-center gap-6">
-            {/* Social Links */}
-            <div className="flex items-center gap-3">
-              <a
-                href="https://linkedin.com/in/prabhath-subhashana-6b694a20a"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 sm:w-12 sm:h-12 border border-black rounded-full flex items-center justify-center hover:bg-black hover:text-white transition-colors"
-                title="LinkedIn Profile"
-              >
-                <Linkedin className="w-5 h-5 sm:w-6 sm:h-6" />
-              </a>
-              <a
-                href="https://behance.net/prabathsubasha"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 sm:w-12 sm:h-12 border border-black rounded-full flex items-center justify-center hover:bg-black hover:text-white transition-colors"
-                title="Behance Portfolio"
-              >
-                <BehanceIcon className="w-5 h-5 sm:w-6 sm:h-6" />
-              </a>
-              <a
-                href="https://github.com/subhashana00"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 sm:w-12 sm:h-12 border border-black rounded-full flex items-center justify-center hover:bg-black hover:text-white transition-colors"
-                title="GitHub Profile"
-              >
-                <Github className="w-5 h-5 sm:w-6 sm:h-6" />
-              </a>
-              <a
-                href="mailto:prabathsubashana18@gmail.com"
-                className="w-10 h-10 sm:w-12 sm:h-12 border border-black rounded-full flex items-center justify-center hover:bg-black hover:text-white transition-colors"
-                title="Email"
-              >
-                <Mail className="w-5 h-5 sm:w-6 sm:h-6" />
-              </a>
-            </div>
-
-            {/* Copyright */}
-            <div className="text-center">
-              <p className="text-[14px] sm:text-[15px] leading-[24px] sm:leading-[27px] tracking-[1.23px] text-black">
-                Created by Prabhath Subhashana
-              </p>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
 
       {/* WhatsApp Floating Button */}
       <WhatsAppFloat 

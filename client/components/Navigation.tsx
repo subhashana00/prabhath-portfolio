@@ -29,17 +29,17 @@ const Navigation = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex space-x-8">
-            {navItems.map((item) => {
+          <div className="hidden md:flex items-center space-x-6">
+            {navItems.filter(item => item.name !== 'Contact').map((item) => {
               const Icon = item.icon;
               return (
                 <Link
                   key={item.name}
                   to={item.path}
-                  className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-colors ${
+                  className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-colors font-medium border-2 border-transparent hover:border-black hover:bg-white hover:shadow-[3px_3px_0_0_#000] ${
                     isActive(item.path)
-                      ? 'bg-blue-100 text-blue-600'
-                      : 'text-gray-700 hover:text-blue-600 hover:bg-gray-100'
+                      ? 'bg-blue-100 text-blue-600 border-blue-200'
+                      : 'text-gray-700 hover:text-black'
                   }`}
                 >
                   <Icon size={18} />
@@ -47,6 +47,15 @@ const Navigation = () => {
                 </Link>
               );
             })}
+            
+            {/* Contact Button - Neo-Brutalist */}
+            <Link
+              to="/contact"
+              className="flex items-center space-x-2 px-6 py-2.5 rounded-xl transition-all duration-300 bg-black text-white hover:bg-[#007BFF] border-3 border-black font-bold uppercase tracking-wider shadow-[4px_4px_0_0_rgba(0,0,0,0.2)] hover:shadow-[6px_6px_0_0_#000] hover:-translate-y-0.5"
+            >
+              <Mail size={18} />
+              <span>Contact</span>
+            </Link>
           </div>
 
           {/* Mobile menu button */}

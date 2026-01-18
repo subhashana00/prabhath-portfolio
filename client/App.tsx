@@ -61,8 +61,8 @@ const queryClient = new QueryClient({
 });
 
 const App = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [isLoadingComplete, setIsLoadingComplete] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // DISABLED: was true
+  const [isLoadingComplete, setIsLoadingComplete] = useState(true); // DISABLED: was false
 
   const handleLoadingComplete = () => {
     setIsLoadingComplete(true);
@@ -72,10 +72,10 @@ const App = () => {
     }, 500);
   };
 
-  // Show loading screen initially
-  if (isLoading) {
-    return <LoadingScreen onLoadingComplete={handleLoadingComplete} />;
-  }
+  // Show loading screen initially - DISABLED
+  // if (isLoading) {
+  //   return <LoadingScreen onLoadingComplete={handleLoadingComplete} />;
+  // }
 
   return (
     <ErrorBoundary>

@@ -1,11 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, Menu, X, Phone, MapPin, Linkedin, Github, Send, MessageCircle, User, AtSign, Zap, ArrowRight, CheckCircle, AlertCircle } from "lucide-react";
+import { Mail, Menu, X, Phone, MapPin, Linkedin, Github, Send, MessageCircle, User, AtSign, Zap, ArrowRight, CheckCircle, AlertCircle, Sparkles, Star } from "lucide-react";
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import { Toaster } from "@/components/ui/toaster";
+import { Footer, BehanceIcon } from "@/components/Footer";
 import { WhatsAppIcon } from "@/components/WhatsAppFloat";
 import emailjs from '@emailjs/browser';
 
@@ -147,22 +148,12 @@ export default function Contact() {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  // Custom Behance Icon Component
-  const BehanceIcon = ({ className }: { className?: string }) => (
-    <svg
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      className={className}
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path d="M6.938 4.503c.702 0 1.34.06 1.92.188.577.13 1.07.33 1.485.61.41.28.733.65.96 1.12.225.47.34 1.05.34 1.73 0 .74-.17 1.36-.507 1.86-.338.5-.837.9-1.497 1.19.9.26 1.54.65 1.93 1.17.39.52.585 1.17.585 1.95 0 .75-.14 1.4-.425 1.96-.285.56-.68 1.03-1.188 1.41-.508.38-1.108.67-1.8.87-.69.2-1.44.3-2.25.3H0V4.51h6.938v-.007zM3.495 8.847h2.862c.577 0 1.03-.133 1.36-.4.33-.267.495-.7.495-1.3 0-.622-.165-1.055-.495-1.3-.33-.245-.783-.367-1.36-.367H3.495v3.367zm0 4.833h3.362c.693 0 1.215-.167 1.567-.5.35-.33.527-.853.527-1.567 0-.67-.177-1.18-.53-1.53-.353-.35-.874-.527-1.564-.527H3.495v4.124zM21.439 6.064c.966 0 1.844.155 2.635.465.79.31 1.463.744 2.017 1.304.554.56.98 1.24 1.286 2.04.305.8.458 1.697.458 2.693v.515H17.93c.058 1.177.29 1.988.696 2.434.407.446.856.67 1.348.67.653 0 1.151-.24 1.495-.72.344-.48.517-.98.517-1.503h3.62c-.02.972-.234 1.87-.641 2.697-.407.826-.955 1.508-1.644 2.048-.69.54-1.504.948-2.442 1.224-.938.276-1.938.414-3 .414-1.072 0-2.05-.153-2.933-.458-.884-.305-1.644-.738-2.284-1.297-.64-.56-1.136-1.247-1.488-2.056-.352-.81-.528-1.734-.528-2.772 0-1.106.193-2.084.579-2.934.386-.85.919-1.563 1.599-2.139.68-.576 1.486-1.01 2.418-1.302.932-.292 1.943-.438 3.033-.438zm-3.971 5.939h6.659c-.038-.67-.322-1.222-.853-1.657-.531-.435-1.146-.653-1.846-.653-.729 0-1.38.218-1.955.653-.575.435-.934.987-1.005 1.657zM17.367 1.661c.191 0 .363.028.516.085.153.057.284.143.393.26.109.116.194.26.255.43.061.17.092.37.092.6 0 .23-.031.43-.092.6-.061.17-.146.314-.255.43-.109.117-.24.203-.393.26-.153.057-.325.085-.516.085-.191 0-.363-.028-.516-.085-.153-.057-.284-.143-.393-.26-.109-.116-.194-.26-.255-.43-.061-.17-.092-.37-.092-.6 0-.23.031-.43.092-.6.061-.17.146-.314.255-.43.109-.117.24-.203.393-.26.153-.057.325-.085.516-.085z" />
-    </svg>
-  );
+  // Custom Behance Icon moved to Footer.tsx
 
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <header className={`bg-[#FCF9F8] px-4 sm:px-6 lg:px-[154px] py-4 sm:py-6 lg:py-[31px] z-50 ${
+      <header className={`bg-[#FCF9F8] px-4 sm:px-6 lg:px-12 py-4 sm:py-6 relative z-50 max-w-[1600px] mx-auto w-full ${
         isMobile ? 'sticky top-0' : 'relative'
       }`}>
         <div className="flex items-center justify-between">
@@ -199,7 +190,7 @@ export default function Contact() {
           <Link to="/contact">
             <Button
               variant="outline"
-              className="hidden md:flex border-[#007BFF] bg-[#007BFF] text-white hover:bg-white hover:text-[#007BFF] shadow-[2px_2px_0_0_#000] text-[14px] lg:text-[16px] font-medium px-[30px] lg:px-[50px] py-[15px] lg:py-[20px] rounded-none"
+              className="hidden md:flex text-white font-bold text-[14px] lg:text-[16px] tracking-[1.23px] px-[30px] lg:px-[50px] py-[15px] lg:py-[25px] rounded-none border-3 border-black bg-black shadow-[4px_4px_0_0_rgba(0,0,0,0.2)] hover:shadow-[2px_2px_0_0_rgba(0,0,0,0.2)] hover:translate-x-[2px] hover:translate-y-[2px] hover:bg-[#FFDE59] hover:text-black transition-all duration-200"
             >
               Contact Me
             </Button>
@@ -246,7 +237,7 @@ export default function Contact() {
               <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>
                 <Button
                   variant="outline"
-                  className="border-[#007BFF] bg-[#007BFF] text-white hover:bg-white hover:text-[#007BFF] shadow-[2px_2px_0_0_#000] text-[16px] font-medium px-[30px] py-[15px] rounded-none w-full justify-center mt-2"
+                  className="text-white font-bold text-[16px] tracking-[1.23px] px-[30px] py-[15px] rounded-none w-full justify-center mt-2 border-3 border-black bg-black shadow-[4px_4px_0_0_rgba(0,0,0,0.2)] hover:shadow-[2px_2px_0_0_rgba(0,0,0,0.2)] hover:translate-x-[2px] hover:translate-y-[2px] hover:bg-[#FFDE59] hover:text-black transition-all duration-200"
                 >
                   Contact Me
                 </Button>
@@ -256,246 +247,257 @@ export default function Contact() {
         )}
       </header>
 
-      {/* Contact Content Section */}
-      <section className="bg-[#FCF9F8] py-8 sm:py-10 lg:py-12">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-6xl mx-auto">
+      {/* Contact Content Section - Neo-Brutalist Redesign */}
+      <section className="bg-[#FCF9F8] py-12 sm:py-16 lg:py-20 relative overflow-hidden">
+        {/* Background Elements */}
+        <div className="absolute top-20 left-10 w-16 h-16 bg-[#FFDE59] rounded-full border-4 border-black hidden lg:block animate-bounce delay-1000"></div>
+        <div className="absolute bottom-20 right-10 w-24 h-24 bg-[#FF9F9F] border-4 border-black transform rotate-12 hidden lg:block"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gray-100 rounded-full opacity-50 -z-10 pointer-events-none blur-3xl"></div>
+
+        <div className="container max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
+          <div className="max-w-7xl mx-auto">
             
             {/* Header */}
-            <div className="text-center mb-8 lg:mb-10">
-              <div className="inline-flex items-center gap-2 bg-[#007BFF] text-white px-3 py-1.5 rounded-full text-xs font-medium mb-4">
-                <MessageCircle className="w-3 h-3" />
-                Let's Connect
+            <div className="text-center mb-12 lg:mb-16">
+              <div className="relative inline-block mb-6">
+                <div className="absolute -inset-1 bg-[#FFDE59] transform -rotate-2 border-2 border-black shadow-[4px_4px_0_0_#000]"></div>
+                <div className="relative bg-white border-2 border-black px-4 py-1 flex items-center gap-2 transform rotate-1">
+                  <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+                  <span className="text-xs font-black uppercase tracking-widest">Open For Work</span>
+                </div>
               </div>
-              <h1 className="text-2xl sm:text-3xl lg:text-[36px] font-medium leading-tight text-black mb-4">
-                Get In <span className="relative">Touch<span className="absolute bottom-0 left-0 w-full h-1.5 bg-[#007BFF]/20"></span></span>
+              
+              <h1 className="text-4xl sm:text-5xl lg:text-[64px] font-black leading-none text-black mb-6">
+                GET IN <span className="relative inline-block text-[#007BFF]">TOUCH
+                  <svg className="absolute w-full h-3 -bottom-1 left-0 text-black" viewBox="0 0 100 10" preserveAspectRatio="none">
+                    <path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="3" fill="none" />
+                  </svg>
+                </span>
               </h1>
-              <p className="text-[14px] sm:text-[15px] leading-[24px] tracking-[1.23px] text-gray-700 max-w-xl mx-auto">
-                Have a project in mind? Let's discuss how we can bring your ideas to life.
+              <p className="text-base sm:text-lg font-bold text-gray-700 max-w-xl mx-auto border-2 border-black bg-white p-4 shadow-[4px_4px_0_0_#000] rotate-1">
+                Have a project in mind? Let's discuss how we can bring your annoying competitors to tears.
               </p>
             </div>
 
             {/* Main Contact Grid */}
-            <div className="grid lg:grid-cols-2 gap-6 lg:gap-8 mb-10">
+            <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 mb-16 items-start">
               
               {/* Contact Information Card */}
-              <div className="bg-white border-2 border-black rounded-[16px] shadow-[4px_4px_0_0_#000] p-6 lg:p-8 group hover:shadow-[6px_6px_0_0_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-300">
-                <div className="mb-6">
-                  <h2 className="text-xl sm:text-2xl font-medium text-black mb-3">Contact Information</h2>
-                  <p className="text-[13px] sm:text-[14px] leading-[22px] tracking-[1.23px] text-gray-600">
-                    Feel free to reach out. I typically respond within 24 hours.
+              <div className="lg:col-span-5 bg-[#FFDE59] border-4 border-black rounded-[20px] shadow-[8px_8px_0_0_#000] p-8 lg:p-10 group hover:shadow-[12px_12px_0_0_#000] hover:-translate-y-1 transition-all duration-300 relative">
+                {/* Decorative Pin */}
+                <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-red-500 border-2 border-black z-20 shadow-sm"></div>
+                <div className="absolute -top-5 left-1/2 -translate-x-1/2 w-12 h-12 bg-gray-200/50 -z-10 rotate-45"></div>
+
+                <div className="mb-8 relative z-10">
+                  <h2 className="text-3xl font-black text-black mb-2 uppercase italic">Contact Info</h2>
+                  <div className="h-2 w-24 bg-black mb-4"></div>
+                  <p className="text-sm font-bold text-black/80 leading-relaxed">
+                    I'm currently available for freelance work. If you have a project that needs some creative injection, get in touch.
                   </p>
                 </div>
 
-                <div className="space-y-5">
+                <div className="space-y-6 relative z-10">
                   {/* Email */}
-                  <div className="flex items-start gap-3">
-                    <div className="w-10 h-10 bg-[#007BFF] rounded-full flex items-center justify-center flex-shrink-0 group-hover:bg-black transition-colors">
-                      <Mail className="w-5 h-5 text-white" />
+                  <a href="mailto:prabathsubashana18@gmail.com" className="flex items-center gap-4 group/item bg-white border-3 border-black p-4 rounded-xl shadow-[4px_4px_0_0_#000] hover:translate-x-1 hover:shadow-[2px_2px_0_0_#000] transition-all cursor-pointer">
+                    <div className="w-12 h-12 bg-[#007BFF] border-3 border-black rounded-lg flex items-center justify-center flex-shrink-0 group-hover/item:rotate-6 transition-transform">
+                      <Mail className="w-6 h-6 text-white" strokeWidth={2.5} />
                     </div>
-                    <div className="flex-1">
-                      <h3 className="text-[15px] font-medium text-black mb-1">Email</h3>
-                      <a 
-                        href="mailto:prabathsubashana18@gmail.com"
-                        className="text-[13px] sm:text-[14px] tracking-[1.23px] text-gray-700 hover:text-[#007BFF] transition-colors break-all"
-                      >
-                        prabathsubashana18@gmail.com
-                      </a>
+                    <div className="flex-1 min-w-0">
+                      <h3 className="text-xs font-black uppercase tracking-wider text-black/60 mb-0.5">Email Me</h3>
+                      <p className="text-sm sm:text-base font-bold text-black break-all">prabathsubashana18@gmail.com</p>
                     </div>
-                  </div>
+                    <ArrowRight className="w-5 h-5 opacity-0 group-hover/item:opacity-100 transition-opacity" />
+                  </a>
 
                   {/* Phone */}
-                  <div className="flex items-start gap-3">
-                    <div className="w-10 h-10 bg-[#007BFF] rounded-full flex items-center justify-center flex-shrink-0 group-hover:bg-black transition-colors">
-                      <Phone className="w-5 h-5 text-white" />
+                  <a href="tel:+94716903566" className="flex items-center gap-4 group/item bg-white border-3 border-black p-4 rounded-xl shadow-[4px_4px_0_0_#000] hover:translate-x-1 hover:shadow-[2px_2px_0_0_#000] transition-all cursor-pointer">
+                    <div className="w-12 h-12 bg-[#FF9F9F] border-3 border-black rounded-lg flex items-center justify-center flex-shrink-0 group-hover/item:-rotate-6 transition-transform">
+                      <Phone className="w-6 h-6 text-black" strokeWidth={2.5} />
                     </div>
                     <div className="flex-1">
-                      <h3 className="text-[15px] font-medium text-black mb-1">Phone</h3>
-                      <a 
-                        href="tel:+94716903566"
-                        className="text-[13px] sm:text-[14px] tracking-[1.23px] text-gray-700 hover:text-[#007BFF] transition-colors"
-                      >
-                        +94 716 903 566
-                      </a>
+                      <h3 className="text-xs font-black uppercase tracking-wider text-black/60 mb-0.5">Call Me</h3>
+                      <p className="text-base font-bold text-black">+94 716 903 566</p>
                     </div>
-                  </div>
-
-                  {/* Location */}
-                  <div className="flex items-start gap-3">
-                    <div className="w-10 h-10 bg-[#007BFF] rounded-full flex items-center justify-center flex-shrink-0 group-hover:bg-black transition-colors">
-                      <MapPin className="w-5 h-5 text-white" />
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="text-[15px] font-medium text-black mb-1">Location</h3>
-                      <p className="text-[13px] sm:text-[14px] tracking-[1.23px] text-gray-700">
-                        Gampaha, Western Province<br />Sri Lanka
-                      </p>
-                    </div>
-                  </div>
+                    <ArrowRight className="w-5 h-5 opacity-0 group-hover/item:opacity-100 transition-opacity" />
+                  </a>
 
                   {/* WhatsApp */}
-                  <div className="flex items-start gap-3">
-                    <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0 group-hover:bg-green-600 transition-colors">
-                      <WhatsAppIcon className="w-5 h-5 text-white" />
+                  <a 
+                    href="https://wa.me/94716903566?text=Hi%20Prabhath!%20I'd%20like%20to%20discuss%20a%20project%20with%20you."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-4 group/item bg-white border-3 border-black p-4 rounded-xl shadow-[4px_4px_0_0_#000] hover:translate-x-1 hover:shadow-[2px_2px_0_0_#000] transition-all cursor-pointer"
+                  >
+                    <div className="w-12 h-12 bg-[#25D366] border-3 border-black rounded-lg flex items-center justify-center flex-shrink-0 group-hover/item:rotate-6 transition-transform">
+                      <WhatsAppIcon className="w-6 h-6 text-black" />
                     </div>
                     <div className="flex-1">
-                      <h3 className="text-[15px] font-medium text-black mb-1">WhatsApp</h3>
-                      <a 
-                        href="https://wa.me/94716903566?text=Hi%20Prabhath!%20I'd%20like%20to%20discuss%20a%20project%20with%20you."
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-[13px] sm:text-[14px] tracking-[1.23px] text-gray-700 hover:text-green-600 transition-colors"
-                      >
-                        +94 716 903 566
-                      </a>
-                      <p className="text-[11px] sm:text-[12px] tracking-[1.23px] text-gray-500 mt-0.5">
-                        Quick chat for immediate response
-                      </p>
+                      <h3 className="text-xs font-black uppercase tracking-wider text-black/60 mb-0.5">WhatsApp</h3>
+                      <p className="text-base font-bold text-black">Chat on WhatsApp</p>
+                    </div>
+                    <ArrowRight className="w-5 h-5 opacity-0 group-hover/item:opacity-100 transition-opacity" />
+                  </a>
+                  
+                  {/* Location */}
+                  <div className="flex items-center gap-4 bg-white/50 border-3 border-black/20 p-4 rounded-xl">
+                    <div className="w-12 h-12 bg-white border-3 border-black rounded-lg flex items-center justify-center flex-shrink-0">
+                      <MapPin className="w-6 h-6 text-black" strokeWidth={2.5} />
+                    </div>
+                     <div className="flex-1">
+                      <h3 className="text-xs font-black uppercase tracking-wider text-black/60 mb-0.5">Location</h3>
+                      <p className="text-sm font-bold text-black">Gampaha, Sri Lanka</p>
                     </div>
                   </div>
                 </div>
 
                 {/* Social Links */}
-                <div className="mt-6 pt-6 border-t border-gray-200">
-                  <h3 className="text-[15px] font-medium text-black mb-3">Follow Me</h3>
-                  <div className="flex items-center gap-3">
-                    <a
-                      href="https://linkedin.com/in/prabhath-subhashana-6b694a20a"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-8 h-8 border-2 border-black rounded-full flex items-center justify-center hover:bg-black hover:text-white transition-colors shadow-[2px_2px_0_0_#000] hover:shadow-[3px_3px_0_0_#000] hover:-translate-x-0.5 hover:-translate-y-0.5"
-                      title="LinkedIn Profile"
-                    >
-                      <Linkedin className="w-4 h-4" />
-                    </a>
-                    <a
-                      href="https://behance.net/prabathsubasha"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-8 h-8 border-2 border-black rounded-full flex items-center justify-center hover:bg-black hover:text-white transition-colors shadow-[2px_2px_0_0_#000] hover:shadow-[3px_3px_0_0_#000] hover:-translate-x-0.5 hover:-translate-y-0.5"
-                      title="Behance Portfolio"
-                    >
-                      <BehanceIcon className="w-4 h-4" />
-                    </a>
-                    <a
-                      href="https://github.com/subhashana00"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-8 h-8 border-2 border-black rounded-full flex items-center justify-center hover:bg-black hover:text-white transition-colors shadow-[2px_2px_0_0_#000] hover:shadow-[3px_3px_0_0_#000] hover:-translate-x-0.5 hover:-translate-y-0.5"
-                      title="GitHub Profile"
-                    >
-                      <Github className="w-4 h-4" />
-                    </a>
+                <div className="mt-8 pt-6 border-t-3 border-black border-dashed">
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-base font-black text-black uppercase">Stalk Me</h3>
+                    <div className="flex items-center gap-3">
+                      <a
+                        href="https://linkedin.com/in/prabhath-subhashana-6b694a20a"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-10 h-10 border-3 border-black rounded-lg flex items-center justify-center bg-white hover:bg-black hover:text-white transition-colors shadow-[2px_2px_0_0_#000] hover:shadow-[4px_4px_0_0_#000] hover:-translate-y-1"
+                        title="LinkedIn"
+                      >
+                        <Linkedin className="w-5 h-5" />
+                      </a>
+                      <a
+                        href="https://behance.net/prabathsubasha"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-10 h-10 border-3 border-black rounded-lg flex items-center justify-center bg-white hover:bg-black hover:text-white transition-colors shadow-[2px_2px_0_0_#000] hover:shadow-[4px_4px_0_0_#000] hover:-translate-y-1"
+                        title="Behance"
+                      >
+                        <BehanceIcon className="w-5 h-5" />
+                      </a>
+                      <a
+                        href="https://github.com/subhashana00"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-10 h-10 border-3 border-black rounded-lg flex items-center justify-center bg-white hover:bg-black hover:text-white transition-colors shadow-[2px_2px_0_0_#000] hover:shadow-[4px_4px_0_0_#000] hover:-translate-x-1"
+                        title="GitHub"
+                      >
+                        <Github className="w-5 h-5" />
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
 
               {/* Contact Form Card */}
-              <div className="bg-white border-2 border-black rounded-[16px] shadow-[4px_4px_0_0_#000] p-6 lg:p-8 group hover:shadow-[6px_6px_0_0_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-300">
-                <div className="mb-6">
-                  <h2 className="text-xl sm:text-2xl font-medium text-black mb-3">Send a Message</h2>
-                  <p className="text-[13px] sm:text-[14px] leading-[22px] tracking-[1.23px] text-gray-600">
-                    Drop me a line and I'll get back to you as soon as possible.
-                  </p>
+              <div className="lg:col-span-7 bg-white border-4 border-black rounded-[20px] shadow-[8px_8px_0_0_#000] p-8 lg:p-10 relative group hover:shadow-[12px_12px_0_0_#000] transition-all duration-300">
+                <div className="absolute top-0 right-0 p-4 opacity-10">
+                   <MessageCircle className="w-32 h-32 transform rotate-12" />
                 </div>
                 
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="mb-8 relative z-10">
+                  <h2 className="text-3xl font-black text-black mb-2 uppercase italic">Send a Message</h2>
+                  <div className="h-2 w-32 bg-[#007BFF] mb-4"></div>
+                </div>
+                
+                <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
                   {/* Name Fields */}
-                  <div className="grid sm:grid-cols-2 gap-3">
+                  <div className="grid sm:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-[13px] font-medium text-black mb-2">
+                      <label className="block text-sm font-black text-black mb-2 uppercase tracking-wide">
                         First Name <span className="text-red-500">*</span>
                       </label>
-                      <div className="relative">
+                      <div className="relative group">
                         <Input
                           required
-                          placeholder="first name"
+                          placeholder="YOUR NAME"
                           value={formData.firstName}
                           onChange={(e) => handleInputChange('firstName', e.target.value)}
-                          className="border-2 border-black rounded-lg focus:ring-0 focus:border-[#007BFF] h-10 pl-10 shadow-[2px_2px_0_0_#000] focus:shadow-[3px_3px_0_0_#007BFF] transition-all"
+                          className="border-3 border-black rounded-none focus:ring-0 focus:border-black h-12 pl-10 shadow-[4px_4px_0_0_#ccc] focus:shadow-[6px_6px_0_0_#007BFF] transition-all text-base font-bold bg-gray-50 focus:bg-white placeholder:text-gray-400 placeholder:font-medium"
                         />
-                        <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" />
+                        <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500 group-focus-within:text-black transition-colors" />
                       </div>
                     </div>
                     <div>
-                      <label className="block text-[13px] font-medium text-black mb-2">
+                      <label className="block text-sm font-black text-black mb-2 uppercase tracking-wide">
                         Last Name
                       </label>
-                      <div className="relative">
+                      <div className="relative group">
                         <Input
-                          placeholder="last name"
+                          placeholder="LAST NAME"
                           value={formData.lastName}
                           onChange={(e) => handleInputChange('lastName', e.target.value)}
-                          className="border-2 border-black rounded-lg focus:ring-0 focus:border-[#007BFF] h-10 pl-10 shadow-[2px_2px_0_0_#000] focus:shadow-[3px_3px_0_0_#007BFF] transition-all"
+                          className="border-3 border-black rounded-none focus:ring-0 focus:border-black h-12 pl-10 shadow-[4px_4px_0_0_#ccc] focus:shadow-[6px_6px_0_0_#007BFF] transition-all text-base font-bold bg-gray-50 focus:bg-white placeholder:text-gray-400 placeholder:font-medium"
                         />
-                        <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" />
+                        <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500 group-focus-within:text-black transition-colors" />
                       </div>
                     </div>
                   </div>
 
                   {/* Email */}
                   <div>
-                    <label className="block text-[13px] font-medium text-black mb-2">
+                    <label className="block text-sm font-black text-black mb-2 uppercase tracking-wide">
                       Email Address <span className="text-red-500">*</span>
                     </label>
-                    <div className="relative">
+                    <div className="relative group">
                       <Input
                         type="email"
                         required
-                        placeholder="test@example.com"
+                        placeholder="HELLO@EXAMPLE.COM"
                         value={formData.email}
                         onChange={(e) => handleInputChange('email', e.target.value)}
-                        className="border-2 border-black rounded-lg focus:ring-0 focus:border-[#007BFF] h-10 pl-10 shadow-[2px_2px_0_0_#000] focus:shadow-[3px_3px_0_0_#007BFF] transition-all"
+                        className="border-3 border-black rounded-none focus:ring-0 focus:border-black h-12 pl-10 shadow-[4px_4px_0_0_#ccc] focus:shadow-[6px_6px_0_0_#007BFF] transition-all text-base font-bold bg-gray-50 focus:bg-white placeholder:text-gray-400 placeholder:font-medium"
                       />
-                      <AtSign className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" />
+                      <AtSign className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500 group-focus-within:text-black transition-colors" />
                     </div>
                   </div>
 
                   {/* Subject */}
                   <div>
-                    <label className="block text-[13px] font-medium text-black mb-2">
+                    <label className="block text-sm font-black text-black mb-2 uppercase tracking-wide">
                       Subject <span className="text-red-500">*</span>
                     </label>
-                    <Input
-                      required
-                      placeholder="Project collaboration"
-                      value={formData.subject}
-                      onChange={(e) => handleInputChange('subject', e.target.value)}
-                      className="border-2 border-black rounded-lg focus:ring-0 focus:border-[#007BFF] h-10 shadow-[2px_2px_0_0_#000] focus:shadow-[3px_3px_0_0_#007BFF] transition-all"
-                    />
+                    <div className="relative group">
+                        <Input
+                          required
+                          placeholder="PROJECT COLLABORATION"
+                          value={formData.subject}
+                          onChange={(e) => handleInputChange('subject', e.target.value)}
+                          className="border-3 border-black rounded-none focus:ring-0 focus:border-black h-12 pl-4 shadow-[4px_4px_0_0_#ccc] focus:shadow-[6px_6px_0_0_#007BFF] transition-all text-base font-bold bg-gray-50 focus:bg-white placeholder:text-gray-400 placeholder:font-medium"
+                        />
+                    </div>
                   </div>
 
                   {/* Message */}
                   <div>
-                    <label className="block text-[13px] font-medium text-black mb-2">
+                    <label className="block text-sm font-black text-black mb-2 uppercase tracking-wide">
                       Message <span className="text-red-500">*</span>
                     </label>
-                    <Textarea
-                      required
-                      rows={4}
-                      placeholder="Tell me about your project..."
-                      value={formData.message}
-                      onChange={(e) => handleInputChange('message', e.target.value)}
-                      className="border-2 border-black rounded-lg focus:ring-0 focus:border-[#007BFF] resize-none min-h-[100px] shadow-[2px_2px_0_0_#000] focus:shadow-[3px_3px_0_0_#007BFF] transition-all"
-                    />
+                    <div className="relative group">
+                        <Textarea
+                          required
+                          rows={5}
+                          placeholder="TELL ME ABOUT YOUR PROJECT..."
+                          value={formData.message}
+                          onChange={(e) => handleInputChange('message', e.target.value)}
+                          className="border-3 border-black rounded-none focus:ring-0 focus:border-black resize-none min-h-[140px] shadow-[4px_4px_0_0_#ccc] focus:shadow-[6px_6px_0_0_#007BFF] transition-all text-base font-bold p-4 bg-gray-50 focus:bg-white placeholder:text-gray-400 placeholder:font-medium"
+                        />
+                    </div>
                   </div>
 
                   {/* Submit Button */}
-                  <div className="pt-3">
+                  <div className="pt-4">
                     <Button
                       type="submit"
                       disabled={isSubmitting}
-                      className="border-[#007BFF] bg-[#007BFF] text-white hover:bg-white hover:text-[#007BFF] disabled:bg-gray-400 disabled:border-gray-400 disabled:cursor-not-allowed shadow-[3px_3px_0_0_#007BFF] hover:shadow-[4px_4px_0_0_#007BFF] disabled:shadow-[3px_3px_0_0_#999] text-[14px] font-medium px-[30px] py-[18px] rounded-lg transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 w-full flex items-center justify-center gap-2 tracking-[1.23px]"
+                      className="w-full bg-[#007BFF] hover:bg-[#0056b3] text-white border-4 border-black h-14 text-lg font-black uppercase tracking-widest shadow-[6px_6px_0_0_#000] hover:shadow-[8px_8px_0_0_#000] hover:-translate-y-1 active:shadow-[2px_2px_0_0_#000] active:translate-y-1 disabled:opacity-70 disabled:cursor-not-allowed group transition-all"
                     >
                       {isSubmitting ? (
                         <>
-                          <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                          Sending...
+                          <div className="w-6 h-6 border-4 border-white border-t-transparent rounded-full animate-spin mr-3" />
+                          LAUNCHING...
                         </>
                       ) : (
                         <>
-                          <Send className="w-4 h-4" />
-                          Send Message
+                          SEND MESSAGE <Send className="w-5 h-5 ml-3 group-hover:translate-x-1 transition-transform" />
                         </>
                       )}
                     </Button>
@@ -505,80 +507,43 @@ export default function Contact() {
             </div>
 
             {/* Freelance Services CTA */}
-            <div className="mt-8 lg:mt-10">
-              <div className="bg-[#007BFF] border-2 border-black rounded-[16px] shadow-[4px_4px_0_0_#000] p-6 lg:p-8 text-center hover:shadow-[6px_6px_0_0_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-300">
-                <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Zap className="w-6 h-6 text-[#007BFF]" />
-                </div>
-                <h3 className="text-[28px] sm:text-[32px] font-medium text-white mb-3 tracking-[1.23px]">
-                  Ready to Start Your Project?
-                </h3>
-                <p className="text-[14px] leading-[22px] tracking-[1.23px] text-white/90 mb-6 max-w-xl mx-auto">
-                  Explore my comprehensive freelance services and find the perfect package for your business needs.
-                </p>
-                <Link
-                  to="/freelance"
-                  className="inline-flex items-center gap-2 bg-white hover:bg-gray-100 text-black border-2 border-black rounded-[12px] shadow-[3px_3px_0_0_rgba(0,0,0,0.3)] hover:shadow-[4px_4px_0_0_rgba(0,0,0,0.3)] hover:-translate-x-0.5 hover:-translate-y-0.5 px-6 py-3 font-medium text-[14px] tracking-[1.23px] transition-all duration-300"
-                >
-                  View Freelance Services <ArrowRight className="w-4 h-4" />
-                </Link>
+            <div className="mt-16 lg:mt-24">
+              <div className="relative bg-[#000] rounded-[20px] p-1">
+                 <div className="bg-[#A0E7E5] border-4 border-black rounded-[16px] p-8 lg:p-12 text-center relative overflow-hidden group hover:bg-[#F0A500] transition-colors duration-500">
+                    
+                    {/* Background Pattern */}
+                    <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#000_1px,transparent_1px)] bg-[size:20px_20px]"></div>
+
+                    <div className="relative z-10">
+                        <div className="inline-block bg-white border-3 border-black p-3 rounded-full mb-6 shadow-[4px_4px_0_0_#000] group-hover:rotate-12 transition-transform duration-300">
+                          <Zap className="w-8 h-8 text-black" fill="currentColor" />
+                        </div>
+                        
+                        <h3 className="text-3xl sm:text-4xl lg:text-5xl font-black text-black mb-4 uppercase tracking-tighter">
+                          Ready to Scale Up?
+                        </h3>
+                        
+                        <p className="text-base sm:text-lg font-bold text-black/80 mb-8 max-w-2xl mx-auto border-2 border-black bg-white/50 p-2 inline-block rotate-1">
+                          Explore my comprehensive freelance services and find the perfect package for your business needs.
+                        </p>
+                        
+                        <div className="flex justify-center">
+                            <Link
+                              to="/freelance"
+                              className="inline-flex items-center gap-3 bg-white text-black border-4 border-black shadow-[6px_6px_0_0_#000] hover:shadow-[10px_10px_0_0_#000] hover:-translate-y-1 px-8 py-4 font-black text-lg uppercase tracking-wider transition-all duration-300"
+                            >
+                              View Services <ArrowRight className="w-6 h-6" />
+                            </Link>
+                        </div>
+                    </div>
+                 </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-white border-t border-black">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-[43px]">
-          <div className="flex flex-col lg:flex-row justify-between items-center gap-6">
-            {/* Social Links */}
-            <div className="flex items-center gap-3">
-              <a
-                href="https://linkedin.com/in/prabhath-subhashana-6b694a20a"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 sm:w-12 sm:h-12 border border-black rounded-full flex items-center justify-center hover:bg-black hover:text-white transition-colors"
-                title="LinkedIn Profile"
-              >
-                <Linkedin className="w-5 h-5 sm:w-6 sm:h-6" />
-              </a>
-              <a
-                href="https://behance.net/prabathsubasha"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 sm:w-12 sm:h-12 border border-black rounded-full flex items-center justify-center hover:bg-black hover:text-white transition-colors"
-                title="Behance Portfolio"
-              >
-                <BehanceIcon className="w-5 h-5 sm:w-6 sm:h-6" />
-              </a>
-              <a
-                href="https://github.com/subhashana00"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 sm:w-12 sm:h-12 border border-black rounded-full flex items-center justify-center hover:bg-black hover:text-white transition-colors"
-                title="GitHub Profile"
-              >
-                <Github className="w-5 h-5 sm:w-6 sm:h-6" />
-              </a>
-              <a
-                href="mailto:prabathsubashana18@gmail.com"
-                className="w-10 h-10 sm:w-12 sm:h-12 border border-black rounded-full flex items-center justify-center hover:bg-black hover:text-white transition-colors"
-                title="Email"
-              >
-                <Mail className="w-5 h-5 sm:w-6 sm:h-6" />
-              </a>
-            </div>
-
-            {/* Copyright */}
-            <div className="text-center">
-              <p className="text-[14px] sm:text-[15px] leading-[24px] sm:leading-[27px] tracking-[1.23px] text-black">
-                Created by Prabhath Subhashana
-              </p>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
       <Toaster />
     </div>
   );
