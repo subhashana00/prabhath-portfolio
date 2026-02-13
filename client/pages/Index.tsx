@@ -48,7 +48,7 @@ export default function Index() {
   const [isHovering, setIsHovering] = useState<string | null>(null);
 
   // Static roles array to prevent re-renders
-  const roles = useMemo(() => ["UI/UX Designer", "Front-end Developer"], []);
+  const roles = useMemo(() => ["Product Designer", "UI/UX Designer", "Front-end Developer"], []);
 
   // Project gallery data
   const projectGalleries = {
@@ -1121,7 +1121,7 @@ export default function Index() {
               transitionDelay: isVisible.projects ? '200ms' : '0ms'
             }}>
               <div 
-                className={`bg-white border-4 border-black rounded-[30px] overflow-hidden shadow-[8px_8px_0_0_#000] hover:shadow-[14px_14px_0_0_#000] transition-all duration-300 hover:-translate-y-2 flex flex-col h-full ${
+                className={`bg-white border-4 border-black rounded-[30px] overflow-hidden shadow-[8px_8px_0_0_#000] hover:shadow-[14px_14px_0_0_#000] transition-all duration-300 hover:-translate-y-2 flex flex-col h-[500px] ${
                   expandedCard === 'cima' ? 'transform scale-[1.02] z-10 relative ring-4 ring-[#007BFF] ring-offset-4' : ''
                 }`}
                 onMouseEnter={() => setIsHovering('cima')}
@@ -1139,7 +1139,9 @@ export default function Index() {
 
                 {/* Project Image */}
                 <div 
-                  className="relative aspect-[4/3] bg-gradient-to-br from-purple-100 to-orange-100 overflow-hidden cursor-pointer border-b-4 border-black group-hover:bg-[#FFDE59] transition-colors"
+                  className={`relative w-full overflow-hidden cursor-pointer border-b-4 border-black group-hover:bg-[#FFDE59] transition-all duration-500 ease-in-out ${
+                    isHovering === 'cima' ? 'h-[120px]' : 'h-[250px]'
+                  }`}
                   onClick={(e) => {
                     e.stopPropagation();
                     openGallery('cima');
@@ -1154,7 +1156,7 @@ export default function Index() {
                   
                   {/* View Gallery Overlay Button */}
                   <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
-                      <div className="bg-white border-3 border-black px-6 py-3 rounded-full shadow-[4px_4px_0_0_#000] flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                      <div className="bg-white border-3 border-black px-4 py-2 rounded-full shadow-[4px_4px_0_0_#000] flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 scale-75">
                           <Eye className="w-5 h-5 text-black" />
                           <span className="font-black uppercase tracking-wider text-sm">View</span>
                       </div>
@@ -1162,23 +1164,25 @@ export default function Index() {
                 </div>
                 
                 {/* Project Content */}
-                <div className="p-6 sm:p-8 bg-white flex flex-col flex-grow relative">
-                  <div className="flex items-start justify-between mb-4 gap-2">
-                     <h3 className="text-2xl font-black leading-tight text-black line-clamp-2 uppercase tracking-tight">
+                <div className="p-6 sm:p-8 bg-white flex flex-col flex-1 overflow-hidden transition-all duration-500 ease-in-out">
+                  <div className="flex items-start justify-between mb-4 gap-2 shrink-0">
+                     <h3 className="text-2xl font-black leading-tight text-black line-clamp-1 uppercase tracking-tight">
                       CIMA Landingpage
                     </h3>
                     <span className="text-[10px] font-black uppercase tracking-wider bg-[#FF6B6B] text-white px-2 py-1 border-2 border-black shadow-[2px_2px_0_0_#000] min-w-fit transform rotate-2">Website</span>
                   </div>
                   
-                  <p className={`text-sm sm:text-base font-medium leading-relaxed text-gray-600 mb-6 flex-grow ${
-                    expandedCard === 'cima' || isHovering === 'cima' 
-                      ? 'line-clamp-none' 
-                      : 'line-clamp-3'
-                  }`}>
-                    Redesigned the CIMA landing page to improve user engagement and conversion rates, focusing on clear messaging and intuitive navigation.
-                  </p>
+                  <div className="relative flex-1 overflow-hidden">
+                    <p className={`text-sm sm:text-base font-medium leading-relaxed text-gray-600 transition-all duration-500 ${
+                      expandedCard === 'cima' || isHovering === 'cima' 
+                        ? 'overflow-y-auto max-h-full scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-transparent pr-2' 
+                        : 'line-clamp-3'
+                    }`}>
+                      Redesigned the CIMA landing page to improve user engagement and conversion rates, focusing on clear messaging and intuitive navigation.
+                    </p>
+                  </div>
                   
-                  <div className="flex flex-wrap gap-3 mt-auto pt-6 border-t-2 border-black border-dashed">
+                  <div className="flex flex-wrap gap-3 mt-4 pt-4 border-t-2 border-black border-dashed shrink-0">
                       <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-gray-500">
                         Design Only
                       </span>
@@ -1197,7 +1201,7 @@ export default function Index() {
               transitionDelay: isVisible.projects ? '400ms' : '0ms'
             }}>
               <div 
-                className={`bg-white border-4 border-black rounded-[30px] overflow-hidden shadow-[8px_8px_0_0_#000] hover:shadow-[14px_14px_0_0_#000] transition-all duration-300 hover:-translate-y-2 flex flex-col h-full ${
+                className={`bg-white border-4 border-black rounded-[30px] overflow-hidden shadow-[8px_8px_0_0_#000] hover:shadow-[14px_14px_0_0_#000] transition-all duration-300 hover:-translate-y-2 flex flex-col h-[500px] ${
                   expandedCard === 'gym' ? 'transform scale-[1.02] z-10 relative ring-4 ring-[#007BFF] ring-offset-4' : ''
                 }`}
                 onMouseEnter={() => setIsHovering('gym')}
@@ -1215,7 +1219,9 @@ export default function Index() {
 
                 {/* Project Image */}
                 <div 
-                  className="relative aspect-[4/3] bg-gradient-to-br from-blue-100 to-green-100 overflow-hidden cursor-pointer border-b-4 border-black group-hover:bg-[#007BFF] transition-colors"
+                  className={`relative w-full overflow-hidden cursor-pointer border-b-4 border-black group-hover:bg-[#007BFF] transition-all duration-500 ease-in-out ${
+                    isHovering === 'gym' ? 'h-[120px]' : 'h-[250px]'
+                  }`}
                   onClick={(e) => {
                     e.stopPropagation();
                     openGallery('gym');
@@ -1230,7 +1236,7 @@ export default function Index() {
                   
                   {/* View Gallery Overlay Button */}
                   <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
-                      <div className="bg-white border-3 border-black px-6 py-3 rounded-full shadow-[4px_4px_0_0_#000] flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                      <div className="bg-white border-3 border-black px-4 py-2 rounded-full shadow-[4px_4px_0_0_#000] flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 scale-75">
                           <Eye className="w-5 h-5 text-black" />
                           <span className="font-black uppercase tracking-wider text-sm">View</span>
                       </div>
@@ -1238,23 +1244,25 @@ export default function Index() {
                 </div>
                 
                 {/* Project Content */}
-                <div className="p-6 sm:p-8 bg-white flex flex-col flex-grow relative">
-                  <div className="flex items-start justify-between mb-4 gap-2">
-                     <h3 className="text-2xl font-black leading-tight text-black line-clamp-2 uppercase tracking-tight">
+                <div className="p-6 sm:p-8 bg-white flex flex-col flex-1 overflow-hidden transition-all duration-500 ease-in-out">
+                  <div className="flex items-start justify-between mb-4 gap-2 shrink-0">
+                     <h3 className="text-2xl font-black leading-tight text-black line-clamp-1 uppercase tracking-tight">
                       Gym & Fitness App
                     </h3>
                     <span className="text-[10px] font-black uppercase tracking-wider bg-[#007BFF] text-white px-2 py-1 border-2 border-black shadow-[2px_2px_0_0_#000] min-w-fit transform -rotate-1">Mobile App</span>
                   </div>
                   
-                  <p className={`text-sm sm:text-base font-medium leading-relaxed text-gray-600 mb-6 flex-grow ${
-                    expandedCard === 'gym' || isHovering === 'gym' 
-                      ? 'line-clamp-none' 
-                      : 'line-clamp-3'
-                  }`}>
-                    Designed a comprehensive fitness app with workout tracking, personalized plans, and progress visualizations to motivate users.
-                  </p>
+                  <div className="relative flex-1 overflow-hidden">
+                    <p className={`text-sm sm:text-base font-medium leading-relaxed text-gray-600 transition-all duration-500 ${
+                      expandedCard === 'gym' || isHovering === 'gym' 
+                        ? 'overflow-y-auto max-h-full scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-transparent pr-2' 
+                        : 'line-clamp-3'
+                    }`}>
+                      Designed a comprehensive fitness app with workout tracking, personalized plans, and progress visualizations to motivate users.
+                    </p>
+                  </div>
                   
-                  <div className="flex flex-wrap gap-3 mt-auto pt-6 border-t-2 border-black border-dashed">
+                  <div className="flex flex-wrap gap-3 mt-4 pt-4 border-t-2 border-black border-dashed shrink-0">
                       <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-gray-500">
                         Design Only
                       </span>
@@ -1273,7 +1281,7 @@ export default function Index() {
               transitionDelay: isVisible.projects ? '600ms' : '0ms'
             }}>
               <div 
-                className={`bg-white border-4 border-black rounded-[30px] overflow-hidden shadow-[8px_8px_0_0_#000] hover:shadow-[14px_14px_0_0_#000] transition-all duration-300 hover:-translate-y-2 flex flex-col h-full ${
+                className={`bg-white border-4 border-black rounded-[30px] overflow-hidden shadow-[8px_8px_0_0_#000] hover:shadow-[14px_14px_0_0_#000] transition-all duration-300 hover:-translate-y-2 flex flex-col h-[500px] ${
                   expandedCard === 'jhon' ? 'transform scale-[1.02] z-10 relative ring-4 ring-[#007BFF] ring-offset-4' : ''
                 }`}
                 onMouseEnter={() => setIsHovering('jhon')}
@@ -1291,7 +1299,9 @@ export default function Index() {
 
                 {/* Project Image */}
                 <div 
-                  className="relative aspect-[4/3] bg-gradient-to-br from-indigo-100 to-pink-100 overflow-hidden cursor-pointer border-b-4 border-black group-hover:bg-[#FFDE59] transition-colors"
+                  className={`relative w-full overflow-hidden cursor-pointer border-b-4 border-black group-hover:bg-[#FFDE59] transition-all duration-500 ease-in-out ${
+                    isHovering === 'jhon' ? 'h-[120px]' : 'h-[250px]'
+                  }`}
                   onClick={(e) => {
                     e.stopPropagation();
                     openGallery('jhon');
@@ -1306,7 +1316,7 @@ export default function Index() {
                   
                   {/* View Gallery Overlay Button */}
                   <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
-                      <div className="bg-white border-3 border-black px-6 py-3 rounded-full shadow-[4px_4px_0_0_#000] flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                      <div className="bg-white border-3 border-black px-4 py-2 rounded-full shadow-[4px_4px_0_0_#000] flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 scale-75">
                           <Eye className="w-5 h-5 text-black" />
                           <span className="font-black uppercase tracking-wider text-sm">View</span>
                       </div>
@@ -1314,23 +1324,25 @@ export default function Index() {
                 </div>
                 
                 {/* Project Content */}
-                <div className="p-6 sm:p-8 bg-white flex flex-col flex-grow relative">
-                  <div className="flex items-start justify-between mb-4 gap-2">
-                     <h3 className="text-2xl font-black leading-tight text-black line-clamp-2 uppercase tracking-tight">
+                <div className="p-6 sm:p-8 bg-white flex flex-col flex-1 overflow-hidden transition-all duration-500 ease-in-out">
+                  <div className="flex items-start justify-between mb-4 gap-2 shrink-0">
+                     <h3 className="text-2xl font-black leading-tight text-black line-clamp-1 uppercase tracking-tight">
                       Furniture's Branding
                     </h3>
                     <span className="text-[10px] font-black uppercase tracking-wider bg-[#FFDE59] text-black px-2 py-1 border-2 border-black shadow-[2px_2px_0_0_#000] min-w-fit transform rotate-1">Branding</span>
                   </div>
                   
-                  <p className={`text-sm sm:text-base font-medium leading-relaxed text-gray-600 mb-6 flex-grow ${
-                    expandedCard === 'jhon' || isHovering === 'jhon' 
-                      ? 'line-clamp-none' 
-                      : 'line-clamp-3'
-                  }`}>
-                    Developed a coherent brand identity for Jhon Holdings, including logo design, color palette, and visual assets for their furniture line.
-                  </p>
+                  <div className="relative flex-1 overflow-hidden">
+                    <p className={`text-sm sm:text-base font-medium leading-relaxed text-gray-600 transition-all duration-500 ${
+                      expandedCard === 'jhon' || isHovering === 'jhon' 
+                        ? 'overflow-y-auto max-h-full scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-transparent pr-2' 
+                        : 'line-clamp-3'
+                    }`}>
+                      Developed a coherent brand identity for Jhon Holdings, including logo design, color palette, and visual assets for their furniture line.
+                    </p>
+                  </div>
                   
-                  <div className="flex flex-wrap gap-3 mt-auto pt-6 border-t-2 border-black border-dashed">
+                  <div className="flex flex-wrap gap-3 mt-4 pt-4 border-t-2 border-black border-dashed shrink-0">
                       <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-gray-500">
                         Design Unavailable
                       </span>
@@ -1349,7 +1361,7 @@ export default function Index() {
               transitionDelay: isVisible.projects ? '800ms' : '0ms'
             }}>
               <div 
-                className={`bg-white border-4 border-black rounded-[30px] overflow-hidden shadow-[8px_8px_0_0_#000] hover:shadow-[14px_14px_0_0_#000] transition-all duration-300 hover:-translate-y-2 flex flex-col h-full ${
+                className={`bg-white border-4 border-black rounded-[30px] overflow-hidden shadow-[8px_8px_0_0_#000] hover:shadow-[14px_14px_0_0_#000] transition-all duration-300 hover:-translate-y-2 flex flex-col h-[500px] ${
                   expandedCard === 'culturajoin' ? 'transform scale-[1.02] z-10 relative ring-4 ring-[#007BFF] ring-offset-4' : ''
                 }`}
                 onMouseEnter={() => setIsHovering('culturajoin')}
@@ -1367,7 +1379,9 @@ export default function Index() {
 
                 {/* Project Image */}
                 <div 
-                  className="relative aspect-[4/3] bg-gradient-to-br from-red-100 to-yellow-100 overflow-hidden cursor-pointer border-b-4 border-black group-hover:bg-[#FF6B6B] transition-colors"
+                  className={`relative w-full overflow-hidden cursor-pointer border-b-4 border-black group-hover:bg-[#FF6B6B] transition-all duration-500 ease-in-out ${
+                    isHovering === 'culturajoin' ? 'h-[120px]' : 'h-[250px]'
+                  }`}
                   onClick={() => openGallery('culturajoin')}
                 >
                   <OptimizedImage 
@@ -1379,7 +1393,7 @@ export default function Index() {
                   
                   {/* View Gallery Overlay Button */}
                   <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
-                      <div className="bg-white border-3 border-black px-6 py-3 rounded-full shadow-[4px_4px_0_0_#000] flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                      <div className="bg-white border-3 border-black px-4 py-2 rounded-full shadow-[4px_4px_0_0_#000] flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 scale-75">
                           <Eye className="w-5 h-5 text-black" />
                           <span className="font-black uppercase tracking-wider text-sm">View</span>
                       </div>
@@ -1387,23 +1401,25 @@ export default function Index() {
                 </div>
                 
                 {/* Project Content */}
-                <div className="p-6 sm:p-8 bg-white flex flex-col flex-grow relative">
-                  <div className="flex items-start justify-between mb-4 gap-2">
-                     <h3 className="text-2xl font-black leading-tight text-black line-clamp-2 uppercase tracking-tight">
+                <div className="p-6 sm:p-8 bg-white flex flex-col flex-1 overflow-hidden transition-all duration-500 ease-in-out">
+                  <div className="flex items-start justify-between mb-4 gap-2 shrink-0">
+                     <h3 className="text-2xl font-black leading-tight text-black line-clamp-1 uppercase tracking-tight">
                       CulturaJoin
                     </h3>
                     <span className="text-[10px] font-black uppercase tracking-wider bg-[#FF6B6B] text-white px-2 py-1 border-2 border-black shadow-[2px_2px_0_0_#000] min-w-fit transform rotate-2">Web Platform</span>
                   </div>
                   
-                  <p className={`text-sm sm:text-base font-medium leading-relaxed text-gray-600 mb-6 flex-grow ${
-                    expandedCard === 'culturajoin' || isHovering === 'culturajoin' 
-                      ? 'line-clamp-none' 
-                      : 'line-clamp-3'
-                  }`}>
-                    {renderDescriptionWithLinks("At Uvexzon, I worked on a cultural and event management platform designed for locals, tourists, and planners. The platform supported invitation purchases and event hosting, improving accessibility for diverse users. All project content and rights belong to Uvexzon.")}
-                  </p>
+                  <div className="relative flex-1 overflow-hidden">
+                    <p className={`text-sm sm:text-base font-medium leading-relaxed text-gray-600 transition-all duration-500 ${
+                      expandedCard === 'culturajoin' || isHovering === 'culturajoin' 
+                        ? 'overflow-y-auto max-h-full scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-transparent pr-2' 
+                        : 'line-clamp-3'
+                    }`}>
+                      {renderDescriptionWithLinks("At Uvexzon, I worked on a cultural and event management platform designed for locals, tourists, and planners. The platform supported invitation purchases and event hosting, improving accessibility for diverse users. All project content and rights belong to Uvexzon.")}
+                    </p>
+                  </div>
                   
-                  <div className="flex flex-wrap gap-3 mt-auto pt-6 border-t-2 border-black border-dashed">
+                  <div className="flex flex-wrap gap-3 mt-4 pt-4 border-t-2 border-black border-dashed shrink-0">
                       <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-gray-500">
                         Design Unavailable
                       </span>
@@ -1422,7 +1438,7 @@ export default function Index() {
               transitionDelay: isVisible.projects ? '1000ms' : '0ms'
             }}>
               <div 
-                className={`bg-white border-4 border-black rounded-[30px] overflow-hidden shadow-[8px_8px_0_0_#000] hover:shadow-[14px_14px_0_0_#000] transition-all duration-300 hover:-translate-y-2 flex flex-col h-full ${
+                className={`bg-white border-4 border-black rounded-[30px] overflow-hidden shadow-[8px_8px_0_0_#000] hover:shadow-[14px_14px_0_0_#000] transition-all duration-300 hover:-translate-y-2 flex flex-col h-[500px] ${
                   expandedCard === 'motion' ? 'transform scale-[1.02] z-10 relative ring-4 ring-[#007BFF] ring-offset-4' : ''
                 }`}
                 onMouseEnter={() => setIsHovering('motion')}
@@ -1440,7 +1456,9 @@ export default function Index() {
 
                 {/* Project Image */}
                 <div 
-                  className="relative aspect-[4/3] bg-gradient-to-br from-orange-100 to-amber-100 overflow-hidden cursor-pointer border-b-4 border-black group-hover:bg-[#FFDE59] transition-colors"
+                  className={`relative w-full overflow-hidden cursor-pointer border-b-4 border-black group-hover:bg-[#FFDE59] transition-all duration-500 ease-in-out ${
+                    isHovering === 'motion' ? 'h-[120px]' : 'h-[250px]'
+                  }`}
                   onClick={() => openGallery('motion')}
                 >
                   <OptimizedImage 
@@ -1452,7 +1470,7 @@ export default function Index() {
                   
                   {/* View Gallery Overlay Button */}
                   <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
-                      <div className="bg-white border-3 border-black px-6 py-3 rounded-full shadow-[4px_4px_0_0_#000] flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                      <div className="bg-white border-3 border-black px-4 py-2 rounded-full shadow-[4px_4px_0_0_#000] flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 scale-75">
                           <Eye className="w-5 h-5 text-black" />
                           <span className="font-black uppercase tracking-wider text-sm">View</span>
                       </div>
@@ -1460,23 +1478,25 @@ export default function Index() {
                 </div>
                 
                 {/* Project Content */}
-                <div className="p-6 sm:p-8 bg-white flex flex-col flex-grow relative">
-                  <div className="flex items-start justify-between mb-4 gap-2">
-                     <h3 className="text-2xl font-black leading-tight text-black line-clamp-2 uppercase tracking-tight">
+                <div className="p-6 sm:p-8 bg-white flex flex-col flex-1 overflow-hidden transition-all duration-500 ease-in-out">
+                  <div className="flex items-start justify-between mb-4 gap-2 shrink-0">
+                     <h3 className="text-2xl font-black leading-tight text-black line-clamp-1 uppercase tracking-tight">
                       Motion Ink Branding
                     </h3>
                     <span className="text-[10px] font-black uppercase tracking-wider bg-[#FFDE59] text-black px-2 py-1 border-2 border-black shadow-[2px_2px_0_0_#000] min-w-fit transform rotate-1">Branding</span>
                   </div>
                   
-                  <p className={`text-sm sm:text-base font-medium leading-relaxed text-gray-600 mb-6 flex-grow ${
-                    expandedCard === 'motion' || isHovering === 'motion' 
-                      ? 'line-clamp-none' 
-                      : 'line-clamp-3'
-                  }`}>
-                    Creative branding solution for Motion Ink, incorporating dynamic visual elements to reflect the brand's identity and market position.
-                  </p>
+                  <div className="relative flex-1 overflow-hidden">
+                    <p className={`text-sm sm:text-base font-medium leading-relaxed text-gray-600 transition-all duration-500 ${
+                      expandedCard === 'motion' || isHovering === 'motion' 
+                        ? 'overflow-y-auto max-h-full scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-transparent pr-2' 
+                        : 'line-clamp-3'
+                    }`}>
+                      Creative branding solution for Motion Ink, incorporating dynamic visual elements to reflect the brand's identity and market position.
+                    </p>
+                  </div>
                   
-                  <div className="flex flex-wrap gap-3 mt-auto pt-6 border-t-2 border-black border-dashed">
+                  <div className="flex flex-wrap gap-3 mt-4 pt-4 border-t-2 border-black border-dashed shrink-0">
                       <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-gray-500">
                         Design Only
                       </span>
@@ -1495,12 +1515,12 @@ export default function Index() {
               transitionDelay: isVisible.projects ? '1200ms' : '0ms'
             }}>
               <div 
-                className={`bg-white border-4 border-black rounded-[30px] overflow-hidden shadow-[8px_8px_0_0_#000] hover:shadow-[14px_14px_0_0_#000] transition-all duration-300 hover:-translate-y-2 flex flex-col h-full ${
-                  expandedCard === 'swish' ? 'transform scale-[1.02] z-10 relative ring-4 ring-[#007BFF] ring-offset-4' : ''
+                className={`bg-white border-4 border-black rounded-[30px] overflow-hidden shadow-[8px_8px_0_0_#000] hover:shadow-[14px_14px_0_0_#000] transition-all duration-300 hover:-translate-y-2 flex flex-col h-[500px] ${
+                  expandedCard === 'swish-strokes' ? 'transform scale-[1.02] z-10 relative ring-4 ring-[#007BFF] ring-offset-4' : ''
                 }`}
-                onMouseEnter={() => setIsHovering('swish')}
+                onMouseEnter={() => setIsHovering('swish-strokes')}
                 onMouseLeave={() => setIsHovering(null)}
-                onClick={() => setExpandedCard(expandedCard === 'swish' ? null : 'swish')}
+                onClick={() => setExpandedCard(expandedCard === 'swish-strokes' ? null : 'swish-strokes')}
               >
                   {/* Project Image Header */}
                   <div className="h-10 bg-white border-b-4 border-black flex items-center px-4 justify-between shrink-0">
@@ -1513,8 +1533,10 @@ export default function Index() {
 
                 {/* Project Image */}
                 <div 
-                  className="relative aspect-[4/3] bg-gradient-to-br from-blue-100 to-indigo-100 overflow-hidden cursor-pointer border-b-4 border-black group-hover:bg-[#FFDE59] transition-colors"
-                  onClick={() => openGallery('swish')}
+                  className={`relative w-full overflow-hidden cursor-pointer border-b-4 border-black group-hover:bg-purple-400 transition-all duration-500 ease-in-out ${
+                    isHovering === 'swish-strokes' ? 'h-[120px]' : 'h-[250px]'
+                  }`}
+                  onClick={() => openGallery('swish-strokes')}
                 >
                   <OptimizedImage 
                     src={getAssetPath("images/projects/swishstrokes.png")} 
@@ -1525,7 +1547,7 @@ export default function Index() {
                   
                   {/* View Gallery Overlay Button */}
                   <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
-                      <div className="bg-white border-3 border-black px-6 py-3 rounded-full shadow-[4px_4px_0_0_#000] flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                      <div className="bg-white border-3 border-black px-4 py-2 rounded-full shadow-[4px_4px_0_0_#000] flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 scale-75">
                           <Eye className="w-5 h-5 text-black" />
                           <span className="font-black uppercase tracking-wider text-sm">View</span>
                       </div>
@@ -1533,23 +1555,25 @@ export default function Index() {
                 </div>
                 
                 {/* Project Content */}
-                <div className="p-6 sm:p-8 bg-white flex flex-col flex-grow relative">
-                  <div className="flex items-start justify-between mb-4 gap-2">
-                     <h3 className="text-2xl font-black leading-tight text-black line-clamp-2 uppercase tracking-tight">
+                <div className="p-6 sm:p-8 bg-white flex flex-col flex-1 overflow-hidden transition-all duration-500 ease-in-out">
+                  <div className="flex items-start justify-between mb-4 gap-2 shrink-0">
+                     <h3 className="text-2xl font-black leading-tight text-black line-clamp-1 uppercase tracking-tight">
                       Swish Strokes
                     </h3>
-                    <span className="text-[10px] font-black uppercase tracking-wider bg-[#FFDE59] text-black px-2 py-1 border-2 border-black shadow-[2px_2px_0_0_#000] min-w-fit transform rotate-1">Branding</span>
+                    <span className="text-[10px] font-black uppercase tracking-wider bg-purple-500 text-white px-2 py-1 border-2 border-black shadow-[2px_2px_0_0_#000] min-w-fit transform rotate-1">App</span>
                   </div>
                   
-                  <p className={`text-sm sm:text-base font-medium leading-relaxed text-gray-600 mb-6 flex-grow ${
-                    expandedCard === 'swish' || isHovering === 'swish' 
-                      ? 'line-clamp-none' 
-                      : 'line-clamp-3'
-                  }`}>
-                    A branding project for Swish Strokes, delivering a unique visual identity including logo design and brand assets.
-                  </p>
+                  <div className="relative flex-1 overflow-hidden">
+                    <p className={`text-sm sm:text-base font-medium leading-relaxed text-gray-600 transition-all duration-500 ${
+                      expandedCard === 'swish-strokes' || isHovering === 'swish-strokes' 
+                        ? 'overflow-y-auto max-h-full scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-transparent pr-2' 
+                        : 'line-clamp-3'
+                    }`}>
+                      Collaborated with Uvexzon as a UX Designer on the Mandala Art Colouring & Music Relaxation Mobile App, focused on mindfulness and creativity. The app includes mandala colouring, relaxing music, tournaments, mood tracking, and motivational prompts. Also contributed to designing the landing page to enhance user engagement and brand presence. All project content and rights belong to Uvexzon.
+                    </p>
+                  </div>
                   
-                  <div className="flex flex-wrap gap-3 mt-auto pt-6 border-t-2 border-black border-dashed">
+                  <div className="flex flex-wrap gap-3 mt-4 pt-4 border-t-2 border-black border-dashed shrink-0">
                       <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-gray-500">
                         Design Only
                       </span>
