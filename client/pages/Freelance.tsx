@@ -415,6 +415,20 @@ const Freelance = () => {
 
   const services = [
     {
+      id: "product-design",
+      icon: <Package className="w-6 h-6" />,
+      title: "Product Design",
+      description: "End-to-end product design from concept to delivery, focusing on solving real user problems and business goals.",
+      features: [
+        "Product strategy & vision",
+        "User research & analysis",
+        "Interactive prototyping",
+        "Visual design & branding",
+        "Design system creation",
+        "Developer handoff support"
+      ]
+    },
+    {
       id: "ui-design",
       icon: <Monitor className="w-6 h-6" />,
       title: "UI Design for Websites",

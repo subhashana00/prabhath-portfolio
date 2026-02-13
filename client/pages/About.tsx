@@ -473,7 +473,7 @@ export default function About() {
                     <div className="grid grid-cols-2 gap-4">
                       <div className="bg-white border-2 border-black rounded-xl shadow-[4px_4px_0_0_#000] p-4 group hover:-translate-y-1 transition-transform duration-300">
                         <div className="text-center">
-                          <div className="w-10 h-10 bg-[#007BFF] rounded-lg border-2 border-black flex items-center justify-center mx-auto mb-2 text-white font-bold group-hover:bg-black transition-colors">2+</div>
+                          <div className="w-10 h-10 bg-[#007BFF] rounded-lg border-2 border-black flex items-center justify-center mx-auto mb-2 text-white font-bold group-hover:bg-black transition-colors">1+</div>
                           <p className="text-xs font-bold text-black uppercase tracking-wide">Years Exp.</p>
                         </div>
                       </div>
@@ -703,7 +703,7 @@ export default function About() {
             {/* Summary Stats - Widgets */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
               <div className="text-center bg-white border-2 border-black rounded-xl shadow-[4px_4px_0_0_#000] p-6 hover:shadow-[6px_6px_0_0_#000] hover:-translate-y-1 transition-all duration-300">
-                <div className="text-3xl lg:text-4xl font-black text-[#007BFF] mb-2 leading-none">2+</div>
+                <div className="text-3xl lg:text-4xl font-black text-[#007BFF] mb-2 leading-none">1+</div>
                 <div className="text-[11px] font-bold text-black uppercase tracking-widest bg-gray-100 inline-block px-2 py-1 rounded">Years Exp.</div>
               </div>
               <div className="text-center bg-white border-2 border-black rounded-xl shadow-[4px_4px_0_0_#000] p-6 hover:shadow-[6px_6px_0_0_#000] hover:-translate-y-1 transition-all duration-300">
