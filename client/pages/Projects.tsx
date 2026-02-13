@@ -189,7 +189,8 @@ const projectsData = [
     type: "Web",
     industry: "Entertainment",
     links: {
-      design: "https://www.figma.com/design/hI88bJCFETml9iQ00PBKZz/Event-Booking---Management-Dashboard?node-id=1-4984&t=CKxyjZfVFWRbqlx6-1"
+      design: "https://www.figma.com/design/hI88bJCFETml9iQ00PBKZz/Event-Booking---Management-Dashboard?node-id=1-4984&t=CKxyjZfVFWRbqlx6-1",
+      innerPage: "/projects/event-booking-management-dashboard"
     }
   },
   {
@@ -946,6 +947,16 @@ export default function Projects() {
                     </div>
                     
                     <div className="flex flex-wrap gap-3 mt-auto pt-6 border-t-3 border-black border-dashed shrink-0">
+                        {(project.links as any).innerPage && (
+                          <Link
+                            to={(project.links as any).innerPage}
+                            onClick={(e) => e.stopPropagation()}
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border-2 border-black bg-black text-white hover:bg-[#007BFF] hover:border-[#007BFF] text-xs font-black uppercase tracking-wider transition-all shadow-[2px_2px_0_0_rgba(0,0,0,0.2)]"
+                          >
+                            View Project
+                            <ArrowRight className="w-3 h-3" />
+                          </Link>
+                        )}
                         {project.links.design && (
                           <a
                             href={project.links.design}

@@ -14,6 +14,7 @@ import About from "./pages/About";
 import Projects from "./pages/Projects";
 import Contact from "./pages/Contact";
 import Freelance from "./pages/Freelance";
+import EventBookingCaseStudy from "./pages/EventBookingCaseStudy";
 import NotFound from "./pages/NotFound";
 
 // Development console improvements
@@ -99,6 +100,7 @@ const App = () => {
                 <Route path="/projects" element={<Projects />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/freelance" element={<Freelance />} />
+                <Route path="/projects/event-booking-management-dashboard" element={<EventBookingCaseStudy />} />
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />
               </Routes>
