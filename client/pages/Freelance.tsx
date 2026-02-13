@@ -210,6 +210,7 @@ const Freelance = () => {
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [isHovering, setIsHovering] = useState<string | null>(null);
 
   // GSAP Animations
   useGSAP(() => {
@@ -971,8 +972,21 @@ const Freelance = () => {
             {featuredProjectsData.map((project, index) => (
               <div
                 key={project.id}
-                className={`portfolio-item group h-full bg-white border-4 border-black rounded-[30px] overflow-hidden shadow-[8px_8px_0_0_#000] hover:shadow-[14px_14px_0_0_#000] hover:-translate-y-2 transition-all duration-300 opacity-0 flex flex-col`}
+                className="portfolio-item group h-[500px] opacity-0"
               >
+                <div
+                   className={`bg-white border-4 border-black rounded-[30px] overflow-hidden shadow-[8px_8px_0_0_#000] hover:shadow-[14px_14px_0_0_#000] transition-all duration-300 hover:-translate-y-2 flex flex-col h-full relative`}
+                   onMouseEnter={() => setIsHovering(project.slug)}
+                   onMouseLeave={() => setIsHovering(null)}
+                >
+                  
+                  {/* Floating Type Badge */}
+                  <div className="absolute right-6 z-20 transition-all duration-500 ease-in-out" style={{ top: isHovering === project.slug ? '140px' : '265px' }}>
+                     <span className="text-[10px] font-black uppercase tracking-wider bg-[#FFDE59] text-black px-2 py-1 border-2 border-black shadow-[2px_2px_0_0_#000] min-w-fit transform rotate-1 inline-block">
+                       {project.type}
+                     </span>
+                  </div>
+
                   {/* Project Image Header */}
                   <div className="h-10 bg-white border-b-4 border-black flex items-center px-4 justify-between shrink-0">
                       <div className="flex gap-2">
@@ -983,7 +997,11 @@ const Freelance = () => {
                   </div>
 
                 {/* Project Image */}
-                <div className="relative aspect-[4/3] bg-gray-100 border-b-4 border-black overflow-hidden group-hover:bg-[#FFDE59] transition-colors">
+                <div 
+                   className={`relative bg-gray-100 overflow-hidden cursor-pointer border-b-4 border-black group-hover:bg-[#FFDE59] transition-all duration-500 ease-in-out shrink-0 ${
+                      isHovering === project.slug ? 'h-[120px]' : 'h-[250px]'
+                   }`}
+                >
                   {project.image ? (
                     <img 
                       src={project.image} 
@@ -996,7 +1014,9 @@ const Freelance = () => {
                     </div>
                   )}
                   {/* View Gallery Overlay Button */}
-                  <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
+                  <div className={`absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10 ${
+                       isHovering === project.slug ? 'hidden' : 'flex'
+                    }`}>
                       <div className="bg-white border-3 border-black px-6 py-3 rounded-full shadow-[4px_4px_0_0_#000] flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
                           <Eye className="w-5 h-5 text-black" />
                           <span className="font-black uppercase tracking-wider text-sm">View</span>
@@ -1005,22 +1025,23 @@ const Freelance = () => {
                 </div>
                 
                 {/* Project Content */}
-                <div className="p-6 sm:p-8 bg-white flex flex-col flex-grow relative">
+                <div className="p-6 sm:p-8 bg-white flex flex-col flex-1 overflow-hidden relative">
                   <div className="flex items-start justify-between mb-4 gap-2">
-                     <h3 className="text-2xl font-black leading-tight text-black line-clamp-2 uppercase tracking-tight">
+                     <h3 className="text-2xl font-black leading-tight text-black uppercase tracking-tight pr-2 shrink-0">
                        {project.name}
                      </h3>
-                     <span className="text-[10px] font-black uppercase tracking-wider bg-[#FFDE59] text-black px-2 py-1 border-2 border-black shadow-[2px_2px_0_0_#000] min-w-fit transform rotate-1">
-                       {project.type}
-                     </span>
                   </div>
                   
-                  <p className="text-sm sm:text-base font-medium leading-relaxed text-gray-600 mb-6 flex-grow line-clamp-3">
-                    {renderDescriptionWithLinks(project.description)}
-                  </p>
+                  <div className={`overflow-y-auto pr-2 custom-scrollbar transition-all duration-500 ${
+                       isHovering === project.slug ? 'flex-1' : 'line-clamp-3'
+                    }`}>
+                      <p className="text-sm sm:text-base font-medium leading-relaxed text-gray-600">
+                        {renderDescriptionWithLinks(project.description)}
+                      </p>
+                  </div>
                   
                   {/* Links */}
-                  <div className="flex flex-wrap gap-3 mt-auto pt-6 border-t-2 border-black border-dashed">
+                  <div className="flex flex-wrap gap-3 mt-auto pt-6 border-t-2 border-black border-dashed shrink-0">
                       {project.links.design && (
                         <a href={project.links.design} target="_blank" rel="noopener noreferrer" className="text-xs font-bold uppercase hover:underline text-gray-500 hover:text-black">
                            Figma
@@ -1031,9 +1052,15 @@ const Freelance = () => {
                            Case Study
                         </a>
                       )}
+                      {project.links.github && (
+                        <a href={project.links.github} target="_blank" rel="noopener noreferrer" className="text-xs font-bold uppercase hover:underline text-gray-500 hover:text-black">
+                           GitHub
+                        </a>
+                      )}
                   </div>
                 </div>
               </div>
+           </div>
             ))}
           </div>
 

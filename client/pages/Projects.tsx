@@ -867,15 +867,25 @@ export default function Projects() {
           {/* Projects Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
             {currentProjects.map((project) => (
-              <div key={project.id} className="group h-full">
+              <div key={project.id} className="group h-[500px]">
                 <div 
-                  className={`bg-white border-4 border-black rounded-[30px] overflow-hidden shadow-[8px_8px_0_0_#000] hover:shadow-[14px_14px_0_0_#000] transition-all duration-300 hover:-translate-y-2 flex flex-col h-full ${
+                  className={`bg-white border-4 border-black rounded-[30px] overflow-hidden shadow-[8px_8px_0_0_#000] hover:shadow-[14px_14px_0_0_#000] transition-all duration-300 hover:-translate-y-2 flex flex-col h-full relative ${
                     expandedCard === project.slug ? 'transform scale-[1.02] z-10 relative ring-4 ring-[#007BFF] ring-offset-4' : ''
                   }`}
                   onMouseEnter={() => setIsHovering(project.slug)}
                   onMouseLeave={() => setIsHovering(null)}
                   onClick={() => setExpandedCard(expandedCard === project.slug ? null : project.slug)}
                 >
+                  {/* Floating Type Badge */}
+                  <div className="absolute right-6 z-20 transition-all duration-500 ease-in-out" style={{ top: isHovering === project.slug ? '140px' : '265px' }}>
+                        <span className={`inline-flex items-center px-4 py-1.5 rounded-full border-3 border-black text-xs font-black uppercase tracking-wider shadow-[3px_3px_0_0_#000] ${
+                            project.type === 'App' ? 'bg-[#FF9F9F]' : 
+                            project.type === 'Web' ? 'bg-[#A0E7E5]' : 'bg-[#FFDE59]'
+                        }`}>
+                            {project.type}
+                        </span>
+                  </div>
+
                   {/* Project Image Header */}
                   <div className="h-10 bg-white border-b-4 border-black flex items-center px-4 justify-between shrink-0">
                       <div className="flex gap-2">
@@ -887,7 +897,9 @@ export default function Projects() {
 
                   {/* Project Image */}
                   <div 
-                    className="relative aspect-[4/3] bg-gray-100 overflow-hidden cursor-pointer border-b-4 border-black group-hover:bg-[#FFDE59] transition-colors"
+                    className={`relative bg-gray-100 overflow-hidden cursor-pointer border-b-4 border-black group-hover:bg-[#FFDE59] transition-all duration-500 ease-in-out shrink-0 ${
+                      isHovering === project.slug ? 'h-[120px]' : 'h-[250px]'
+                    }`}
                     onClick={(e) => {
                       e.stopPropagation();
                       openGallery(project.slug);
@@ -908,7 +920,9 @@ export default function Projects() {
                     )}
                     
                     {/* View Gallery Overlay Button */}
-                    <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
+                    <div className={`absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10 ${
+                       isHovering === project.slug ? 'hidden' : 'flex'
+                    }`}>
                         <div className="bg-white border-3 border-black px-6 py-3 rounded-full shadow-[4px_4px_0_0_#000] flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
                            <Eye className="w-5 h-5 text-black" />
                            <span className="font-black uppercase tracking-wider text-sm">View</span>
@@ -917,31 +931,21 @@ export default function Projects() {
                   </div>
                   
                   {/* Project Content */}
-                  <div className="p-6 sm:p-8 bg-white flex flex-col flex-grow relative">
+                  <div className="p-6 sm:p-8 bg-white flex flex-col flex-1 overflow-hidden relative">
                     
-                    {/* Floating Type Badge */}
-                    <div className="absolute -top-5 right-6">
-                        <span className={`inline-flex items-center px-4 py-1.5 rounded-full border-3 border-black text-xs font-black uppercase tracking-wider shadow-[3px_3px_0_0_#000] ${
-                            project.type === 'App' ? 'bg-[#FF9F9F]' : 
-                            project.type === 'Web' ? 'bg-[#A0E7E5]' : 'bg-[#FFDE59]'
-                        }`}>
-                            {project.type}
-                        </span>
-                    </div>
-
-                    <h3 className="text-2xl font-black leading-tight text-black mb-3 pr-2">
+                    <h3 className="text-2xl font-black leading-tight text-black mb-3 pr-2 shrink-0">
                        {project.name}
                     </h3>
                     
-                    <p className={`text-sm font-medium leading-relaxed text-gray-600 mb-6 flex-grow ${
-                      expandedCard === project.slug || isHovering === project.slug 
-                        ? 'line-clamp-none' 
-                        : 'line-clamp-3'
+                    <div className={`overflow-y-auto pr-2 custom-scrollbar transition-all duration-500 ${
+                       isHovering === project.slug ? 'flex-1' : 'line-clamp-3'
                     }`}>
-                      {renderDescriptionWithLinks(project.description)}
-                    </p>
+                      <p className="text-sm font-medium leading-relaxed text-gray-600">
+                        {renderDescriptionWithLinks(project.description)}
+                      </p>
+                    </div>
                     
-                    <div className="flex flex-wrap gap-3 mt-auto pt-6 border-t-3 border-black border-dashed">
+                    <div className="flex flex-wrap gap-3 mt-auto pt-6 border-t-3 border-black border-dashed shrink-0">
                         {project.links.design && (
                           <a
                             href={project.links.design}
