@@ -15,6 +15,9 @@ import Projects from "./pages/Projects";
 import Contact from "./pages/Contact";
 import Freelance from "./pages/Freelance";
 import EventBookingCaseStudy from "./pages/EventBookingCaseStudy";
+import GymFitnessCaseStudy from "./pages/GymFitnessCaseStudy";
+import AeroSyncCaseStudy from "./pages/AeroSyncCaseStudy";
+import NovaMindCaseStudy from "./pages/NovaMindCaseStudy";
 import NotFound from "./pages/NotFound";
 
 // Development console improvements
@@ -101,6 +104,9 @@ const App = () => {
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/freelance" element={<Freelance />} />
                 <Route path="/projects/event-booking-management-dashboard" element={<EventBookingCaseStudy />} />
+                <Route path="/projects/gym-fitness-app" element={<GymFitnessCaseStudy />} />
+                <Route path="/projects/aerosync-b2b-gateway" element={<AeroSyncCaseStudy />} />
+                <Route path="/projects/novamind-ai-landingpage" element={<NovaMindCaseStudy />} />
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />
               </Routes>

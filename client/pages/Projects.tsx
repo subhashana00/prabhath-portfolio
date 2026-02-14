@@ -175,6 +175,16 @@ const projectGalleries: { [key: string]: string[] } = {
     getAssetPath('images/projects/motion_3.png'),
     // Add more Motion Ink images here when available
   ],
+  'aerosync-b2b-gateway': [
+    getAssetPath('images/projects/aero_1.png'),
+    // Add more AeroSync images here when available
+  ],
+  'novamind-ai-landingpage': [
+    getAssetPath('images/projects/nova_1.jpg'),
+    getAssetPath('images/projects/nova_2.jpg'),
+    getAssetPath('images/projects/nova_3.jpg'),
+    // Add more NovaMind AI images here when available
+  ],
 };
 
 // Sample project data with Prabhath's real projects
@@ -375,7 +385,8 @@ const projectsData = [
     type: "App",
     industry: "Health & Wellness",
     links: {
-      design: "https://www.figma.com/design/nOCky1ssTz90ClomYvwDgC/Gym---Fitness-Mobile-App?node-id=0-1&t=E4kjKBqEACiGHMMe-1"
+      design: "https://www.figma.com/design/nOCky1ssTz90ClomYvwDgC/Gym---Fitness-Mobile-App?node-id=0-1&t=E4kjKBqEACiGHMMe-1",
+      innerPage: "/projects/gym-fitness-app"
     }
   },
   {
@@ -389,6 +400,32 @@ const projectsData = [
     industry: "logo design",
     links: {
       design: "https://www.figma.com/design/K0BJ9j2gxsm0Dlq7rQvZOV/Motion-Ink-Branding?node-id=0-1&t=TTD6tATCEdU50wFM-1"
+    }
+  },
+  {
+    id: 17,
+    slug: 'aerosync-b2b-gateway',
+    name: "AeroSync: The Frictionless B2B Gateway",
+    description: "Architecting a high-performance interface that bridges the gap between heavy-duty industrial data and a premium brand identity. AeroSync utilizes a 'Calm Tech' aesthetic to reduce cognitive load for cargo agents and procurement managers. By implementing an AI-integrated command bar and predictive alerting system, the platform eliminates 'Form Fatigue' and streamlines the complex workflows of the Emirates and Qatar Airways ecosystems.",
+    image: getAssetPath("images/projects/aero_1.png"),
+    logo: "",
+    type: "Web",
+    industry: "Enterprise SaaS",
+    links: {
+      innerPage: "/projects/aerosync-b2b-gateway"
+    }
+  },
+  {
+    id: 18,
+    slug: 'novamind-ai-landingpage',
+    name: "NovaMind AI (LandingPage)",
+    description: "A futuristic, high-precision landing page for a specialized Large Language Model (LLM) tailored for astrophysicists and aerospace engineers. The platform provides an integrated suite for solving complex orbital mechanics, celestial image analysis, and mission-critical research synthesis. The UI utilizes a 'NASA control-room' aesthetic combined with glassmorphism and cyberpunk neon accents to deliver an authoritative yet immersive scientific experience.",
+    image: getAssetPath("images/projects/nova_1.jpg"),
+    logo: "",
+    type: "Web",
+    industry: "Aerospace & Deep-Tech",
+    links: {
+      innerPage: "/projects/novamind-ai-landingpage"
     }
   }
 ];
@@ -841,6 +878,8 @@ export default function Projects() {
                       <SelectItem value="Food & Beverage">Food & Beverage</SelectItem>
                       <SelectItem value="Financial">Financial</SelectItem>
                       <SelectItem value="Entertainment">Entertainment</SelectItem>
+                      <SelectItem value="Enterprise SaaS">Enterprise SaaS</SelectItem>
+                      <SelectItem value="Aerospace & Deep-Tech">Aerospace & Deep-Tech</SelectItem>
                       <SelectItem value="logo design">Logo Design</SelectItem>
                     </SelectContent>
                   </Select>
