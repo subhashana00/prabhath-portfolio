@@ -84,7 +84,7 @@ export default function About() {
 
   // CV Download Function - Reliable Anchor Tag Method
   const downloadCV = () => {
-    const cvUrl = 'https://drive.google.com/file/d/1Qq3OMqzYpnMPj28L0cUf9joixUFPEfmg/view?usp=drive_link';
+    const cvUrl = 'https://drive.google.com/file/d/1XECht_1Kv7ounfn0mhmxxjU2yBJuJV7r/view?usp=drive_link';
     
     try {
       // Show downloading toast with custom styling

@@ -190,70 +190,16 @@ const projectGalleries: { [key: string]: string[] } = {
 // Sample project data with Prabhath's real projects
 const projectsData = [
   {
-    id: 16,
-    slug: 'event-booking-management-dashboard',
-    name: "Event Booking & Management Dashboard",
-    description: "Festora is an event management dashboard that delivers high-level metrics, advanced event filtering, and demographic insights through a cohesive, component-driven design system. It simplifies the organizer's journey by transforming complex data into a clear visual hierarchy, ensuring efficient event tracking and attendee management.",
-    image: getAssetPath("images/projects/fest_1.png"),
+    id: 18,
+    slug: 'novamind-ai-landingpage',
+    name: "NovaMind AI (LandingPage)",
+    description: "A futuristic, high-precision landing page for a specialized Large Language Model (LLM) tailored for astrophysicists and aerospace engineers. The platform provides an integrated suite for solving complex orbital mechanics, celestial image analysis, and mission-critical research synthesis. The UI utilizes a 'NASA control-room' aesthetic combined with glassmorphism and cyberpunk neon accents to deliver an authoritative yet immersive scientific experience.",
+    image: getAssetPath("images/projects/nova_1.jpg"),
     logo: "",
     type: "Web",
-    industry: "Entertainment",
+    industry: "Aerospace & Deep-Tech",
     links: {
-      design: "https://www.figma.com/design/hI88bJCFETml9iQ00PBKZz/Event-Booking---Management-Dashboard?node-id=1-4984&t=CKxyjZfVFWRbqlx6-1",
-      innerPage: "/projects/event-booking-management-dashboard"
-    }
-  },
-  {
-    id: 1,
-    slug: 'swish-strokes',
-    name: "Swish Strokes",
-    description: "Collaborated with Uvexzon as a UX Designer on the Mandala Art Colouring & Music Relaxation Mobile App, focused on mindfulness and creativity. The app includes mandala colouring, relaxing music, tournaments, mood tracking, and motivational prompts. Also contributed to designing the landing page to enhance user engagement and brand presence. All project content and rights belong to Uvexzon.",
-    image: getAssetPath("images/projects/swishstrokes.png"),
-    logo: "",
-    type: "App",
-    industry: "Health & Wellness",
-    links: {
-      // design: "https://www.figma.com/design/b0qNg998YbKboek2S68FE8/Swish-Strokes?node-id=1-2&t=7lj4xH6SiD4o9CWm-1",
-      caseStudy: "https://www.figma.com/design/LgofmkbLsKLSai0tFhzCgr/Swish-Stroke-Case-Study?node-id=0-1&t=rVm4Zl935YHhYFZf-1"
-    }
-  },
-  {
-    id: 2,
-    slug: 'culturajoin',
-    name: "CulturaJoin",
-    description: "At Uvexzon, I worked on a cultural and event management platform designed for locals, tourists, and planners. The platform supported invitation purchases and event hosting, improving accessibility for diverse users. All project content and rights belong to Uvexzon.",
-    image: getAssetPath("images/projects/culturajoin.png"),
-    logo: "",
-    type: "Web",
-    industry: "Events & Tourism",
-    links: {
-      // design: "https://www.figma.com/design/Gru9BD0mtJJNtX4rjX0Qrc/CulturaJoin?node-id=2-2&t=zHZ3XVs7k6CwharC-1"
-    }
-  },
-  {
-    id: 3,
-    slug: 'uvexzon-website-redesign',
-    name: "Uvexzon Website Redesign",
-    description: "Contributed to Uvexzon's complete website redesign from research through prototyping, creating a modern, user-friendly interface that significantly enhanced the user experience. All project content and rights belong to Uvexzon.",
-    image: getAssetPath("images/projects/uvex_2.png"),
-    logo: "",
-    type: "Web",
-    industry: "Technology",
-    links: {
-      // design: "https://www.figma.com/design/ytcDmDViltMj2WVPErE7zx/Uvexzon-Company-Website-Redesign?node-id=0-1&t=CY7PX8wpbpPlYgR9-1"
-    }
-  },
-  {
-    id: 4,
-    slug: 'virtual-try-on-ecommerce',
-    name: "Virtual Try-on E-commerce",
-    description: "MERN stack e-commerce platform with virtual try-on technology, account management, shopping cart, and admin panel.",
-    image: getAssetPath("images/projects/virtual_10.png"),
-    logo: "",
-    type: "Web",
-    industry: "E-commerce",
-    links: {
-      github: "https://github.com/subhashana00/E-Commerce_Clothing-_WEB-VTON_Reasearch.git"
+      innerPage: "/projects/novamind-ai-landingpage"
     }
   },
   {
@@ -271,30 +217,16 @@ const projectsData = [
     }
   },
   {
-    id: 6,
-    slug: 'coffee-shop-mobile-app',
-    name: "Coffee Shop Mobile App",
-    description: "Mobile app UI including login, home, product categories, item details, cart, and delivery options with seamless navigation.",
-    image: getAssetPath("images/projects/coffeeapp_1.png"),
+    id: 13,
+    slug: 'jhon-holdings-branding',
+    name: "Jhon Holdings Furniture's Branding",
+    description: "Designed a premium branding suite for Jhon Holdings Furniture, blending modern minimalism with traditional craftsmanship. By combining structured typography with a versatile grid-based monogram, the identity ensures a consistent and high-end brand presence across digital platforms and physical merchandise.",
+    image: getAssetPath("images/projects/jhon_1.png"),
     logo: "",
-    type: "App",
-    industry: "Food & Beverage",
+    type: "Logo",
+    industry: "logo design",
     links: {
-      design: "https://www.figma.com/design/npHOZYLrjNKd1WizZYLfZQ/Coffee-Shop-Mobile-App?node-id=106-411&t=uDSS3DltK6rL8yOF-1"
-    }
-  },
-  {
-    id: 7,
-    slug: 'real-estate-germany-website',
-    name: "Real Estate Germany Website",
-    description: "Redesigned German-language desktop and mobile prototypes at Uvexzon, focusing on usability improvements and tailoring the experience to meet client-specific requirements. All project content and rights belong to Uvexzon.",
-    image: getAssetPath("images/projects/real_s2.png"),
-    logo: "",
-    type: "Web",
-    industry: "Real Estate",
-    links: {
-      design: "https://www.figma.com/design/5JksimZNVkXaxURfMRj0cO/Real-Estate-Germany-Web?node-id=0-1&t=dxlBtq7PLrdgvhAa-1",
-      hosted: "http://endrit-immobilien.de/"
+      design: "https://www.figma.com/design/3XulmnigleNOVz2MEeWmhI/Jhon-Holdings-Furniture-s-Branding?node-id=0-1&t=G0lVf4EbgTWjnVFs-1"
     }
   },
   {
@@ -311,29 +243,29 @@ const projectsData = [
     }
   },
   {
-    id: 9,
-    slug: 'messiah-foundation-website',
-    name: "Messiah Foundation Website Redesign",
-    description: "Produced design enhancements for Uvexzon's web and mobile platforms, ensuring better usability, stronger branding alignment, and a modern interface that resonates with users. All project content and rights belong to Uvexzon.",
-    image: getAssetPath("images/projects/messa_1.png"),
+    id: 17,
+    slug: 'aerosync-b2b-gateway',
+    name: "AeroSync: The Frictionless B2B Gateway",
+    description: "Architecting a high-performance interface that bridges the gap between heavy-duty industrial data and a premium brand identity. AeroSync utilizes a 'Calm Tech' aesthetic to reduce cognitive load for cargo agents and procurement managers. By implementing an AI-integrated command bar and predictive alerting system, the platform eliminates 'Form Fatigue' and streamlines the complex workflows of the Emirates and Qatar Airways ecosystems.",
+    image: getAssetPath("images/projects/aero_1.png"),
     logo: "",
     type: "Web",
-    industry: "Charity Organizations",
+    industry: "Enterprise SaaS",
     links: {
-      // design: "https://www.figma.com/design/Bp8QrjS7zCic9BKuzLAhXc/Messiah-Foundation-Website?node-id=0-1&t=WLQCeHNttgg9hwiH-1"
+      innerPage: "/projects/aerosync-b2b-gateway"
     }
   },
   {
-    id: 10,
-    slug: 'aquarium-homepage-redesign',
-    name: "Aquarium Homepage Redesign",
-    description: "Developed a refreshed homepage design at Uvexzon, emphasizing a clean layout and intuitive navigation to deliver a smoother, more engaging user experience. All project content and rights belong to Uvexzon.",
-    image: getAssetPath("images/projects/aqua_1.png"),
+    id: 3,
+    slug: 'uvexzon-website-redesign',
+    name: "Uvexzon Website Redesign",
+    description: "Contributed to Uvexzon's complete website redesign from research through prototyping, creating a modern, user-friendly interface that significantly enhanced the user experience. All project content and rights belong to Uvexzon.",
+    image: getAssetPath("images/projects/uvex_2.png"),
     logo: "",
     type: "Web",
-    industry: "E-commerce",
+    industry: "Technology",
     links: {
-      // design: "https://www.figma.com/design/0EzOu4Bzf5JZUep25ZCB4F/Aquarium-Homepage-Redesign?node-id=0-1&t=dUfUFOAPZEGmmhrD-1"
+      // design: "https://www.figma.com/design/ytcDmDViltMj2WVPErE7zx/Uvexzon-Company-Website-Redesign?node-id=0-1&t=CY7PX8wpbpPlYgR9-1"
     }
   },
   {
@@ -350,29 +282,30 @@ const projectsData = [
     }
   },
   {
-    id: 12,
-    slug: 'cima-landingpage-redesign',
-    name: "CIMA Landingpage Redesign",
-    description: "Redesigned the AICPA & CIMA website as a conceptual project to sharpen UI/UX skills. Focused on modernizing the visual identity and streamlining access to professional accounting resources.",
-    image: getAssetPath("images/projects/cima_1.png"),
+    id: 16,
+    slug: 'event-booking-management-dashboard',
+    name: "Event Booking & Management Dashboard",
+    description: "Festora is an event management dashboard that delivers high-level metrics, advanced event filtering, and demographic insights through a cohesive, component-driven design system. It simplifies the organizer's journey by transforming complex data into a clear visual hierarchy, ensuring efficient event tracking and attendee management.",
+    image: getAssetPath("images/projects/fest_1.png"),
     logo: "",
     type: "Web",
-    industry: "Financial",
+    industry: "Entertainment",
     links: {
-      design: "https://www.figma.com/design/PW78dj2rSeXnCkjVlJ92t3/CIMA-Landingpage-Redesign?node-id=0-1&t=Ru5h6e9laI9F5XZp-1"
+      design: "https://www.figma.com/design/hI88bJCFETml9iQ00PBKZz/Event-Booking---Management-Dashboard?node-id=1-4984&t=CKxyjZfVFWRbqlx6-1",
+      innerPage: "/projects/event-booking-management-dashboard"
     }
   },
   {
-    id: 13,
-    slug: 'jhon-holdings-branding',
-    name: "Jhon Holdings Furniture's Branding",
-    description: "Designed a premium branding suite for Jhon Holdings Furniture, blending modern minimalism with traditional craftsmanship. By combining structured typography with a versatile grid-based monogram, the identity ensures a consistent and high-end brand presence across digital platforms and physical merchandise.",
-    image: getAssetPath("images/projects/jhon_1.png"),
+    id: 6,
+    slug: 'coffee-shop-mobile-app',
+    name: "Coffee Shop Mobile App",
+    description: "Mobile app UI including login, home, product categories, item details, cart, and delivery options with seamless navigation.",
+    image: getAssetPath("images/projects/coffeeapp_1.png"),
     logo: "",
-    type: "Logo",
-    industry: "logo design",
+    type: "App",
+    industry: "Food & Beverage",
     links: {
-      design: "https://www.figma.com/design/3XulmnigleNOVz2MEeWmhI/Jhon-Holdings-Furniture-s-Branding?node-id=0-1&t=G0lVf4EbgTWjnVFs-1"
+      design: "https://www.figma.com/design/npHOZYLrjNKd1WizZYLfZQ/Coffee-Shop-Mobile-App?node-id=106-411&t=uDSS3DltK6rL8yOF-1"
     }
   },
   {
@@ -390,6 +323,33 @@ const projectsData = [
     }
   },
   {
+    id: 1,
+    slug: 'swish-strokes',
+    name: "Swish Strokes",
+    description: "Collaborated with Uvexzon as a UX Designer on the Mandala Art Colouring & Music Relaxation Mobile App, focused on mindfulness and creativity. The app includes mandala colouring, relaxing music, tournaments, mood tracking, and motivational prompts. Also contributed to designing the landing page to enhance user engagement and brand presence. All project content and rights belong to Uvexzon.",
+    image: getAssetPath("images/projects/swishstrokes.png"),
+    logo: "",
+    type: "App",
+    industry: "Health & Wellness",
+    links: {
+      // design: "https://www.figma.com/design/b0qNg998YbKboek2S68FE8/Swish-Strokes?node-id=1-2&t=7lj4xH6SiD4o9CWm-1",
+      caseStudy: "https://www.figma.com/design/LgofmkbLsKLSai0tFhzCgr/Swish-Stroke-Case-Study?node-id=0-1&t=rVm4Zl935YHhYFZf-1"
+    }
+  },
+  {
+    id: 10,
+    slug: 'aquarium-homepage-redesign',
+    name: "Aquarium Homepage Redesign",
+    description: "Developed a refreshed homepage design at Uvexzon, emphasizing a clean layout and intuitive navigation to deliver a smoother, more engaging user experience. All project content and rights belong to Uvexzon.",
+    image: getAssetPath("images/projects/aqua_1.png"),
+    logo: "",
+    type: "Web",
+    industry: "E-commerce",
+    links: {
+      // design: "https://www.figma.com/design/0EzOu4Bzf5JZUep25ZCB4F/Aquarium-Homepage-Redesign?node-id=0-1&t=dUfUFOAPZEGmmhrD-1"
+    }
+  },
+  {
     id: 15,
     slug: 'motion-ink-branding',
     name: "Motion Ink Branding",
@@ -403,29 +363,69 @@ const projectsData = [
     }
   },
   {
-    id: 17,
-    slug: 'aerosync-b2b-gateway',
-    name: "AeroSync: The Frictionless B2B Gateway",
-    description: "Architecting a high-performance interface that bridges the gap between heavy-duty industrial data and a premium brand identity. AeroSync utilizes a 'Calm Tech' aesthetic to reduce cognitive load for cargo agents and procurement managers. By implementing an AI-integrated command bar and predictive alerting system, the platform eliminates 'Form Fatigue' and streamlines the complex workflows of the Emirates and Qatar Airways ecosystems.",
-    image: getAssetPath("images/projects/aero_1.png"),
+    id: 4,
+    slug: 'virtual-try-on-ecommerce',
+    name: "Virtual Try-on E-commerce",
+    description: "MERN stack e-commerce platform with virtual try-on technology, account management, shopping cart, and admin panel.",
+    image: getAssetPath("images/projects/virtual_10.png"),
     logo: "",
     type: "Web",
-    industry: "Enterprise SaaS",
+    industry: "E-commerce",
     links: {
-      innerPage: "/projects/aerosync-b2b-gateway"
+      github: "https://github.com/subhashana00/E-Commerce_Clothing-_WEB-VTON_Reasearch.git"
     }
   },
   {
-    id: 18,
-    slug: 'novamind-ai-landingpage',
-    name: "NovaMind AI (LandingPage)",
-    description: "A futuristic, high-precision landing page for a specialized Large Language Model (LLM) tailored for astrophysicists and aerospace engineers. The platform provides an integrated suite for solving complex orbital mechanics, celestial image analysis, and mission-critical research synthesis. The UI utilizes a 'NASA control-room' aesthetic combined with glassmorphism and cyberpunk neon accents to deliver an authoritative yet immersive scientific experience.",
-    image: getAssetPath("images/projects/nova_1.jpg"),
+    id: 9,
+    slug: 'messiah-foundation-website',
+    name: "Messiah Foundation Website Redesign",
+    description: "Produced design enhancements for Uvexzon's web and mobile platforms, ensuring better usability, stronger branding alignment, and a modern interface that resonates with users. All project content and rights belong to Uvexzon.",
+    image: getAssetPath("images/projects/messa_1.png"),
     logo: "",
     type: "Web",
-    industry: "Aerospace & Deep-Tech",
+    industry: "Charity Organizations",
     links: {
-      innerPage: "/projects/novamind-ai-landingpage"
+      // design: "https://www.figma.com/design/Bp8QrjS7zCic9BKuzLAhXc/Messiah-Foundation-Website?node-id=0-1&t=WLQCeHNttgg9hwiH-1"
+    }
+  },
+  {
+    id: 7,
+    slug: 'real-estate-germany-website',
+    name: "Real Estate Germany Website",
+    description: "Redesigned German-language desktop and mobile prototypes at Uvexzon, focusing on usability improvements and tailoring the experience to meet client-specific requirements. All project content and rights belong to Uvexzon.",
+    image: getAssetPath("images/projects/real_s2.png"),
+    logo: "",
+    type: "Web",
+    industry: "Real Estate",
+    links: {
+      design: "https://www.figma.com/design/5JksimZNVkXaxURfMRj0cO/Real-Estate-Germany-Web?node-id=0-1&t=dxlBtq7PLrdgvhAa-1",
+      hosted: "http://endrit-immobilien.de/"
+    }
+  },
+  {
+    id: 12,
+    slug: 'cima-landingpage-redesign',
+    name: "CIMA Landingpage Redesign",
+    description: "Redesigned the AICPA & CIMA website as a conceptual project to sharpen UI/UX skills. Focused on modernizing the visual identity and streamlining access to professional accounting resources.",
+    image: getAssetPath("images/projects/cima_1.png"),
+    logo: "",
+    type: "Web",
+    industry: "Financial",
+    links: {
+      design: "https://www.figma.com/design/PW78dj2rSeXnCkjVlJ92t3/CIMA-Landingpage-Redesign?node-id=0-1&t=Ru5h6e9laI9F5XZp-1"
+    }
+  },
+  {
+    id: 2,
+    slug: 'culturajoin',
+    name: "CulturaJoin",
+    description: "At Uvexzon, I worked on a cultural and event management platform designed for locals, tourists, and planners. The platform supported invitation purchases and event hosting, improving accessibility for diverse users. All project content and rights belong to Uvexzon.",
+    image: getAssetPath("images/projects/culturajoin.png"),
+    logo: "",
+    type: "Web",
+    industry: "Events & Tourism",
+    links: {
+      // design: "https://www.figma.com/design/Gru9BD0mtJJNtX4rjX0Qrc/CulturaJoin?node-id=2-2&t=zHZ3XVs7k6CwharC-1"
     }
   }
 ];
