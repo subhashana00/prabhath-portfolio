@@ -5,6 +5,8 @@ import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { getAssetPath } from "@/lib/utils";
 import { Footer } from "@/components/Footer";
+import BuyMeACoffee from "@/components/BuyMeACoffee";
+import WhatsAppFloat from "@/components/WhatsAppFloat";
 
 // Custom Behance Icon Component - Moved to Footer.tsx
 
@@ -1239,6 +1241,20 @@ export default function Projects() {
           </div>
         </div>
       )}
+
+      {/* Buy Me A Coffee Section */}
+      <div className="container mx-auto px-4 sm:px-6 lg:px-12 max-w-[1600px] my-20">
+        <BuyMeACoffee />
+      </div>
+
+      {/* Footer */}
+      <Footer />
+
+      {/* WhatsApp Floating Button */}
+      <WhatsAppFloat 
+        phoneNumber="+94716903566"
+        message="Hi Prabhath! I'm interested in your design projects. Let's discuss a collaboration."
+      />
     </div>
   );
 }

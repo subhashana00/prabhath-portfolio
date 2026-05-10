@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { getAssetPath } from "@/lib/utils";
 import { Footer } from "@/components/Footer";
+import BuyMeACoffee from "@/components/BuyMeACoffee";
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -1289,6 +1290,11 @@ const Freelance = () => {
           </div>
         </div>
       </section>
+
+      {/* Buy Me A Coffee Section */}
+      <div className="container mx-auto px-4 sm:px-6 lg:px-12 max-w-[1600px] mb-20">
+        <BuyMeACoffee />
+      </div>
 
       {/* Footer */}
       <Footer />

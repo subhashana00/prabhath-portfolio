@@ -132,23 +132,29 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
 
       {/* Main image */}
       {(isInView || priority) && (
-        <img
-          src={src}
-          srcSet={generateSrcSet(src)}
-          sizes={sizes}
-          alt={alt}
-          className={`w-full h-full object-cover transition-opacity duration-300 ${
-            isLoaded ? 'opacity-100' : 'opacity-0'
-          }`}
-          loading={priority ? 'eager' : 'lazy'}
-          decoding="async"
-          onLoad={handleLoad}
-          onError={handleError}
-          style={{
-            contentVisibility: 'auto',
-            containIntrinsicSize: '400px 300px'
-          }}
-        />
+        <picture>
+          <source 
+            srcSet={src.replace(/\.(png|jpe?g)$/i, '.webp')} 
+            type="image/webp" 
+          />
+          <img
+            src={src}
+            srcSet={generateSrcSet(src)}
+            sizes={sizes}
+            alt={alt}
+            className={`w-full h-full object-cover transition-opacity duration-300 ${
+              isLoaded ? 'opacity-100' : 'opacity-0'
+            }`}
+            loading={priority ? 'eager' : 'lazy'}
+            decoding="async"
+            onLoad={handleLoad}
+            onError={handleError}
+            style={{
+              contentVisibility: 'auto',
+              containIntrinsicSize: '400px 300px'
+            }}
+          />
+        </picture>
       )}
     </div>
   );

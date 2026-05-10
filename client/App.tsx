@@ -5,10 +5,14 @@ import { createRoot } from "react-dom/client";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { AnimatePresence } from "framer-motion";
 import ErrorBoundary from "./components/ErrorBoundary";
 import LoadingScreen from "./components/LoadingScreen";
+import SmoothScroll from "./components/SmoothScroll";
+import PageTransition from "./components/PageTransition";
+import BackgroundVectors from "./components/BackgroundVectors";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Projects from "./pages/Projects";
@@ -64,22 +68,29 @@ const queryClient = new QueryClient({
   },
 });
 
+const AnimatedRoutes = () => {
+  const location = useLocation();
+  
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<PageTransition><Index /></PageTransition>} />
+        <Route path="/about" element={<PageTransition><About /></PageTransition>} />
+        <Route path="/projects" element={<PageTransition><Projects /></PageTransition>} />
+        <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
+        <Route path="/freelance" element={<PageTransition><Freelance /></PageTransition>} />
+        <Route path="/projects/event-booking-management-dashboard" element={<PageTransition><EventBookingCaseStudy /></PageTransition>} />
+        <Route path="/projects/gym-fitness-app" element={<PageTransition><GymFitnessCaseStudy /></PageTransition>} />
+        <Route path="/projects/aerosync-b2b-gateway" element={<PageTransition><AeroSyncCaseStudy /></PageTransition>} />
+        <Route path="/projects/novamind-ai-landingpage" element={<PageTransition><NovaMindCaseStudy /></PageTransition>} />
+        <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
+      </Routes>
+    </AnimatePresence>
+  );
+};
+
 const App = () => {
-  const [isLoading, setIsLoading] = useState(false); // DISABLED: was true
-  const [isLoadingComplete, setIsLoadingComplete] = useState(true); // DISABLED: was false
-
-  const handleLoadingComplete = () => {
-    setIsLoadingComplete(true);
-    // Add a small delay for smooth transition
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 500);
-  };
-
-  // Show loading screen initially - DISABLED
-  // if (isLoading) {
-  //   return <LoadingScreen onLoadingComplete={handleLoadingComplete} />;
-  // }
+  const [isLoadingComplete, setIsLoadingComplete] = useState(true);
 
   return (
     <ErrorBoundary>
@@ -87,31 +98,22 @@ const App = () => {
         <TooltipProvider>
           <Toaster />
           <Sonner />
-          <div className={`transition-all duration-500 ${
-            isLoadingComplete ? 'opacity-100' : 'opacity-0'
-          }`}>
-            <BrowserRouter
-              basename="/prabhath-portfolio"
-              future={{
-                v7_startTransition: true,
-                v7_relativeSplatPath: true,
-              }}
-            >
-              <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/projects" element={<Projects />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/freelance" element={<Freelance />} />
-                <Route path="/projects/event-booking-management-dashboard" element={<EventBookingCaseStudy />} />
-                <Route path="/projects/gym-fitness-app" element={<GymFitnessCaseStudy />} />
-                <Route path="/projects/aerosync-b2b-gateway" element={<AeroSyncCaseStudy />} />
-                <Route path="/projects/novamind-ai-landingpage" element={<NovaMindCaseStudy />} />
-                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </BrowserRouter>
-          </div>
+          <SmoothScroll>
+            <div className={`transition-all duration-500 relative min-h-screen ${
+              isLoadingComplete ? 'opacity-100' : 'opacity-0'
+            }`}>
+              <BackgroundVectors />
+              <BrowserRouter
+                basename="/prabhath-portfolio"
+                future={{
+                  v7_startTransition: true,
+                  v7_relativeSplatPath: true,
+                }}
+              >
+                <AnimatedRoutes />
+              </BrowserRouter>
+            </div>
+          </SmoothScroll>
         </TooltipProvider>
       </QueryClientProvider>
     </ErrorBoundary>
@@ -119,3 +121,4 @@ const App = () => {
 };
 
 createRoot(document.getElementById("root")!).render(<App />);
+

@@ -1740,11 +1740,17 @@ export default function Index() {
             {/* Main Image - Full Space */}
             <div className="relative w-full h-full flex items-center justify-center p-4">
               {projectGalleries[currentProject as keyof typeof projectGalleries] && (
-                <img
-                  src={projectGalleries[currentProject as keyof typeof projectGalleries][currentImageIndex]}
-                  alt={`${currentProject} image ${currentImageIndex + 1}`}
-                  className="max-w-full max-h-full object-contain"
-                />
+                <picture>
+                  <source 
+                    srcSet={projectGalleries[currentProject as keyof typeof projectGalleries][currentImageIndex].replace(/\.(png|jpe?g)$/i, '.webp')} 
+                    type="image/webp" 
+                  />
+                  <img
+                    src={projectGalleries[currentProject as keyof typeof projectGalleries][currentImageIndex]}
+                    alt={`${currentProject} image ${currentImageIndex + 1}`}
+                    className="max-w-full max-h-full object-contain"
+                  />
+                </picture>
               )}
               
               {/* Navigation Arrows - Larger and more prominent */}
@@ -1785,13 +1791,19 @@ export default function Index() {
                         : 'border-gray-400 hover:border-black'
                     }`}
                   >
-                    <img
-                      src={image}
-                      alt={`${currentProject} thumbnail ${index + 1}`}
-                      className={`w-full h-full object-cover rounded ${
-                        index === currentImageIndex ? 'rounded-sm' : 'rounded-md'
-                      }`}
-                    />
+                    <picture>
+                      <source 
+                        srcSet={image.replace(/\.(png|jpe?g)$/i, '.webp')} 
+                        type="image/webp" 
+                      />
+                      <img
+                        src={image}
+                        alt={`${currentProject} thumbnail ${index + 1}`}
+                        className={`w-full h-full object-cover rounded ${
+                          index === currentImageIndex ? 'rounded-sm' : 'rounded-md'
+                        }`}
+                      />
+                    </picture>
                   </button>
                 ))}
               </div>
