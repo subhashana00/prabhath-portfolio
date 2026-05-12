@@ -1,11 +1,14 @@
 import { Button } from "@/components/ui/button";
-import { ChevronDown, ArrowRight, Linkedin, Mail, Menu, X, Github, Zap, Users, Award, MessageCircle, ChevronLeft, ChevronRight, Play, Pause, Eye, Palette, PenTool, Lightbulb, Repeat, Sparkles, Layers } from "lucide-react";
+import { ChevronDown, ArrowRight, Linkedin, Mail, Menu, X, Github, Zap, Users, Award, MessageCircle, ChevronLeft, ChevronRight, Play, Pause, Eye, Palette, PenTool, Lightbulb, Repeat, Sparkles, Layers, ExternalLink } from "lucide-react";
 import { useState, useEffect, useRef, useMemo } from "react";
 import { Link } from "react-router-dom";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 import DesignCarousel from "@/components/DesignCarousel";
 import { getAssetPath } from "@/lib/utils";
 import { Footer, BehanceIcon } from "@/components/Footer";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Index() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -34,6 +37,11 @@ export default function Index() {
   const statsRef = useRef<HTMLDivElement>(null);
   const quoteRef = useRef<HTMLElement>(null);
   const projectsRef = useRef<HTMLElement>(null);
+
+  // GSAP refs
+  const gsapMainRef = useRef<HTMLDivElement>(null);
+  const horizontalRef = useRef<HTMLElement>(null);
+  const bentoRef = useRef<HTMLDivElement>(null);
   
   // Animation states
   const [isVisible, setIsVisible] = useState({
@@ -146,6 +154,99 @@ export default function Index() {
       window.removeEventListener('resize', handleScroll);
     };
   }, [isVisible]);
+
+  // GSAP scroll animations
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Stagger reveal for bento grid cards
+      gsap.utils.toArray<HTMLElement>(".bento-card").forEach((card, i) => {
+        gsap.fromTo(card,
+          { y: 70, opacity: 0, scale: 0.95 },
+          {
+            y: 0, opacity: 1, scale: 1,
+            duration: 0.85,
+            delay: i * 0.07,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: card,
+              start: "top 88%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      });
+
+      // Section headings fly-in
+      gsap.utils.toArray<HTMLElement>(".gsap-heading").forEach((el) => {
+        gsap.fromTo(el,
+          { y: 60, opacity: 0 },
+          {
+            y: 0, opacity: 1,
+            duration: 1,
+            ease: "expo.out",
+            scrollTrigger: {
+              trigger: el,
+              start: "top 85%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      });
+
+      // Fade-slide for generic sections
+      gsap.utils.toArray<HTMLElement>(".gsap-fade-up").forEach((el) => {
+        gsap.fromTo(el,
+          { y: 50, opacity: 0 },
+          {
+            y: 0, opacity: 1,
+            duration: 0.9,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: el,
+              start: "top 87%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      });
+
+      // Horizontal scroll marquee for skills strip
+      const hTrack = document.querySelector<HTMLElement>(".h-scroll-track");
+      if (hTrack) {
+        gsap.to(hTrack, {
+          x: () => -(hTrack.scrollWidth - hTrack.parentElement!.offsetWidth),
+          ease: "none",
+          scrollTrigger: {
+            trigger: hTrack.parentElement!,
+            start: "top 70%",
+            end: "+=600",
+            scrub: 1.5,
+          },
+        });
+      }
+
+      // Parallax hero image
+      const heroImg = document.querySelector<HTMLElement>(".hero-parallax-img");
+      if (heroImg) {
+        gsap.matchMedia().add("(min-width: 768px)", () => {
+          gsap.to(heroImg, {
+            yPercent: -18,
+            ease: "none",
+            scrollTrigger: {
+              trigger: heroImg,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true,
+            },
+          });
+        });
+      }
+
+      ScrollTrigger.refresh();
+    });
+
+    return () => ctx.revert();
+  }, []);
 
   useEffect(() => {
     if (!animationStarted) return;
@@ -799,7 +900,7 @@ export default function Index() {
                           <OptimizedImage
                             src={getAssetPath("images/profile/profile.png")}
                             alt="Prabhath Subhashana"
-                            className="w-full h-full object-cover object-center transform transition-transform duration-700 hover:scale-105"
+                            className="w-full h-full object-cover object-center transform transition-transform duration-700 hover:scale-105 hero-parallax-img"
                             priority={true}
                           />
                         </div>
@@ -974,13 +1075,9 @@ export default function Index() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
           
           {/* Section Header */}
-          <div className={`text-center mb-16 lg:mb-24 transition-all duration-1000 ${
-            isVisible.quote 
-              ? 'opacity-100 translate-y-0' 
-              : 'opacity-0 translate-y-8'
-          }`}>
+          <div className="text-center mb-16 lg:mb-24">
             <div className="relative inline-block">
-              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight text-black mb-6 z-10 relative px-6 py-2">
+              <h2 className="gsap-heading text-4xl sm:text-5xl lg:text-6xl font-black leading-tight text-black mb-6 z-10 relative px-6 py-2">
                 Design Philosophy
               </h2>
               {/* Highlight effect behind Title */}
@@ -1083,524 +1180,210 @@ export default function Index() {
       {/* Section Separator */}
       <div className="bg-[#FCF9F8] h-2 sm:h-4 lg:h-8 relative z-20"></div>
 
-      {/* Featured Projects Section */}
-      <section 
-        ref={projectsRef} 
-        id="projects" 
+      {/* Featured Projects Section — Bento Grid */}
+      <section
+        ref={projectsRef}
+        id="projects"
         className="bg-white py-12 sm:py-16 lg:py-24 relative z-10"
-        style={{
-          transform: `translateY(${window.innerWidth > 768 ? Math.min(scrollY * 0.01, 20) : 0}px)`,
-        }}
       >
         <div className="container max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-12">
+
           {/* Section Header */}
-          <div className={`mb-8 sm:mb-12 lg:mb-16 text-center lg:text-left transition-all duration-1000 ${
-            isVisible.projects 
-              ? 'opacity-100 translate-y-0' 
-              : 'opacity-0 translate-y-8'
-          }`}>
-            <h2 className="text-xl sm:text-2xl lg:text-3xl xl:text-[39px] font-medium leading-tight text-black mb-4 sm:mb-6 lg:mb-8">
-              Featured projects
-            </h2>
-            <p className="text-sm sm:text-[16px] leading-[22px] sm:leading-[26px] lg:leading-[30px] tracking-[1.23px] text-black max-w-[654px] mx-auto lg:mx-0">
-              Find out about my works: read through my case studies, have a look
-              at final designs and try out prototypes I've built.
+          <div className="mb-10 sm:mb-14 lg:mb-18 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
+            <div>
+              <span className="gsap-heading inline-block text-xs font-black uppercase tracking-[0.25em] bg-[#007BFF] text-white px-3 py-1 border-2 border-black shadow-[3px_3px_0_0_#000] mb-4">Selected Work</span>
+              <h2 className="gsap-heading text-4xl sm:text-5xl lg:text-[56px] font-black leading-none text-black">
+                Featured<br /><span className="text-[#007BFF]">Projects_</span>
+              </h2>
+            </div>
+            <p className="gsap-fade-up text-sm sm:text-base font-bold text-gray-600 max-w-md border-l-4 border-black pl-4">
+              Case studies, prototypes, and design systems — crafted with purpose.
             </p>
           </div>
 
+          {/* Bento Grid */}
+          <div ref={bentoRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 auto-rows-auto gap-5 lg:gap-6">
 
-          {/* Projects Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {/* Project 1 - CIMA Landingpage Redesign */}
-            <div className={`group h-full transition-all duration-1000 ${
-              isVisible.projects 
-                ? 'opacity-100 translate-y-0' 
-                : 'opacity-0 translate-y-12'
-            }`}
-            style={{
-              transitionDelay: isVisible.projects ? '200ms' : '0ms'
-            }}>
-              <div 
-                className={`bg-white border-4 border-black rounded-[30px] overflow-hidden shadow-[8px_8px_0_0_#000] hover:shadow-[14px_14px_0_0_#000] transition-all duration-300 hover:-translate-y-2 flex flex-col h-[500px] ${
-                  expandedCard === 'cima' ? 'transform scale-[1.02] z-10 relative ring-4 ring-[#007BFF] ring-offset-4' : ''
-                }`}
-                onMouseEnter={() => setIsHovering('cima')}
-                onMouseLeave={() => setIsHovering(null)}
-                onClick={() => setExpandedCard(expandedCard === 'cima' ? null : 'cima')}
+            {/* CARD 1 — Large Feature (spans 2 cols) */}
+            <div className="bento-card lg:col-span-2 group">
+              <div
+                className="relative bg-white border-4 border-black rounded-[24px] shadow-[8px_8px_0_0_#000] hover:shadow-[14px_14px_0_0_#000] hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col h-[420px] cursor-pointer"
+                onClick={() => openGallery('cima')}
               >
-                  {/* Project Image Header */}
-                  <div className="h-10 bg-white border-b-4 border-black flex items-center px-4 justify-between shrink-0">
-                      <div className="flex gap-2">
-                          <div className="w-3 h-3 rounded-full bg-black"></div>
-                          <div className="w-3 h-3 rounded-full border-2 border-black"></div>
-                      </div>
-                      <div className="font-mono text-[10px] font-bold uppercase tracking-widest">cima...exe</div>
-                  </div>
-
-                {/* Project Image */}
-                <div 
-                  className={`relative w-full overflow-hidden cursor-pointer border-b-4 border-black group-hover:bg-[#FFDE59] transition-all duration-500 ease-in-out ${
-                    isHovering === 'cima' ? 'h-[120px]' : 'h-[250px]'
-                  }`}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    openGallery('cima');
-                  }}
-                >
-                  <OptimizedImage 
-                    src={getAssetPath("images/projects/cima_1.png")} 
-                    alt="CIMA Landingpage Redesign"
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 group-hover:rotate-1"
-                    priority={true}
-                  />
-                  
-                  {/* View Gallery Overlay Button */}
-                  <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
-                      <div className="bg-white border-3 border-black px-4 py-2 rounded-full shadow-[4px_4px_0_0_#000] flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 scale-75">
-                          <Eye className="w-5 h-5 text-black" />
-                          <span className="font-black uppercase tracking-wider text-sm">View</span>
-                      </div>
-                  </div>
+                <div className="h-10 bg-[#FFDE59] border-b-4 border-black flex items-center px-4 justify-between shrink-0">
+                  <div className="flex gap-2"><div className="w-3 h-3 rounded-full bg-black"/><div className="w-3 h-3 rounded-full border-2 border-black"/></div>
+                  <span className="font-mono text-[10px] font-bold uppercase tracking-widest">cima-redesign.fig</span>
                 </div>
-                
-                {/* Project Content */}
-                <div className="p-6 sm:p-8 bg-white flex flex-col flex-1 overflow-hidden transition-all duration-500 ease-in-out">
-                  <div className="flex items-start justify-between mb-4 gap-2 shrink-0">
-                     <h3 className="text-2xl font-black leading-tight text-black line-clamp-1 uppercase tracking-tight">
-                      CIMA Landingpage
-                    </h3>
-                    <span className="text-[10px] font-black uppercase tracking-wider bg-[#FF6B6B] text-white px-2 py-1 border-2 border-black shadow-[2px_2px_0_0_#000] min-w-fit transform rotate-2">Website</span>
+                <div className="relative flex-1 overflow-hidden">
+                  <OptimizedImage src={getAssetPath("images/projects/cima_1.png")} alt="CIMA" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 hero-parallax-img" priority={true} />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"/>
+                  <div className="absolute bottom-0 left-0 p-6 text-white">
+                    <span className="text-[10px] font-black uppercase tracking-[0.2em] bg-[#FF6B6B] text-white px-2 py-1 border-2 border-white mb-3 inline-block">Website</span>
+                    <h3 className="text-2xl sm:text-3xl font-black uppercase leading-tight mb-2">CIMA Landing Page</h3>
+                    <p className="text-sm font-medium text-white/80 line-clamp-2">Redesigned for higher conversion and bold visual identity.</p>
                   </div>
-                  
-                  <div className="relative flex-1 overflow-hidden">
-                    <p className={`text-sm sm:text-base font-medium leading-relaxed text-gray-600 transition-all duration-500 ${
-                      expandedCard === 'cima' || isHovering === 'cima' 
-                        ? 'overflow-y-auto max-h-full scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-transparent pr-2' 
-                        : 'line-clamp-3'
-                    }`}>
-                      Redesigned the CIMA landing page to improve user engagement and conversion rates, focusing on clear messaging and intuitive navigation.
-                    </p>
-                  </div>
-                  
-                  <div className="flex flex-wrap gap-3 mt-4 pt-4 border-t-2 border-black border-dashed shrink-0">
-                      <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-gray-500">
-                        Design Only
-                      </span>
+                  <div className="absolute top-4 right-4 w-10 h-10 bg-white border-2 border-black rounded-full flex items-center justify-center shadow-[3px_3px_0_0_#000] opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <Eye className="w-4 h-4 text-black"/>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Project 2 - Gym & Fitness Mobile App */}
-            <div className={`group h-full transition-all duration-1000 ${
-              isVisible.projects 
-                ? 'opacity-100 translate-y-0' 
-                : 'opacity-0 translate-y-12'
-            }`}
-            style={{
-              transitionDelay: isVisible.projects ? '400ms' : '0ms'
-            }}>
-              <div 
-                className={`bg-white border-4 border-black rounded-[30px] overflow-hidden shadow-[8px_8px_0_0_#000] hover:shadow-[14px_14px_0_0_#000] transition-all duration-300 hover:-translate-y-2 flex flex-col h-[500px] ${
-                  expandedCard === 'gym' ? 'transform scale-[1.02] z-10 relative ring-4 ring-[#007BFF] ring-offset-4' : ''
-                }`}
-                onMouseEnter={() => setIsHovering('gym')}
-                onMouseLeave={() => setIsHovering(null)}
-                onClick={() => setExpandedCard(expandedCard === 'gym' ? null : 'gym')}
+            {/* CARD 2 — Tall single */}
+            <div className="bento-card group">
+              <div
+                className="relative bg-[#007BFF] border-4 border-black rounded-[24px] shadow-[8px_8px_0_0_#000] hover:shadow-[14px_14px_0_0_#000] hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col h-[420px] cursor-pointer"
+                onClick={() => openGallery('gym')}
               >
-                  {/* Project Image Header */}
-                  <div className="h-10 bg-white border-b-4 border-black flex items-center px-4 justify-between shrink-0">
-                      <div className="flex gap-2">
-                          <div className="w-3 h-3 rounded-full bg-black"></div>
-                          <div className="w-3 h-3 rounded-full border-2 border-black"></div>
-                      </div>
-                      <div className="font-mono text-[10px] font-bold uppercase tracking-widest">gym...exe</div>
-                  </div>
-
-                {/* Project Image */}
-                <div 
-                  className={`relative w-full overflow-hidden cursor-pointer border-b-4 border-black group-hover:bg-[#007BFF] transition-all duration-500 ease-in-out ${
-                    isHovering === 'gym' ? 'h-[120px]' : 'h-[250px]'
-                  }`}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    openGallery('gym');
-                  }}
-                >
-                  <OptimizedImage 
-                    src={getAssetPath("images/projects/gym_1.png")} 
-                    alt="Gym & Fitness Mobile App"
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 group-hover:rotate-1"
-                    priority={true}
-                  />
-                  
-                  {/* View Gallery Overlay Button */}
-                  <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
-                      <div className="bg-white border-3 border-black px-4 py-2 rounded-full shadow-[4px_4px_0_0_#000] flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 scale-75">
-                          <Eye className="w-5 h-5 text-black" />
-                          <span className="font-black uppercase tracking-wider text-sm">View</span>
-                      </div>
-                  </div>
+                <div className="h-10 bg-white border-b-4 border-black flex items-center px-4 justify-between shrink-0">
+                  <div className="flex gap-2"><div className="w-3 h-3 rounded-full bg-black"/><div className="w-3 h-3 rounded-full border-2 border-black"/></div>
+                  <span className="font-mono text-[10px] font-bold uppercase tracking-widest">gym-app.fig</span>
                 </div>
-                
-                {/* Project Content */}
-                <div className="p-6 sm:p-8 bg-white flex flex-col flex-1 overflow-hidden transition-all duration-500 ease-in-out">
-                  <div className="flex items-start justify-between mb-4 gap-2 shrink-0">
-                     <h3 className="text-2xl font-black leading-tight text-black line-clamp-1 uppercase tracking-tight">
-                      Gym & Fitness App
-                    </h3>
-                    <span className="text-[10px] font-black uppercase tracking-wider bg-[#007BFF] text-white px-2 py-1 border-2 border-black shadow-[2px_2px_0_0_#000] min-w-fit transform -rotate-1">Mobile App</span>
+                <div className="relative flex-1 overflow-hidden">
+                  <OptimizedImage src={getAssetPath("images/projects/gym_1.png")} alt="Gym App" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" priority={true} />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#007BFF]/90 via-transparent to-transparent"/>
+                  <div className="absolute bottom-0 left-0 p-5 text-white">
+                    <span className="text-[10px] font-black uppercase tracking-[0.2em] bg-white text-[#007BFF] px-2 py-1 border-2 border-[#007BFF] mb-3 inline-block">Mobile App</span>
+                    <h3 className="text-xl font-black uppercase leading-tight">Gym & Fitness App</h3>
                   </div>
-                  
-                  <div className="relative flex-1 overflow-hidden">
-                    <p className={`text-sm sm:text-base font-medium leading-relaxed text-gray-600 transition-all duration-500 ${
-                      expandedCard === 'gym' || isHovering === 'gym' 
-                        ? 'overflow-y-auto max-h-full scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-transparent pr-2' 
-                        : 'line-clamp-3'
-                    }`}>
-                      Designed a comprehensive fitness app with workout tracking, personalized plans, and progress visualizations to motivate users.
-                    </p>
-                  </div>
-                  
-                  <div className="flex flex-wrap gap-3 mt-4 pt-4 border-t-2 border-black border-dashed shrink-0">
-                      <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-gray-500">
-                        Design Only
-                      </span>
+                  <div className="absolute top-4 right-4 w-10 h-10 bg-white border-2 border-black rounded-full flex items-center justify-center shadow-[3px_3px_0_0_#000] opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <Eye className="w-4 h-4 text-black"/>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Project 3 - Jhon Holdings Furniture's Branding */}
-            <div className={`group h-full transition-all duration-1000 ${
-              isVisible.projects 
-                ? 'opacity-100 translate-y-0' 
-                : 'opacity-0 translate-y-12'
-            }`}
-            style={{
-              transitionDelay: isVisible.projects ? '600ms' : '0ms'
-            }}>
-              <div 
-                className={`bg-white border-4 border-black rounded-[30px] overflow-hidden shadow-[8px_8px_0_0_#000] hover:shadow-[14px_14px_0_0_#000] transition-all duration-300 hover:-translate-y-2 flex flex-col h-[500px] ${
-                  expandedCard === 'jhon' ? 'transform scale-[1.02] z-10 relative ring-4 ring-[#007BFF] ring-offset-4' : ''
-                }`}
-                onMouseEnter={() => setIsHovering('jhon')}
-                onMouseLeave={() => setIsHovering(null)}
-                onClick={() => setExpandedCard(expandedCard === 'jhon' ? null : 'jhon')}
+            {/* CARD 3 — Small */}
+            <div className="bento-card group">
+              <div
+                className="relative bg-[#FFDE59] border-4 border-black rounded-[24px] shadow-[8px_8px_0_0_#000] hover:shadow-[14px_14px_0_0_#000] hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col h-[320px] cursor-pointer"
+                onClick={() => openGallery('jhon')}
               >
-                  {/* Project Image Header */}
-                  <div className="h-10 bg-white border-b-4 border-black flex items-center px-4 justify-between shrink-0">
-                      <div className="flex gap-2">
-                          <div className="w-3 h-3 rounded-full bg-black"></div>
-                          <div className="w-3 h-3 rounded-full border-2 border-black"></div>
-                      </div>
-                      <div className="font-mono text-[10px] font-bold uppercase tracking-widest">jhon...exe</div>
-                  </div>
-
-                {/* Project Image */}
-                <div 
-                  className={`relative w-full overflow-hidden cursor-pointer border-b-4 border-black group-hover:bg-[#FFDE59] transition-all duration-500 ease-in-out ${
-                    isHovering === 'jhon' ? 'h-[120px]' : 'h-[250px]'
-                  }`}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    openGallery('jhon');
-                  }}
-                >
-                  <OptimizedImage 
-                    src={getAssetPath("images/projects/jhon_1.png")} 
-                    alt="Jhon Holdings Furniture's Branding"
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 group-hover:rotate-1"
-                    priority={true}
-                  />
-                  
-                  {/* View Gallery Overlay Button */}
-                  <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
-                      <div className="bg-white border-3 border-black px-4 py-2 rounded-full shadow-[4px_4px_0_0_#000] flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 scale-75">
-                          <Eye className="w-5 h-5 text-black" />
-                          <span className="font-black uppercase tracking-wider text-sm">View</span>
-                      </div>
-                  </div>
+                <div className="h-10 bg-white border-b-4 border-black flex items-center px-4 justify-between shrink-0">
+                  <div className="flex gap-2"><div className="w-3 h-3 rounded-full bg-black"/><div className="w-3 h-3 rounded-full border-2 border-black"/></div>
+                  <span className="font-mono text-[10px] font-bold uppercase tracking-widest">jhon.fig</span>
                 </div>
-                
-                {/* Project Content */}
-                <div className="p-6 sm:p-8 bg-white flex flex-col flex-1 overflow-hidden transition-all duration-500 ease-in-out">
-                  <div className="flex items-start justify-between mb-4 gap-2 shrink-0">
-                     <h3 className="text-2xl font-black leading-tight text-black line-clamp-1 uppercase tracking-tight">
-                      Furniture's Branding
-                    </h3>
-                    <span className="text-[10px] font-black uppercase tracking-wider bg-[#FFDE59] text-black px-2 py-1 border-2 border-black shadow-[2px_2px_0_0_#000] min-w-fit transform rotate-1">Branding</span>
+                <div className="relative flex-1 overflow-hidden">
+                  <OptimizedImage src={getAssetPath("images/projects/jhon_1.png")} alt="Jhon Holdings" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" priority={true} />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#FFDE59]/80 to-transparent"/>
+                  <div className="absolute bottom-0 left-0 p-5">
+                    <span className="text-[10px] font-black uppercase tracking-[0.2em] bg-black text-[#FFDE59] px-2 py-1 mb-2 inline-block">Branding</span>
+                    <h3 className="text-lg font-black uppercase leading-tight">Furniture's Branding</h3>
                   </div>
-                  
-                  <div className="relative flex-1 overflow-hidden">
-                    <p className={`text-sm sm:text-base font-medium leading-relaxed text-gray-600 transition-all duration-500 ${
-                      expandedCard === 'jhon' || isHovering === 'jhon' 
-                        ? 'overflow-y-auto max-h-full scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-transparent pr-2' 
-                        : 'line-clamp-3'
-                    }`}>
-                      Developed a coherent brand identity for Jhon Holdings, including logo design, color palette, and visual assets for their furniture line.
-                    </p>
-                  </div>
-                  
-                  <div className="flex flex-wrap gap-3 mt-4 pt-4 border-t-2 border-black border-dashed shrink-0">
-                      <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-gray-500">
-                        Design Unavailable
-                      </span>
+                  <div className="absolute top-4 right-4 w-10 h-10 bg-white border-2 border-black rounded-full flex items-center justify-center shadow-[3px_3px_0_0_#000] opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <Eye className="w-4 h-4 text-black"/>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Project 4 - CulturaJoin */}
-            <div className={`group h-full transition-all duration-1000 ${
-              isVisible.projects 
-                ? 'opacity-100 translate-y-0' 
-                : 'opacity-0 translate-y-12'
-            }`}
-            style={{
-              transitionDelay: isVisible.projects ? '800ms' : '0ms'
-            }}>
-              <div 
-                className={`bg-white border-4 border-black rounded-[30px] overflow-hidden shadow-[8px_8px_0_0_#000] hover:shadow-[14px_14px_0_0_#000] transition-all duration-300 hover:-translate-y-2 flex flex-col h-[500px] ${
-                  expandedCard === 'culturajoin' ? 'transform scale-[1.02] z-10 relative ring-4 ring-[#007BFF] ring-offset-4' : ''
-                }`}
-                onMouseEnter={() => setIsHovering('culturajoin')}
-                onMouseLeave={() => setIsHovering(null)}
-                onClick={() => setExpandedCard(expandedCard === 'culturajoin' ? null : 'culturajoin')}
+            {/* CARD 4 — Large (spans 2 cols) */}
+            <div className="bento-card lg:col-span-2 group">
+              <div
+                className="relative bg-[#FF6B6B] border-4 border-black rounded-[24px] shadow-[8px_8px_0_0_#000] hover:shadow-[14px_14px_0_0_#000] hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col h-[320px] cursor-pointer"
+                onClick={() => openGallery('culturajoin')}
               >
-                  {/* Project Image Header */}
-                  <div className="h-10 bg-white border-b-4 border-black flex items-center px-4 justify-between shrink-0">
-                      <div className="flex gap-2">
-                          <div className="w-3 h-3 rounded-full bg-black"></div>
-                          <div className="w-3 h-3 rounded-full border-2 border-black"></div>
-                      </div>
-                      <div className="font-mono text-[10px] font-bold uppercase tracking-widest">cult...exe</div>
-                  </div>
-
-                {/* Project Image */}
-                <div 
-                  className={`relative w-full overflow-hidden cursor-pointer border-b-4 border-black group-hover:bg-[#FF6B6B] transition-all duration-500 ease-in-out ${
-                    isHovering === 'culturajoin' ? 'h-[120px]' : 'h-[250px]'
-                  }`}
-                  onClick={() => openGallery('culturajoin')}
-                >
-                  <OptimizedImage 
-                    src={getAssetPath("images/projects/culturajoin.png")} 
-                    alt="CulturaJoin"
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 group-hover:rotate-1"
-                    priority={true}
-                  />
-                  
-                  {/* View Gallery Overlay Button */}
-                  <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
-                      <div className="bg-white border-3 border-black px-4 py-2 rounded-full shadow-[4px_4px_0_0_#000] flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 scale-75">
-                          <Eye className="w-5 h-5 text-black" />
-                          <span className="font-black uppercase tracking-wider text-sm">View</span>
-                      </div>
-                  </div>
+                <div className="h-10 bg-white border-b-4 border-black flex items-center px-4 justify-between shrink-0">
+                  <div className="flex gap-2"><div className="w-3 h-3 rounded-full bg-black"/><div className="w-3 h-3 rounded-full border-2 border-black"/></div>
+                  <span className="font-mono text-[10px] font-bold uppercase tracking-widest">culturajoin.fig</span>
                 </div>
-                
-                {/* Project Content */}
-                <div className="p-6 sm:p-8 bg-white flex flex-col flex-1 overflow-hidden transition-all duration-500 ease-in-out">
-                  <div className="flex items-start justify-between mb-4 gap-2 shrink-0">
-                     <h3 className="text-2xl font-black leading-tight text-black line-clamp-1 uppercase tracking-tight">
-                      CulturaJoin
-                    </h3>
-                    <span className="text-[10px] font-black uppercase tracking-wider bg-[#FF6B6B] text-white px-2 py-1 border-2 border-black shadow-[2px_2px_0_0_#000] min-w-fit transform rotate-2">Web Platform</span>
+                <div className="relative flex-1 overflow-hidden">
+                  <OptimizedImage src={getAssetPath("images/projects/culturajoin.png")} alt="CulturaJoin" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" priority={true} />
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#FF6B6B]/90 via-[#FF6B6B]/40 to-transparent"/>
+                  <div className="absolute left-0 bottom-0 p-6 max-w-lg">
+                    <span className="text-[10px] font-black uppercase tracking-[0.2em] bg-white text-[#FF6B6B] px-2 py-1 border-2 border-[#FF6B6B] mb-3 inline-block">Web Platform</span>
+                    <h3 className="text-2xl sm:text-3xl font-black uppercase leading-tight text-white mb-2">CulturaJoin</h3>
+                    <p className="text-sm font-medium text-white/80 line-clamp-2 hidden sm:block">Cultural & event management platform built with Uvexzon.</p>
                   </div>
-                  
-                  <div className="relative flex-1 overflow-hidden">
-                    <p className={`text-sm sm:text-base font-medium leading-relaxed text-gray-600 transition-all duration-500 ${
-                      expandedCard === 'culturajoin' || isHovering === 'culturajoin' 
-                        ? 'overflow-y-auto max-h-full scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-transparent pr-2' 
-                        : 'line-clamp-3'
-                    }`}>
-                      {renderDescriptionWithLinks("At Uvexzon, I worked on a cultural and event management platform designed for locals, tourists, and planners. The platform supported invitation purchases and event hosting, improving accessibility for diverse users. All project content and rights belong to Uvexzon.")}
-                    </p>
-                  </div>
-                  
-                  <div className="flex flex-wrap gap-3 mt-4 pt-4 border-t-2 border-black border-dashed shrink-0">
-                      <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-gray-500">
-                        Design Unavailable
-                      </span>
+                  <div className="absolute top-4 right-4 w-10 h-10 bg-white border-2 border-black rounded-full flex items-center justify-center shadow-[3px_3px_0_0_#000] opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <Eye className="w-4 h-4 text-black"/>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Project 5 - Motion Ink Branding */}
-            <div className={`group h-full transition-all duration-1000 ${
-              isVisible.projects 
-                ? 'opacity-100 translate-y-0' 
-                : 'opacity-0 translate-y-12'
-            }`}
-            style={{
-              transitionDelay: isVisible.projects ? '1000ms' : '0ms'
-            }}>
-              <div 
-                className={`bg-white border-4 border-black rounded-[30px] overflow-hidden shadow-[8px_8px_0_0_#000] hover:shadow-[14px_14px_0_0_#000] transition-all duration-300 hover:-translate-y-2 flex flex-col h-[500px] ${
-                  expandedCard === 'motion' ? 'transform scale-[1.02] z-10 relative ring-4 ring-[#007BFF] ring-offset-4' : ''
-                }`}
-                onMouseEnter={() => setIsHovering('motion')}
-                onMouseLeave={() => setIsHovering(null)}
-                onClick={() => setExpandedCard(expandedCard === 'motion' ? null : 'motion')}
+            {/* CARD 5 — Small */}
+            <div className="bento-card group">
+              <div
+                className="relative bg-black border-4 border-black rounded-[24px] shadow-[8px_8px_0_0_#000] hover:shadow-[14px_14px_0_0_#000] hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col h-[300px] cursor-pointer"
+                onClick={() => openGallery('motion')}
               >
-                  {/* Project Image Header */}
-                  <div className="h-10 bg-white border-b-4 border-black flex items-center px-4 justify-between shrink-0">
-                      <div className="flex gap-2">
-                          <div className="w-3 h-3 rounded-full bg-black"></div>
-                          <div className="w-3 h-3 rounded-full border-2 border-black"></div>
-                      </div>
-                      <div className="font-mono text-[10px] font-bold uppercase tracking-widest">motion...exe</div>
-                  </div>
-
-                {/* Project Image */}
-                <div 
-                  className={`relative w-full overflow-hidden cursor-pointer border-b-4 border-black group-hover:bg-[#FFDE59] transition-all duration-500 ease-in-out ${
-                    isHovering === 'motion' ? 'h-[120px]' : 'h-[250px]'
-                  }`}
-                  onClick={() => openGallery('motion')}
-                >
-                  <OptimizedImage 
-                    src={getAssetPath("images/projects/motion_1.png")} 
-                    alt="Motion Ink Branding"
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 group-hover:rotate-1"
-                    priority={true}
-                  />
-                  
-                  {/* View Gallery Overlay Button */}
-                  <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
-                      <div className="bg-white border-3 border-black px-4 py-2 rounded-full shadow-[4px_4px_0_0_#000] flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 scale-75">
-                          <Eye className="w-5 h-5 text-black" />
-                          <span className="font-black uppercase tracking-wider text-sm">View</span>
-                      </div>
-                  </div>
+                <div className="h-10 bg-white border-b-4 border-black flex items-center px-4 justify-between shrink-0">
+                  <div className="flex gap-2"><div className="w-3 h-3 rounded-full bg-black"/><div className="w-3 h-3 rounded-full border-2 border-black"/></div>
+                  <span className="font-mono text-[10px] font-bold uppercase tracking-widest">motion.fig</span>
                 </div>
-                
-                {/* Project Content */}
-                <div className="p-6 sm:p-8 bg-white flex flex-col flex-1 overflow-hidden transition-all duration-500 ease-in-out">
-                  <div className="flex items-start justify-between mb-4 gap-2 shrink-0">
-                     <h3 className="text-2xl font-black leading-tight text-black line-clamp-1 uppercase tracking-tight">
-                      Motion Ink Branding
-                    </h3>
-                    <span className="text-[10px] font-black uppercase tracking-wider bg-[#FFDE59] text-black px-2 py-1 border-2 border-black shadow-[2px_2px_0_0_#000] min-w-fit transform rotate-1">Branding</span>
+                <div className="relative flex-1 overflow-hidden">
+                  <OptimizedImage src={getAssetPath("images/projects/motion_1.png")} alt="Motion Ink" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-80" priority={true} />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent"/>
+                  <div className="absolute bottom-0 left-0 p-5 text-white">
+                    <span className="text-[10px] font-black uppercase tracking-[0.2em] bg-[#FFDE59] text-black px-2 py-1 mb-2 inline-block">Branding</span>
+                    <h3 className="text-lg font-black uppercase">Motion Ink</h3>
                   </div>
-                  
-                  <div className="relative flex-1 overflow-hidden">
-                    <p className={`text-sm sm:text-base font-medium leading-relaxed text-gray-600 transition-all duration-500 ${
-                      expandedCard === 'motion' || isHovering === 'motion' 
-                        ? 'overflow-y-auto max-h-full scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-transparent pr-2' 
-                        : 'line-clamp-3'
-                    }`}>
-                      Creative branding solution for Motion Ink, incorporating dynamic visual elements to reflect the brand's identity and market position.
-                    </p>
-                  </div>
-                  
-                  <div className="flex flex-wrap gap-3 mt-4 pt-4 border-t-2 border-black border-dashed shrink-0">
-                      <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-gray-500">
-                        Design Only
-                      </span>
+                  <div className="absolute top-4 right-4 w-10 h-10 bg-white border-2 border-black rounded-full flex items-center justify-center shadow-[3px_3px_0_0_#000] opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <Eye className="w-4 h-4 text-black"/>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Project 6 - Swish Strokes */}
-            <div className={`group h-full transition-all duration-1000 ${
-              isVisible.projects 
-                ? 'opacity-100 translate-y-0' 
-                : 'opacity-0 translate-y-12'
-            }`}
-            style={{
-              transitionDelay: isVisible.projects ? '1200ms' : '0ms'
-            }}>
-              <div 
-                className={`bg-white border-4 border-black rounded-[30px] overflow-hidden shadow-[8px_8px_0_0_#000] hover:shadow-[14px_14px_0_0_#000] transition-all duration-300 hover:-translate-y-2 flex flex-col h-[500px] ${
-                  expandedCard === 'swish-strokes' ? 'transform scale-[1.02] z-10 relative ring-4 ring-[#007BFF] ring-offset-4' : ''
-                }`}
-                onMouseEnter={() => setIsHovering('swish-strokes')}
-                onMouseLeave={() => setIsHovering(null)}
-                onClick={() => setExpandedCard(expandedCard === 'swish-strokes' ? null : 'swish-strokes')}
+            {/* CARD 6 — Small */}
+            <div className="bento-card group">
+              <div
+                className="relative bg-purple-600 border-4 border-black rounded-[24px] shadow-[8px_8px_0_0_#000] hover:shadow-[14px_14px_0_0_#000] hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col h-[300px] cursor-pointer"
+                onClick={() => openGallery('swish')}
               >
-                  {/* Project Image Header */}
-                  <div className="h-10 bg-white border-b-4 border-black flex items-center px-4 justify-between shrink-0">
-                      <div className="flex gap-2">
-                          <div className="w-3 h-3 rounded-full bg-black"></div>
-                          <div className="w-3 h-3 rounded-full border-2 border-black"></div>
-                      </div>
-                      <div className="font-mono text-[10px] font-bold uppercase tracking-widest">swish...exe</div>
-                  </div>
-
-                {/* Project Image */}
-                <div 
-                  className={`relative w-full overflow-hidden cursor-pointer border-b-4 border-black group-hover:bg-purple-400 transition-all duration-500 ease-in-out ${
-                    isHovering === 'swish-strokes' ? 'h-[120px]' : 'h-[250px]'
-                  }`}
-                  onClick={() => openGallery('swish-strokes')}
-                >
-                  <OptimizedImage 
-                    src={getAssetPath("images/projects/swishstrokes.png")} 
-                    alt="Swish Strokes"
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 group-hover:rotate-1"
-                    priority={true}
-                  />
-                  
-                  {/* View Gallery Overlay Button */}
-                  <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
-                      <div className="bg-white border-3 border-black px-4 py-2 rounded-full shadow-[4px_4px_0_0_#000] flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 scale-75">
-                          <Eye className="w-5 h-5 text-black" />
-                          <span className="font-black uppercase tracking-wider text-sm">View</span>
-                      </div>
-                  </div>
+                <div className="h-10 bg-white border-b-4 border-black flex items-center px-4 justify-between shrink-0">
+                  <div className="flex gap-2"><div className="w-3 h-3 rounded-full bg-black"/><div className="w-3 h-3 rounded-full border-2 border-black"/></div>
+                  <span className="font-mono text-[10px] font-bold uppercase tracking-widest">swish.fig</span>
                 </div>
-                
-                {/* Project Content */}
-                <div className="p-6 sm:p-8 bg-white flex flex-col flex-1 overflow-hidden transition-all duration-500 ease-in-out">
-                  <div className="flex items-start justify-between mb-4 gap-2 shrink-0">
-                     <h3 className="text-2xl font-black leading-tight text-black line-clamp-1 uppercase tracking-tight">
-                      Swish Strokes
-                    </h3>
-                    <span className="text-[10px] font-black uppercase tracking-wider bg-purple-500 text-white px-2 py-1 border-2 border-black shadow-[2px_2px_0_0_#000] min-w-fit transform rotate-1">App</span>
+                <div className="relative flex-1 overflow-hidden">
+                  <OptimizedImage src={getAssetPath("images/projects/swishstrokes.png")} alt="Swish Strokes" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-80" priority={true} />
+                  <div className="absolute inset-0 bg-gradient-to-t from-purple-800/90 to-transparent"/>
+                  <div className="absolute bottom-0 left-0 p-5 text-white">
+                    <span className="text-[10px] font-black uppercase tracking-[0.2em] bg-white text-purple-700 px-2 py-1 mb-2 inline-block">App</span>
+                    <h3 className="text-lg font-black uppercase">Swish Strokes</h3>
                   </div>
-                  
-                  <div className="relative flex-1 overflow-hidden">
-                    <p className={`text-sm sm:text-base font-medium leading-relaxed text-gray-600 transition-all duration-500 ${
-                      expandedCard === 'swish-strokes' || isHovering === 'swish-strokes' 
-                        ? 'overflow-y-auto max-h-full scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-transparent pr-2' 
-                        : 'line-clamp-3'
-                    }`}>
-                      Collaborated with Uvexzon as a UX Designer on the Mandala Art Colouring & Music Relaxation Mobile App, focused on mindfulness and creativity. The app includes mandala colouring, relaxing music, tournaments, mood tracking, and motivational prompts. Also contributed to designing the landing page to enhance user engagement and brand presence. All project content and rights belong to Uvexzon.
-                    </p>
-                  </div>
-                  
-                  <div className="flex flex-wrap gap-3 mt-4 pt-4 border-t-2 border-black border-dashed shrink-0">
-                      <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-gray-500">
-                        Design Only
-                      </span>
+                  <div className="absolute top-4 right-4 w-10 h-10 bg-white border-2 border-black rounded-full flex items-center justify-center shadow-[3px_3px_0_0_#000] opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <Eye className="w-4 h-4 text-black"/>
                   </div>
                 </div>
               </div>
+            </div>
+
+            {/* CARD 7 — CTA Card */}
+            <div className="bento-card group">
+              <Link to="/projects" className="block h-full">
+                <div className="relative bg-[#007BFF] border-4 border-black rounded-[24px] shadow-[8px_8px_0_0_#000] hover:shadow-[14px_14px_0_0_#000] hover:-translate-y-1 transition-all duration-300 flex flex-col items-center justify-center h-[300px] p-8 text-center">
+                  <div className="w-16 h-16 bg-white border-4 border-black rounded-full flex items-center justify-center mb-4 shadow-[4px_4px_0_0_#000] group-hover:rotate-12 transition-transform duration-300">
+                    <ArrowRight className="w-8 h-8 text-black"/>
+                  </div>
+                  <h3 className="text-2xl font-black text-white uppercase leading-tight mb-2">View All Projects</h3>
+                  <p className="text-sm font-bold text-white/80">Case studies & more</p>
+                </div>
+              </Link>
+            </div>
+
+          </div>
+
+          {/* Horizontal Scroll Skills Strip */}
+          <div className="mt-16 overflow-hidden border-y-4 border-black py-5 bg-[#FCF9F8]">
+            <div className="h-scroll-track flex gap-8 w-max">
+              {["UI/UX Design","Figma","Prototyping","React","Branding","Motion Design","Design Systems","Wireframing","User Research","Typography","UI/UX Design","Figma","Prototyping","React","Branding","Motion Design","Design Systems","Wireframing","User Research","Typography"].map((skill, i) => (
+                <span key={i} className="whitespace-nowrap text-sm font-black uppercase tracking-widest text-black flex items-center gap-3">
+                  <span className="w-2 h-2 bg-[#007BFF] rounded-full inline-block border border-black"/>
+                  {skill}
+                </span>
+              ))}
             </div>
           </div>
 
-          {/* View All Projects Button */}
-          <div className={`text-center mt-8 sm:mt-12 lg:mt-16 transition-all duration-1000 delay-1000 ${
-            isVisible.projects 
-              ? 'opacity-100 translate-y-0' 
-              : 'opacity-0 translate-y-8'
-          }`}>
-            <Link to="/projects">
-              <Button
-                variant="outline"
-                className="border-black bg-white hover:bg-black hover:text-white shadow-[2px_2px_0_0_#000] sm:shadow-[3px_3px_0_0_#000] lg:shadow-[4px_4px_0_0_#000] text-sm sm:text-[16px] font-medium px-6 sm:px-8 lg:px-[50px] py-3 sm:py-4 lg:py-[20px] rounded-none inline-flex items-center gap-2"
-              >
-                View All Projects
-                <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4" />
-              </Button>
-            </Link>
-          </div>
         </div>
       </section>
+
+
+      {/* Section Separator */}
+      <div className="bg-white h-2 sm:h-4 lg:h-8 relative z-20"></div>
+
 
       {/* Section Separator */}
       <div className="bg-white h-2 sm:h-4 lg:h-8 relative z-20"></div>

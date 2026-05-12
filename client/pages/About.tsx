@@ -6,6 +6,9 @@ import WhatsAppFloat from "@/components/WhatsAppFloat";
 import { useToast } from "@/hooks/use-toast";
 import { getAssetPath } from "@/lib/utils";
 import { Footer, BehanceIcon } from "@/components/Footer";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 
 export default function About() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -79,6 +82,74 @@ export default function About() {
       window.removeEventListener('resize', handleScroll);
     };
   }, [isVisible]);
+
+  // GSAP scroll animations
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Hero card entrance
+      gsap.fromTo(".about-hero-card",
+        { y: 80, opacity: 0, scale: 0.97 },
+        { y: 0, opacity: 1, scale: 1, duration: 1, ease: "expo.out",
+          scrollTrigger: { trigger: ".about-hero-card", start: "top 90%", toggleActions: "play none none reverse" }
+        }
+      );
+      // Headings
+      gsap.utils.toArray<HTMLElement>(".gsap-heading").forEach(el => {
+        gsap.fromTo(el, { y: 50, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.95, ease: "expo.out",
+            scrollTrigger: { trigger: el, start: "top 87%", toggleActions: "play none none reverse" }
+          }
+        );
+      });
+      // Stagger cards
+      gsap.utils.toArray<HTMLElement>(".gsap-card").forEach((card, i) => {
+        gsap.fromTo(card,
+          { y: 60, opacity: 0, scale: 0.96 },
+          { y: 0, opacity: 1, scale: 1, duration: 0.8, delay: i * 0.08, ease: "power3.out",
+            scrollTrigger: { trigger: card, start: "top 88%", toggleActions: "play none none reverse" }
+          }
+        );
+      });
+      // Horizontal skills scroll
+      const skillsTrack = document.querySelector<HTMLElement>(".about-skills-track");
+      if (skillsTrack) {
+        gsap.matchMedia().add("(min-width: 768px)", () => {
+          gsap.to(skillsTrack, {
+            x: () => -(skillsTrack.scrollWidth - skillsTrack.parentElement!.offsetWidth),
+            ease: "none",
+            scrollTrigger: {
+              trigger: skillsTrack.parentElement!,
+              start: "top 65%",
+              end: "+=700",
+              scrub: 1.5,
+            },
+          });
+        });
+      }
+      // Stat counters pop-in
+      gsap.utils.toArray<HTMLElement>(".gsap-stat").forEach((el, i) => {
+        gsap.fromTo(el,
+          { y: 40, opacity: 0, rotate: -3 },
+          { y: 0, opacity: 1, rotate: 0, duration: 0.7, delay: i * 0.1, ease: "back.out(1.5)",
+            scrollTrigger: { trigger: el, start: "top 90%", toggleActions: "play none none reverse" }
+          }
+        );
+      });
+      // Profile image parallax
+      const profileImg = document.querySelector<HTMLElement>(".about-profile-img");
+      if (profileImg) {
+        gsap.matchMedia().add("(min-width: 768px)", () => {
+          gsap.to(profileImg, {
+            yPercent: -10,
+            ease: "none",
+            scrollTrigger: { trigger: profileImg, start: "top bottom", end: "bottom top", scrub: true },
+          });
+        });
+      }
+      ScrollTrigger.refresh();
+    });
+    return () => ctx.revert();
+  }, []);
 
   const { toast } = useToast();
 
@@ -353,7 +424,7 @@ export default function About() {
           <div className="max-w-7xl mx-auto">
             
             {/* Main About Card - Art Board Style */}
-            <div className="relative bg-white border-4 border-black rounded-[30px] shadow-[10px_10px_0_0_#000] overflow-hidden mb-8 lg:mb-12">
+            <div className="about-hero-card relative bg-white border-4 border-black rounded-[30px] shadow-[10px_10px_0_0_#000] overflow-hidden mb-8 lg:mb-12">
               {/* Board Header / Window Controls */}
               <div className="absolute top-0 left-0 w-full h-12 border-b-4 border-black bg-gray-100 flex items-center px-4 gap-2 z-20">
                 <div className="w-3 h-3 rounded-full bg-red-400 border border-black hover:bg-red-500 transition-colors"></div>
@@ -380,7 +451,7 @@ export default function About() {
                         SOFTWARE ENGINEERING STUDENT
                       </div>
                       
-                      <h1 className="text-4xl sm:text-5xl lg:text-[64px] font-black leading-none text-black mb-6 tracking-tight">
+                      <h1 className="gsap-heading text-4xl sm:text-5xl lg:text-[64px] font-black leading-none text-black mb-6 tracking-tight">
                         ABOUT <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#007BFF] to-blue-600">ME</span>
                       </h1>
                     </div>
@@ -449,7 +520,7 @@ export default function About() {
                           <img
                             src={getAssetPath("images/profile/aa.png")}
                             alt="Prabhath Subhashana"
-                            className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                            className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105 about-profile-img"
                             onError={(e) => {
                               const target = e.target as HTMLImageElement;
                               target.style.display = 'none';
@@ -542,17 +613,17 @@ export default function About() {
             
             {/* Section Header */}
             <div className="text-center mb-12 lg:mb-16">
-              <h2 className="text-3xl sm:text-4xl lg:text-[52px] font-black leading-none text-black mb-4 uppercase tracking-tight">
+              <h2 className="gsap-heading text-3xl sm:text-4xl lg:text-[52px] font-black leading-none text-black mb-4 uppercase tracking-tight">
                 Journey & <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#007BFF] to-blue-600">Experience</span>
               </h2>
-              <div className="inline-block bg-black text-white px-4 py-1 rounded-full text-xs font-bold tracking-widest">CAREER_PATH.LOG</div>
+              <div className="inline-block bg-[#007BFF] text-white px-4 py-1 border-2 border-black shadow-[3px_3px_0_0_#000] text-xs font-bold tracking-widest">CAREER_PATH.LOG</div>
             </div>
 
             {/* Main Experience Cards */}
             <div className="space-y-8 mb-12">
               
               {/* Current Education - Featured Window */}
-              <div className="bg-[#FCF9F8] border-2 border-black rounded-xl shadow-[6px_6px_0_0_#000] overflow-hidden group hover:shadow-[8px_8px_0_0_#000] hover:-translate-y-1 transition-all duration-300">
+              <div className="gsap-card bg-[#FCF9F8] border-4 border-black rounded-2xl shadow-[8px_8px_0_0_#000] overflow-hidden group hover:shadow-[12px_12px_0_0_#000] hover:-translate-y-2 transition-all duration-300">
                 {/* Window Header */}
                 <div className="h-10 border-b-2 border-black bg-gray-100 flex items-center px-4 gap-2">
                     <div className="w-3 h-3 rounded-full bg-red-400 border border-black"></div>
@@ -598,7 +669,7 @@ export default function About() {
               <div className="grid lg:grid-cols-2 gap-6">
                 
                 {/* Recent Work - Job File */}
-                <div className="bg-white border-2 border-black rounded-xl shadow-[6px_6px_0_0_#000] overflow-hidden group hover:shadow-[8px_8px_0_0_#000] hover:-translate-y-1 transition-all duration-300">
+                <div className="gsap-card bg-white border-4 border-black rounded-2xl shadow-[8px_8px_0_0_#000] overflow-hidden group hover:shadow-[12px_12px_0_0_#000] hover:-translate-y-2 transition-all duration-300">
                   <div className="h-8 border-b-2 border-black bg-purple-50 flex items-center px-3 justify-between">
                      <div className="text-[10px] font-bold font-mono">WORK_LOG_01.TXT</div>
                      <div className="flex gap-1">
@@ -637,7 +708,7 @@ export default function About() {
                 </div>
 
                 {/* Previous Work - Job File */}
-                <div className="bg-white border-2 border-black rounded-xl shadow-[6px_6px_0_0_#000] overflow-hidden group hover:shadow-[8px_8px_0_0_#000] hover:-translate-y-1 transition-all duration-300">
+                <div className="gsap-card bg-white border-4 border-black rounded-2xl shadow-[8px_8px_0_0_#000] overflow-hidden group hover:shadow-[12px_12px_0_0_#000] hover:-translate-y-2 transition-all duration-300">
                   <div className="h-8 border-b-2 border-black bg-orange-50 flex items-center px-3 justify-between">
                      <div className="text-[10px] font-bold font-mono">WORK_LOG_02.TXT</div>
                      <div className="flex gap-1">
@@ -673,7 +744,7 @@ export default function About() {
               </div>
 
               {/* Education Foundation - History File */}
-              <div className="bg-white border-2 border-black rounded-xl shadow-[6px_6px_0_0_#000] overflow-hidden group hover:shadow-[8px_8px_0_0_#000] hover:-translate-y-1 transition-all duration-300">
+              <div className="gsap-card bg-white border-4 border-black rounded-2xl shadow-[8px_8px_0_0_#000] overflow-hidden group hover:shadow-[12px_12px_0_0_#000] hover:-translate-y-2 transition-all duration-300">
                  <div className="h-8 border-b-2 border-black bg-green-50 flex items-center px-3 justify-between">
                      <div className="text-[10px] font-bold font-mono">HISTORY.ARC</div>
                      <div className="flex gap-1">
@@ -702,21 +773,21 @@ export default function About() {
 
             {/* Summary Stats - Widgets */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
-              <div className="text-center bg-white border-2 border-black rounded-xl shadow-[4px_4px_0_0_#000] p-6 hover:shadow-[6px_6px_0_0_#000] hover:-translate-y-1 transition-all duration-300">
-                <div className="text-3xl lg:text-4xl font-black text-[#007BFF] mb-2 leading-none">1+</div>
-                <div className="text-[11px] font-bold text-black uppercase tracking-widest bg-gray-100 inline-block px-2 py-1 rounded">Years Exp.</div>
+              <div className="gsap-stat text-center bg-[#007BFF] border-4 border-black rounded-2xl shadow-[6px_6px_0_0_#000] p-6 hover:shadow-[8px_8px_0_0_#000] hover:-translate-y-1 transition-all duration-300">
+                <div className="text-3xl lg:text-4xl font-black text-white mb-2 leading-none">1+</div>
+                <div className="text-[11px] font-bold text-white/80 uppercase tracking-widest">Years Exp.</div>
               </div>
-              <div className="text-center bg-white border-2 border-black rounded-xl shadow-[4px_4px_0_0_#000] p-6 hover:shadow-[6px_6px_0_0_#000] hover:-translate-y-1 transition-all duration-300">
-                <div className="text-3xl lg:text-4xl font-black text-purple-500 mb-2 leading-none">10+</div>
-                <div className="text-[11px] font-bold text-black uppercase tracking-widest bg-gray-100 inline-block px-2 py-1 rounded">Projects</div>
+              <div className="gsap-stat text-center bg-[#FFDE59] border-4 border-black rounded-2xl shadow-[6px_6px_0_0_#000] p-6 hover:shadow-[8px_8px_0_0_#000] hover:-translate-y-1 transition-all duration-300">
+                <div className="text-3xl lg:text-4xl font-black text-black mb-2 leading-none">10+</div>
+                <div className="text-[11px] font-bold text-black/70 uppercase tracking-widest">Projects</div>
               </div>
-              <div className="text-center bg-white border-2 border-black rounded-xl shadow-[4px_4px_0_0_#000] p-6 hover:shadow-[6px_6px_0_0_#000] hover:-translate-y-1 transition-all duration-300">
-                <div className="text-3xl lg:text-4xl font-black text-green-500 mb-2 leading-none">2</div>
-                <div className="text-[11px] font-bold text-black uppercase tracking-widest bg-gray-100 inline-block px-2 py-1 rounded">Industries</div>
+              <div className="gsap-stat text-center bg-black border-4 border-black rounded-2xl shadow-[6px_6px_0_0_#007BFF] p-6 hover:shadow-[8px_8px_0_0_#007BFF] hover:-translate-y-1 transition-all duration-300">
+                <div className="text-3xl lg:text-4xl font-black text-[#007BFF] mb-2 leading-none">2</div>
+                <div className="text-[11px] font-bold text-white/70 uppercase tracking-widest">Industries</div>
               </div>
-              <div className="text-center bg-white border-2 border-black rounded-xl shadow-[4px_4px_0_0_#000] p-6 hover:shadow-[6px_6px_0_0_#000] hover:-translate-y-1 transition-all duration-300">
-                <div className="text-3xl lg:text-4xl font-black text-orange-500 mb-2 leading-none">75%</div>
-                <div className="text-[11px] font-bold text-black uppercase tracking-widest bg-gray-100 inline-block px-2 py-1 rounded">Progress</div>
+              <div className="gsap-stat text-center bg-[#FF6B6B] border-4 border-black rounded-2xl shadow-[6px_6px_0_0_#000] p-6 hover:shadow-[8px_8px_0_0_#000] hover:-translate-y-1 transition-all duration-300">
+                <div className="text-3xl lg:text-4xl font-black text-white mb-2 leading-none">75%</div>
+                <div className="text-[11px] font-bold text-white/80 uppercase tracking-widest">Progress</div>
               </div>
             </div>
 
@@ -739,7 +810,7 @@ export default function About() {
                 <span className="text-sm font-black tracking-widest text-black uppercase">Technical Inventory</span>
                 <div className="w-2 h-2 bg-[#007BFF] rounded-full"></div>
               </div>
-              <h2 className="text-4xl sm:text-5xl lg:text-[64px] font-black leading-none text-black mb-6 uppercase">
+              <h2 className="gsap-heading text-4xl sm:text-5xl lg:text-[64px] font-black leading-none text-black mb-6 uppercase">
                 Skills & <span className="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">Expertise</span>
               </h2>
             </div>
@@ -748,7 +819,7 @@ export default function About() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-12">
               
               {/* Design Tools Box */}
-              <div className="bg-white border-2 border-black rounded-xl shadow-[8px_8px_0_0_#000] overflow-hidden group hover:-translate-y-1 transition-all duration-300">
+              <div className="gsap-card bg-white border-4 border-black rounded-2xl shadow-[8px_8px_0_0_#000] overflow-hidden group hover:-translate-y-2 transition-all duration-300">
                 <div className="bg-gray-50 border-b-2 border-black p-3 flex justify-between items-center">
                    <span className="font-mono text-xs font-bold text-gray-500">TOOLBOX_01</span>
                    <Palette className="w-4 h-4 text-gray-500" />
@@ -797,7 +868,7 @@ export default function About() {
               </div>
 
               {/* Frontend Box */}
-              <div className="bg-white border-2 border-black rounded-xl shadow-[8px_8px_0_0_#000] overflow-hidden group hover:-translate-y-1 transition-all duration-300">
+              <div className="gsap-card bg-white border-4 border-black rounded-2xl shadow-[8px_8px_0_0_#000] overflow-hidden group hover:-translate-y-2 transition-all duration-300">
                 <div className="bg-gray-50 border-b-2 border-black p-3 flex justify-between items-center">
                    <span className="font-mono text-xs font-bold text-gray-500">TOOLBOX_02</span>
                    <Code className="w-4 h-4 text-gray-500" />
@@ -845,7 +916,7 @@ export default function About() {
               </div>
 
               {/* Backend Box */}
-              <div className="bg-white border-2 border-black rounded-xl shadow-[8px_8px_0_0_#000] overflow-hidden group hover:-translate-y-1 transition-all duration-300">
+              <div className="gsap-card bg-white border-4 border-black rounded-2xl shadow-[8px_8px_0_0_#000] overflow-hidden group hover:-translate-y-2 transition-all duration-300">
                 <div className="bg-gray-50 border-b-2 border-black p-3 flex justify-between items-center">
                    <span className="font-mono text-xs font-bold text-gray-500">TOOLBOX_03</span>
                    <CheckCircle className="w-4 h-4 text-gray-500" />
@@ -894,7 +965,7 @@ export default function About() {
             </div>
 
             {/* Skills Proficiency Section - System Status Style */}
-            <div className="bg-white border-2 border-black rounded-xl shadow-[8px_8px_0_0_#000] overflow-hidden mb-12 group hover:shadow-[10px_10px_0_0_#000] hover:-translate-y-1 transition-all duration-300">
+            <div className="gsap-card bg-white border-4 border-black rounded-2xl shadow-[8px_8px_0_0_#000] overflow-hidden mb-8 group hover:shadow-[12px_12px_0_0_#000] hover:-translate-y-1 transition-all duration-300">
                <div className="h-10 border-b-2 border-black bg-gray-900 flex items-center px-4 justify-between">
                    <div className="text-xs font-bold font-mono text-green-400 animate-pulse">SYSTEM_STATUS: ONLINE</div>
                    <div className="flex gap-2">
@@ -996,9 +1067,23 @@ export default function About() {
                   </div>
                </div>
             </div>
+
+            {/* Horizontal Skills Marquee — GSAP scrubbed */}
+            <div className="mt-12 overflow-hidden border-y-4 border-black py-5 bg-white -mx-4 sm:-mx-6 lg:-mx-12">
+              <div className="about-skills-track flex gap-10 w-max">
+                {["Figma","User Research","Prototyping","React","Branding","Design Systems","Wireframing","Motion Design","Tailwind CSS","Node.js","Adobe XD","Typography","UX Writing","Accessibility","Interaction Design","Figma","User Research","Prototyping","React","Branding","Design Systems","Wireframing","Motion Design","Tailwind CSS","Node.js","Adobe XD","Typography"].map((skill, i) => (
+                  <span key={i} className="whitespace-nowrap text-sm font-black uppercase tracking-widest text-black flex items-center gap-3">
+                    <span className="w-2 h-2 bg-[#007BFF] rounded-full inline-block border border-black"/>
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
+
 
       {/* Footer */}
       <Footer />

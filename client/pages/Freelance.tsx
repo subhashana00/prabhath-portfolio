@@ -5,7 +5,6 @@ import { getAssetPath } from "@/lib/utils";
 import { Footer } from "@/components/Footer";
 import BuyMeACoffee from "@/components/BuyMeACoffee";
 import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -213,78 +212,6 @@ const Freelance = () => {
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [isHovering, setIsHovering] = useState<string | null>(null);
 
-  // GSAP Animations
-  useGSAP(() => {
-    // Hero Animation
-    gsap.fromTo(heroRef.current,
-      { opacity: 0, y: 50 },
-      { 
-        opacity: 1, 
-        y: 0, 
-        duration: 1, 
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: heroRef.current,
-          start: "top 80%",
-        }
-      }
-    );
-
-    // Stagger services cards
-    const serviceCards = document.querySelectorAll('.service-card');
-    gsap.fromTo(serviceCards,
-      { opacity: 0, y: 50 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        stagger: 0.2,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: servicesRef.current,
-          start: "top 70%",
-        }
-      }
-    );
-
-    // Workflow steps animation
-    const workflowSteps = document.querySelectorAll('.workflow-step');
-    workflowSteps.forEach((step, index) => {
-      const direction = index % 2 === 0 ? -50 : 50;
-      gsap.fromTo(step,
-        { opacity: 0, x: direction },
-        {
-          opacity: 1,
-          x: 0,
-          duration: 1,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: step,
-            start: "top 80%",
-          }
-        }
-      );
-    });
-
-    // Portfolio items stagger
-    const portfolioItems = document.querySelectorAll('.portfolio-item');
-    gsap.fromTo(portfolioItems,
-      { opacity: 0, scale: 0.9 },
-      {
-        opacity: 1,
-        scale: 1,
-        duration: 0.6,
-        stagger: 0.1,
-        ease: "back.out(1.7)",
-        scrollTrigger: {
-          trigger: portfolioRef.current,
-          start: "top 70%",
-        }
-      }
-    );
-
-  }, { scope: useRef(null) });
-
   const heroRef = useRef<HTMLDivElement>(null);
   const servicesRef = useRef<HTMLDivElement>(null);
   const workflowRef = useRef<HTMLDivElement>(null);
@@ -292,6 +219,81 @@ const Freelance = () => {
   const testimonialsRef = useRef<HTMLDivElement>(null);
   const faqRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
+
+  // GSAP Scroll Animations
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Hero entrance
+      if (heroRef.current) {
+        gsap.fromTo(heroRef.current,
+          { opacity: 0, y: 60 },
+          { opacity: 1, y: 0, duration: 1.1, ease: "expo.out",
+            scrollTrigger: { trigger: heroRef.current, start: "top 85%", toggleActions: "play none none reverse" }
+          }
+        );
+      }
+
+      // Section headings fly-in
+      gsap.utils.toArray<HTMLElement>(".fl-heading").forEach(el => {
+        gsap.fromTo(el, { y: 55, opacity: 0 },
+          { y: 0, opacity: 1, duration: 1, ease: "expo.out",
+            scrollTrigger: { trigger: el, start: "top 87%", toggleActions: "play none none reverse" }
+          }
+        );
+      });
+
+      // Service cards stagger
+      const serviceCards = document.querySelectorAll<HTMLElement>('.service-card');
+      gsap.fromTo(serviceCards,
+        { opacity: 0, y: 60, scale: 0.95 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.8, stagger: 0.1, ease: "power3.out",
+          scrollTrigger: { trigger: servicesRef.current, start: "top 75%", toggleActions: "play none none reverse" }
+        }
+      );
+
+      // Workflow steps alternating slide
+      const workflowSteps = document.querySelectorAll<HTMLElement>('.workflow-step');
+      workflowSteps.forEach((step, i) => {
+        gsap.fromTo(step,
+          { opacity: 0, x: i % 2 === 0 ? -60 : 60 },
+          { opacity: 1, x: 0, duration: 0.9, ease: "power2.out",
+            scrollTrigger: { trigger: step, start: "top 82%", toggleActions: "play none none reverse" }
+          }
+        );
+      });
+
+      // Portfolio items pop in
+      const portfolioItems = document.querySelectorAll<HTMLElement>('.portfolio-item');
+      gsap.fromTo(portfolioItems,
+        { opacity: 0, scale: 0.88, y: 30 },
+        { opacity: 1, scale: 1, y: 0, duration: 0.65, stagger: 0.1, ease: "back.out(1.5)",
+          scrollTrigger: { trigger: portfolioRef.current, start: "top 72%", toggleActions: "play none none reverse" }
+        }
+      );
+
+      // Horizontal marquee scroll for freelance strip
+      const flTrack = document.querySelector<HTMLElement>(".fl-scroll-track");
+      if (flTrack) {
+        gsap.matchMedia().add("(min-width: 768px)", () => {
+          gsap.to(flTrack, {
+            x: () => -(flTrack.scrollWidth - flTrack.parentElement!.offsetWidth),
+            ease: "none",
+            scrollTrigger: {
+              trigger: flTrack.parentElement!,
+              start: "top 70%",
+              end: "+=600",
+              scrub: 1.5,
+            },
+          });
+        });
+      }
+
+      ScrollTrigger.refresh();
+    });
+    return () => ctx.revert();
+  }, []);
+
+
 
   const testimonials = [
     {
@@ -907,7 +909,20 @@ const Freelance = () => {
         </div>
       </section>
 
+      {/* Horizontal Scroll Services Strip — GSAP scrubbed */}
+      <div className="overflow-hidden border-y-4 border-black py-5 bg-[#FFDE59]">
+        <div className="fl-scroll-track flex gap-10 w-max">
+          {["Product Design","UI Design","Mobile App UX","Website Redesign","Landing Pages","Wireframing","Design Systems","Branding","Prototyping","User Research","Product Design","UI Design","Mobile App UX","Website Redesign","Landing Pages","Wireframing","Design Systems","Branding","Prototyping","User Research"].map((item, i) => (
+            <span key={i} className="whitespace-nowrap text-sm font-black uppercase tracking-widest text-black flex items-center gap-3">
+              <span className="w-2 h-2 bg-black rounded-full inline-block"/>
+              {item}
+            </span>
+          ))}
+        </div>
+      </div>
+
       {/* Workflow Section - Neo-Brutalist Redesign */}
+
       <section ref={workflowRef} className="bg-[#B8C0FF] py-20 relative border-b-4 border-black">
         {/* Background Patterns */}
         <div className="absolute top-0 left-0 w-full h-full" style={{ backgroundImage: 'radial-gradient(#fff 2px, transparent 2px)', backgroundSize: '30px 30px', opacity: 0.3 }}></div>
@@ -920,7 +935,7 @@ const Freelance = () => {
              <div className="inline-block bg-white border-2 border-black px-4 py-1 mb-4 shadow-[4px_4px_0_0_#000] rounded-full">
                 <span className="font-bold text-black uppercase tracking-widest">The Process</span>
              </div>
-            <h2 className="text-4xl sm:text-6xl font-black text-black mb-6">
+            <h2 className="fl-heading text-4xl sm:text-6xl font-black text-black mb-6">
               HOW I <span className="text-white text-stroke-2 text-stroke-black">WORK</span>
             </h2>
             <p className="text-xl font-bold text-black max-w-2xl mx-auto">
