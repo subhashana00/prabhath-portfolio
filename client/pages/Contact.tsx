@@ -40,7 +40,7 @@ export default function Contact() {
   // EmailJS configuration
   const EMAILJS_SERVICE_ID = 'service_svj8159';
   const EMAILJS_TEMPLATE_ID = 'template_9eyn2g2'; // Your actual template ID
-  const EMAILJS_PUBLIC_KEY = 'JjZ4RiVAm-flMX0_n'; // Your actual public key
+  const EMAILJS_PUBLIC_KEY = 'xfcSxIEp781KPUHcp'; // Your actual public key
 
   // Initialize EmailJS
   useEffect(() => {
@@ -49,7 +49,7 @@ export default function Contact() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Validation check
     if (!formData.firstName || !formData.email || !formData.subject || !formData.message) {
       toast({
@@ -92,11 +92,12 @@ export default function Contact() {
       const result = await emailjs.send(
         EMAILJS_SERVICE_ID,
         EMAILJS_TEMPLATE_ID,
-        templateParams
+        templateParams,
+        EMAILJS_PUBLIC_KEY
       );
 
       console.log('Email sent successfully:', result);
-      
+
       // Success toast
       toast({
         title: "Message sent successfully!",
@@ -115,10 +116,14 @@ export default function Contact() {
       });
     } catch (error: any) {
       console.error('EmailJS error:', error);
-      
+      if (error && typeof error === 'object') {
+        console.error('Error status:', error.status);
+        console.error('Error text:', error.text);
+      }
+
       let errorMessage = "Something went wrong. Please try again or contact me directly via email.";
       let errorTitle = "Failed to send message";
-      
+
       // Provide specific error messages based on error type
       if (error?.status === 400) {
         errorTitle = "Configuration Error";
@@ -129,8 +134,11 @@ export default function Contact() {
       } else if (error?.status === 403) {
         errorTitle = "Authentication Error";
         errorMessage = "Invalid EmailJS credentials. Please check your public key.";
+      } else if (error?.status === 412) {
+        errorTitle = "Precondition Failed";
+        errorMessage = "EmailJS could not verify the request. This often means the Public Key is missing or invalid.";
       }
-      
+
       // Error toast
       toast({
         variant: "destructive",
@@ -153,9 +161,8 @@ export default function Contact() {
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <header className={`bg-[#FCF9F8] px-4 sm:px-6 lg:px-12 py-4 sm:py-6 relative z-50 max-w-[1600px] mx-auto w-full ${
-        isMobile ? 'sticky top-0' : 'relative'
-      }`}>
+      <header className={`bg-[#FCF9F8] px-4 sm:px-6 lg:px-12 py-4 sm:py-6 relative z-50 max-w-[1600px] mx-auto w-full ${isMobile ? 'sticky top-0' : 'relative'
+        }`}>
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center">
@@ -256,7 +263,7 @@ export default function Contact() {
 
         <div className="container max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
           <div className="max-w-7xl mx-auto">
-            
+
             {/* Header */}
             <div className="text-center mb-12 lg:mb-16">
               <div className="relative inline-block mb-6">
@@ -266,7 +273,7 @@ export default function Contact() {
                   <span className="text-xs font-black uppercase tracking-widest">Open For Work</span>
                 </div>
               </div>
-              
+
               <h1 className="text-4xl sm:text-5xl lg:text-[64px] font-black leading-none text-black mb-6">
                 GET IN <span className="relative inline-block text-[#007BFF]">TOUCH
                   <svg className="absolute w-full h-3 -bottom-1 left-0 text-black" viewBox="0 0 100 10" preserveAspectRatio="none">
@@ -281,7 +288,7 @@ export default function Contact() {
 
             {/* Main Contact Grid */}
             <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 mb-16 items-start">
-              
+
               {/* Contact Information Card */}
               <div className="lg:col-span-5 bg-[#FFDE59] border-4 border-black rounded-[20px] shadow-[8px_8px_0_0_#000] p-8 lg:p-10 group hover:shadow-[12px_12px_0_0_#000] hover:-translate-y-1 transition-all duration-300 relative">
                 {/* Decorative Pin */}
@@ -322,7 +329,7 @@ export default function Contact() {
                   </a>
 
                   {/* WhatsApp */}
-                  <a 
+                  <a
                     href="https://wa.me/94716903566?text=Hi%20Prabhath!%20I'd%20like%20to%20discuss%20a%20project%20with%20you."
                     target="_blank"
                     rel="noopener noreferrer"
@@ -337,13 +344,13 @@ export default function Contact() {
                     </div>
                     <ArrowRight className="w-5 h-5 opacity-0 group-hover/item:opacity-100 transition-opacity" />
                   </a>
-                  
+
                   {/* Location */}
                   <div className="flex items-center gap-4 bg-white/50 border-3 border-black/20 p-4 rounded-xl">
                     <div className="w-12 h-12 bg-white border-3 border-black rounded-lg flex items-center justify-center flex-shrink-0">
                       <MapPin className="w-6 h-6 text-black" strokeWidth={2.5} />
                     </div>
-                     <div className="flex-1">
+                    <div className="flex-1">
                       <h3 className="text-xs font-black uppercase tracking-wider text-black/60 mb-0.5">Location</h3>
                       <p className="text-sm font-bold text-black">Gampaha, Sri Lanka</p>
                     </div>
@@ -390,14 +397,14 @@ export default function Contact() {
               {/* Contact Form Card */}
               <div className="lg:col-span-7 bg-white border-4 border-black rounded-[20px] shadow-[8px_8px_0_0_#000] p-8 lg:p-10 relative group hover:shadow-[12px_12px_0_0_#000] transition-all duration-300">
                 <div className="absolute top-0 right-0 p-4 opacity-10">
-                   <MessageCircle className="w-32 h-32 transform rotate-12" />
+                  <MessageCircle className="w-32 h-32 transform rotate-12" />
                 </div>
-                
+
                 <div className="mb-8 relative z-10">
                   <h2 className="text-3xl font-black text-black mb-2 uppercase italic">Send a Message</h2>
                   <div className="h-2 w-32 bg-[#007BFF] mb-4"></div>
                 </div>
-                
+
                 <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
                   {/* Name Fields */}
                   <div className="grid sm:grid-cols-2 gap-6">
@@ -456,13 +463,13 @@ export default function Contact() {
                       Subject <span className="text-red-500">*</span>
                     </label>
                     <div className="relative group">
-                        <Input
-                          required
-                          placeholder="PROJECT COLLABORATION"
-                          value={formData.subject}
-                          onChange={(e) => handleInputChange('subject', e.target.value)}
-                          className="border-3 border-black rounded-none focus:ring-0 focus:border-black h-12 pl-4 shadow-[4px_4px_0_0_#ccc] focus:shadow-[6px_6px_0_0_#007BFF] transition-all text-base font-bold bg-gray-50 focus:bg-white placeholder:text-gray-400 placeholder:font-medium"
-                        />
+                      <Input
+                        required
+                        placeholder="PROJECT COLLABORATION"
+                        value={formData.subject}
+                        onChange={(e) => handleInputChange('subject', e.target.value)}
+                        className="border-3 border-black rounded-none focus:ring-0 focus:border-black h-12 pl-4 shadow-[4px_4px_0_0_#ccc] focus:shadow-[6px_6px_0_0_#007BFF] transition-all text-base font-bold bg-gray-50 focus:bg-white placeholder:text-gray-400 placeholder:font-medium"
+                      />
                     </div>
                   </div>
 
@@ -472,14 +479,14 @@ export default function Contact() {
                       Message <span className="text-red-500">*</span>
                     </label>
                     <div className="relative group">
-                        <Textarea
-                          required
-                          rows={5}
-                          placeholder="TELL ME ABOUT YOUR PROJECT..."
-                          value={formData.message}
-                          onChange={(e) => handleInputChange('message', e.target.value)}
-                          className="border-3 border-black rounded-none focus:ring-0 focus:border-black resize-none min-h-[140px] shadow-[4px_4px_0_0_#ccc] focus:shadow-[6px_6px_0_0_#007BFF] transition-all text-base font-bold p-4 bg-gray-50 focus:bg-white placeholder:text-gray-400 placeholder:font-medium"
-                        />
+                      <Textarea
+                        required
+                        rows={5}
+                        placeholder="TELL ME ABOUT YOUR PROJECT..."
+                        value={formData.message}
+                        onChange={(e) => handleInputChange('message', e.target.value)}
+                        className="border-3 border-black rounded-none focus:ring-0 focus:border-black resize-none min-h-[140px] shadow-[4px_4px_0_0_#ccc] focus:shadow-[6px_6px_0_0_#007BFF] transition-all text-base font-bold p-4 bg-gray-50 focus:bg-white placeholder:text-gray-400 placeholder:font-medium"
+                      />
                     </div>
                   </div>
 
@@ -509,34 +516,34 @@ export default function Contact() {
             {/* Freelance Services CTA */}
             <div className="mt-16 lg:mt-24">
               <div className="relative bg-[#000] rounded-[20px] p-1">
-                 <div className="bg-[#A0E7E5] border-4 border-black rounded-[16px] p-8 lg:p-12 text-center relative overflow-hidden group hover:bg-[#F0A500] transition-colors duration-500">
-                    
-                    {/* Background Pattern */}
-                    <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#000_1px,transparent_1px)] bg-[size:20px_20px]"></div>
+                <div className="bg-[#A0E7E5] border-4 border-black rounded-[16px] p-8 lg:p-12 text-center relative overflow-hidden group hover:bg-[#F0A500] transition-colors duration-500">
 
-                    <div className="relative z-10">
-                        <div className="inline-block bg-white border-3 border-black p-3 rounded-full mb-6 shadow-[4px_4px_0_0_#000] group-hover:rotate-12 transition-transform duration-300">
-                          <Zap className="w-8 h-8 text-black" fill="currentColor" />
-                        </div>
-                        
-                        <h3 className="text-3xl sm:text-4xl lg:text-5xl font-black text-black mb-4 uppercase tracking-tighter">
-                          Ready to Scale Up?
-                        </h3>
-                        
-                        <p className="text-base sm:text-lg font-bold text-black/80 mb-8 max-w-2xl mx-auto border-2 border-black bg-white/50 p-2 inline-block rotate-1">
-                          Explore my comprehensive freelance services and find the perfect package for your business needs.
-                        </p>
-                        
-                        <div className="flex justify-center">
-                            <Link
-                              to="/freelance"
-                              className="inline-flex items-center gap-3 bg-white text-black border-4 border-black shadow-[6px_6px_0_0_#000] hover:shadow-[10px_10px_0_0_#000] hover:-translate-y-1 px-8 py-4 font-black text-lg uppercase tracking-wider transition-all duration-300"
-                            >
-                              View Services <ArrowRight className="w-6 h-6" />
-                            </Link>
-                        </div>
+                  {/* Background Pattern */}
+                  <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#000_1px,transparent_1px)] bg-[size:20px_20px]"></div>
+
+                  <div className="relative z-10">
+                    <div className="inline-block bg-white border-3 border-black p-3 rounded-full mb-6 shadow-[4px_4px_0_0_#000] group-hover:rotate-12 transition-transform duration-300">
+                      <Zap className="w-8 h-8 text-black" fill="currentColor" />
                     </div>
-                 </div>
+
+                    <h3 className="text-3xl sm:text-4xl lg:text-5xl font-black text-black mb-4 uppercase tracking-tighter">
+                      Ready to Scale Up?
+                    </h3>
+
+                    <p className="text-base sm:text-lg font-bold text-black/80 mb-8 max-w-2xl mx-auto border-2 border-black bg-white/50 p-2 inline-block rotate-1">
+                      Explore my comprehensive freelance services and find the perfect package for your business needs.
+                    </p>
+
+                    <div className="flex justify-center">
+                      <Link
+                        to="/freelance"
+                        className="inline-flex items-center gap-3 bg-white text-black border-4 border-black shadow-[6px_6px_0_0_#000] hover:shadow-[10px_10px_0_0_#000] hover:-translate-y-1 px-8 py-4 font-black text-lg uppercase tracking-wider transition-all duration-300"
+                      >
+                        View Services <ArrowRight className="w-6 h-6" />
+                      </Link>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
