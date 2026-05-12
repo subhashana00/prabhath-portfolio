@@ -98,22 +98,22 @@ const App = () => {
         <TooltipProvider>
           <Toaster />
           <Sonner />
-          <SmoothScroll>
-            <div className={`transition-all duration-500 relative min-h-screen ${
-              isLoadingComplete ? 'opacity-100' : 'opacity-0'
-            }`}>
-              <BackgroundVectors />
-              <BrowserRouter
-                basename="/prabhath-portfolio"
-                future={{
-                  v7_startTransition: true,
-                  v7_relativeSplatPath: true,
-                }}
-              >
+          <BrowserRouter
+            basename="/prabhath-portfolio"
+            future={{
+              v7_startTransition: true,
+              v7_relativeSplatPath: true,
+            }}
+          >
+            <SmoothScroll>
+              <div className={`transition-all duration-500 relative min-h-screen ${
+                isLoadingComplete ? 'opacity-100' : 'opacity-0'
+              }`}>
+                <BackgroundVectors />
                 <AnimatedRoutes />
-              </BrowserRouter>
-            </div>
-          </SmoothScroll>
+              </div>
+            </SmoothScroll>
+          </BrowserRouter>
         </TooltipProvider>
       </QueryClientProvider>
     </ErrorBoundary>
