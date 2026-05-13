@@ -94,6 +94,9 @@ export default function Index() {
       getAssetPath("images/projects/swish_3.jpeg"),
       getAssetPath("images/projects/swish_4.png"),
       getAssetPath("images/projects/swishstrokes.png")
+    ],
+    astrolit: [
+      getAssetPath("images/projects/astro_1.png")
     ]
   };
 
@@ -941,7 +944,7 @@ export default function Index() {
                 </div>
                 <div className="p-6 text-center flex-1 flex flex-col items-center justify-center">
                   <div className="w-16 h-16 bg-[#007BFF] rounded-xl border-2 border-black flex items-center justify-center mb-4 group-hover:bg-black group-hover:text-white transition-colors shadow-[4px_4px_0_0_#000]">
-                    <span className="text-white group-hover:text-white font-black text-2xl">1+</span>
+                    <span className="text-white group-hover:text-white font-black text-2xl">1.5+</span>
                   </div>
                   <h3 className="text-lg font-bold text-black mb-2 font-sans">Years Experience</h3>
                   <p className="text-sm text-gray-600 font-medium">

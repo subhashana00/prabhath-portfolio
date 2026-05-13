@@ -187,10 +187,27 @@ const projectGalleries: { [key: string]: string[] } = {
     getAssetPath('images/projects/nova_3.jpg'),
     // Add more NovaMind AI images here when available
   ],
+  'astrolit-solutions-website': [
+    getAssetPath('images/projects/astro_1.png'),
+    // Add more Astrolit images here when available
+  ],
 };
 
 // Sample project data with Prabhath's real projects
 const projectsData = [
+  {
+    id: 19,
+    slug: 'astrolit-solutions-website',
+    name: "Astrolit Solutions Website",
+    description: "Designed and developed the full website for Astrolit Solutions — an AI-powered software development & consulting company. The project involved complete UI/UX design in Figma followed by converting the designs into a production-ready React + TypeScript front-end. The site features a futuristic dark theme with vibrant purple accents, smooth animations, and sections covering AI SaaS development, enterprise automation, and consulting services.",
+    image: getAssetPath("images/projects/astro_1.png"),
+    logo: "",
+    type: "Web",
+    industry: "Technology",
+    links: {
+      hosted: "https://astrolitsolutions.live/"
+    }
+  },
   {
     id: 18,
     slug: 'novamind-ai-landingpage',
