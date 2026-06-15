@@ -1,9 +1,8 @@
 import { Button } from "@/components/ui/button";
-import { ChevronRight, ArrowRight, MapPin, Calendar, Award, CheckCircle, Mail, Menu, X, FileText, Linkedin, Github, Code, Palette, GraduationCap, Building, Star, Briefcase, Download, CheckCircle2 } from "lucide-react";
+import { ChevronRight, ArrowRight, MapPin, Calendar, Award, CheckCircle, Mail, Menu, X, FileText, Linkedin, Github, Code, Palette, GraduationCap, Building, Star, Briefcase, Sparkles } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
-import { useToast } from "@/hooks/use-toast";
 import { getAssetPath } from "@/lib/utils";
 import { Footer, BehanceIcon } from "@/components/Footer";
 import { gsap } from "gsap";
@@ -22,6 +21,14 @@ export default function About() {
     experience: false,
     skills: false
   });
+
+  // Custom theme controls
+  const [shadowColor, setShadowColor] = useState("#000000");
+  const cycleShadowColor = () => {
+    const colors = ["#000000", "#007BFF", "#FF6B6B", "#FFDE59"];
+    const nextIdx = (colors.indexOf(shadowColor) + 1) % colors.length;
+    setShadowColor(colors[nextIdx]);
+  };
 
   const heroRef = useRef<HTMLElement>(null);
   const experienceRef = useRef<HTMLElement>(null);
@@ -150,76 +157,6 @@ export default function About() {
     });
     return () => ctx.revert();
   }, []);
-
-  const { toast } = useToast();
-
-  // CV Download Function - Reliable Anchor Tag Method
-  const downloadCV = () => {
-    const cvUrl = 'https://drive.google.com/file/d/1XECht_1Kv7ounfn0mhmxxjU2yBJuJV7r/view?usp=drive_link';
-    
-    try {
-      // Show downloading toast with custom styling
-      toast({
-        title: "Initiating Download...",
-        description: (
-          <div className="flex items-center gap-3 p-2">
-            <div className="w-6 h-6 border-2 border-[#007BFF] border-t-transparent rounded-full animate-spin"></div>
-            <span className="text-[14px] tracking-[1.23px] font-medium">Preparing your CV download</span>
-          </div>
-        ),
-        duration: 2000,
-        className: "border-2 border-black rounded-[12px] shadow-[4px_4px_0_0_#000] bg-white",
-      });
-
-      // Create temporary anchor element for download
-      const link = document.createElement('a');
-      link.href = cvUrl;
-      link.download = 'Prabhath_Subhashana_CV.pdf';
-      link.target = '_blank';
-      link.rel = 'noopener noreferrer';
-      
-      // Append to body, click, and remove
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      
-      // Show success toast with custom styling
-      setTimeout(() => {
-        toast({
-          title: "Download Started!",
-          description: (
-            <div className="flex items-center gap-3 p-2">
-              <div className="w-6 h-6 bg-green-500 border-2 border-black rounded-full flex items-center justify-center shadow-[2px_2px_0_0_#000]">
-                <CheckCircle2 className="w-4 h-4 text-white" />
-              </div>
-              <span className="text-[14px] tracking-[1.23px] font-medium">CV download has been initiated successfully</span>
-            </div>
-          ),
-          duration: 4000,
-          className: "border-2 border-black rounded-[12px] shadow-[4px_4px_0_0_#000] bg-[#FCF9F8]",
-        });
-      }, 1000);
-
-    } catch (error) {
-      console.error('Download failed:', error);
-      toast({
-        title: "Download Failed",
-        description: (
-          <div className="flex items-center gap-3 p-2">
-            <div className="w-6 h-6 bg-red-500 border-2 border-black rounded-full flex items-center justify-center shadow-[2px_2px_0_0_#000]">
-              <X className="w-4 h-4 text-white" />
-            </div>
-            <span className="text-[14px] tracking-[1.23px] font-medium">Sorry, there was an error starting the download. Please try again or contact support.</span>
-          </div>
-        ),
-        variant: "destructive",
-        duration: 5000,
-        className: "border-2 border-red-500 rounded-[12px] shadow-[4px_4px_0_0_#ff0000] bg-red-50",
-      });
-    }
-  };
-
-
 
   return (
     <div className="min-h-screen bg-white">
@@ -419,17 +356,39 @@ export default function About() {
       </nav>
 
       {/* Hero Section */}
-      <section ref={heroRef} className="bg-[#FCF9F8] py-12 sm:py-16 lg:py-20">
-        <div className="container max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-12">
+      <section ref={heroRef} className="bg-[#FCF9F8] py-12 sm:py-16 lg:py-20 relative overflow-hidden">
+        {/* Ambient Glow Blobs */}
+        <div className="absolute top-10 left-10 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-blob pointer-events-none"></div>
+        <div className="absolute top-20 right-10 w-80 h-80 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000 pointer-events-none"></div>
+        <div className="absolute bottom-10 left-1/3 w-72 h-72 bg-orange-200 rounded-full mix-blend-multiply filter blur-3xl opacity-35 animate-blob animation-delay-4000 pointer-events-none"></div>
+
+        <div className="container max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
           <div className="max-w-7xl mx-auto">
             
             {/* Main About Card - Art Board Style */}
-            <div className="about-hero-card relative bg-white border-4 border-black rounded-[30px] shadow-[10px_10px_0_0_#000] overflow-hidden mb-8 lg:mb-12">
+            <div 
+              className="about-hero-card relative glassmorphism-hero border-4 border-black rounded-[30px] overflow-hidden mb-8 lg:mb-12 transition-all duration-300"
+              style={{
+                boxShadow: `10px 10px 0px 0px ${shadowColor}`
+              }}
+            >
               {/* Board Header / Window Controls */}
-              <div className="absolute top-0 left-0 w-full h-12 border-b-4 border-black bg-gray-100 flex items-center px-4 gap-2 z-20">
-                <div className="w-3 h-3 rounded-full bg-red-400 border border-black hover:bg-red-500 transition-colors"></div>
-                <div className="w-3 h-3 rounded-full bg-yellow-400 border border-black hover:bg-yellow-500 transition-colors"></div>
-                <div className="w-3 h-3 rounded-full bg-green-400 border border-black hover:bg-green-500 transition-colors"></div>
+              <div className="absolute top-0 left-0 w-full h-12 border-b-4 border-black bg-gray-100/80 backdrop-blur-sm flex items-center px-4 gap-2 z-20">
+                <button 
+                  onClick={() => alert("System message: Minimize protocol initiated.")}
+                  className="w-3.5 h-3.5 rounded-full bg-red-400 border border-black hover:scale-125 transition-transform hover:bg-red-500 cursor-pointer"
+                  title="Minimize"
+                />
+                <button 
+                  onClick={() => alert("System message: Maximize protocol active.")}
+                  className="w-3.5 h-3.5 rounded-full bg-yellow-400 border border-black hover:scale-125 transition-transform hover:bg-yellow-500 cursor-pointer"
+                  title="Maximize"
+                />
+                <button 
+                  onClick={cycleShadowColor}
+                  className="w-3.5 h-3.5 rounded-full bg-green-400 border border-black hover:scale-125 transition-transform hover:bg-green-500 cursor-pointer animate-pulse"
+                  title="Cycle Shadow Theme"
+                />
                 <div className="ml-4 text-xs font-bold font-sans text-gray-500 uppercase tracking-widest hidden sm:block">ABOUT_ME.ME</div>
                 <div className="ml-auto flex gap-2">
                    <div className="w-4 h-4 border-2 border-gray-400 rounded-sm"></div>
@@ -447,8 +406,8 @@ export default function About() {
                   <div className="space-y-6">
                     <div>
                       <div className="inline-flex items-center gap-2 bg-black text-white px-4 py-2 rounded-xl text-sm font-bold border-2 border-transparent shadow-[4px_4px_0_0_#007BFF] mb-6">
-                        <GraduationCap className="w-4 h-4 text-[#007BFF]" />
-                        SOFTWARE ENGINEERING STUDENT
+                        <Sparkles className="w-4 h-4 text-[#007BFF]" />
+                        INDEPENDENT UI/UX DESIGNER
                       </div>
                       
                       <h1 className="gsap-heading text-4xl sm:text-5xl lg:text-[64px] font-black leading-none text-black mb-6 tracking-tight">
@@ -457,7 +416,15 @@ export default function About() {
                     </div>
 
                     <p className="text-[16px] leading-[28px] text-gray-700 max-w-lg font-medium">
-                      I'm Prabhath Subhashana, a BSc Software Engineering undergraduate and UI/UX Designer passionate about creating engaging, user-centered digital experiences. With over 2 years of hands-on experience in design and development, I specialize in transforming complex problems into intuitive, beautiful solutions that bridge the gap between aesthetics and functionality.
+                      I'm Prabhath Subhashana, a passionate and creative independent UI/UX Designer specializing in AI-assisted and AI-first product design. I focus on creating high-impact digital experiences that blend artistic vision with intuitive interaction, ensuring that every pixel is built to engage, delight, and drive results.
+                    </p>
+                    
+                    <p className="text-[16px] leading-[28px] text-gray-700 max-w-lg font-medium">
+                      I leverage modern AI tools including GPT, Claude, Gemini, NotebookLM, Perplexity, and Figma AI to accelerate discovery, synthesize research, and support my design workflows—allowing me to spend more time perfecting execution, micro-interactions, and visual craftsmanship.
+                    </p>
+
+                    <p className="text-[14px] leading-[24px] text-gray-500 max-w-lg font-medium border-l-2 border-gray-300 pl-3">
+                      Also pursuing a BSc (Hons) Software Engineering degree to bridge the gap between creative design systems and clean, production-ready code.
                     </p>
 
                     <div className="space-y-4 font-medium">
@@ -471,7 +438,7 @@ export default function About() {
                         <div className="w-8 h-8 rounded-lg bg-[#007BFF]/10 flex items-center justify-center border border-[#007BFF]">
                            <Calendar className="w-4 h-4 text-[#007BFF]" />
                         </div>
-                        <span className="text-[14px] text-black">Expected graduation: August 2027</span>
+                        <span className="text-[14px] text-black">Expected graduation: August 2028</span>
                       </div>
                       <div className="flex items-center gap-3">
                          <div className="w-8 h-8 rounded-lg bg-[#007BFF]/10 flex items-center justify-center border border-[#007BFF]">
@@ -482,13 +449,6 @@ export default function About() {
                     </div>
 
                     <div className="flex flex-col sm:flex-row gap-4 pt-6">
-                      <Button
-                        onClick={downloadCV}
-                        className="border-2 border-black bg-white text-black hover:bg-black hover:text-white shadow-[4px_4px_0_0_#000] text-[16px] font-bold px-[32px] py-[24px] rounded-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-[6px_6px_0_0_#007BFF] w-full sm:w-auto"
-                      >
-                        <Download className="w-5 h-5 mr-2" />
-                        Download CV
-                      </Button>
                       <Link to="/contact">
                         <Button
                           className="border-2 border-black bg-[#007BFF] text-white hover:bg-white hover:text-[#007BFF] shadow-[4px_4px_0_0_#000] text-[16px] font-bold px-[32px] py-[24px] rounded-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-[6px_6px_0_0_#000000] w-full sm:w-auto"
@@ -507,7 +467,12 @@ export default function About() {
                   <div className="relative w-full max-w-md">
                     {/* Main profile image container - Window Style */}
                     <div className="relative w-full aspect-square mx-auto mb-8">
-                       <div className="w-full h-full border-2 border-black rounded-xl overflow-hidden shadow-[8px_8px_0_0_#000] bg-white flex flex-col">
+                       <div 
+                         className="w-full h-full border-2 border-black rounded-xl overflow-hidden bg-white flex flex-col transition-all duration-300"
+                         style={{
+                           boxShadow: `8px 8px 0px 0px ${shadowColor}`
+                         }}
+                       >
                         {/* Window Header */}
                         <div className="h-8 border-b-2 border-black bg-gray-100 flex items-center px-3 gap-1.5 shrink-0">
                           <div className="w-2 h-2 rounded-full border border-black bg-white"></div>
@@ -644,7 +609,7 @@ export default function About() {
                       </div>
                       <div className="flex items-center gap-3 mt-3 sm:mt-0">
                         <span className="bg-black text-white text-xs font-bold px-3 py-1 rounded-full">IN PROGRESS</span>
-                        <span className="text-sm font-bold text-gray-600">2024 - 2027</span>
+                        <span className="text-sm font-bold text-gray-600">2024 - 2028</span>
                       </div>
                     </div>
                     
@@ -660,7 +625,7 @@ export default function About() {
                           </div>
                        </div>
                     </div>
-                    <p className="text-sm font-mono text-gray-500">// Expected graduation: August 2027</p>
+                    <p className="text-sm font-mono text-gray-500">// Expected graduation: August 2028</p>
                   </div>
                 </div>
               </div>
@@ -743,6 +708,33 @@ export default function About() {
                 </div>
               </div>
 
+              {/* Higher Diploma - History File */}
+              <div className="gsap-card bg-white border-4 border-black rounded-2xl shadow-[8px_8px_0_0_#000] overflow-hidden group hover:shadow-[12px_12px_0_0_#000] hover:-translate-y-2 transition-all duration-300">
+                 <div className="h-8 border-b-2 border-black bg-blue-50 flex items-center px-3 justify-between">
+                     <div className="text-[10px] font-bold font-mono">DIPLOMA.ARC</div>
+                     <div className="flex gap-1">
+                        <div className="w-2 h-2 border border-black bg-white"></div>
+                     </div>
+                  </div>
+                <div className="p-6 md:p-8 flex items-center gap-6">
+                  <div className="w-14 h-14 bg-blue-500 border-2 border-black rounded-xl flex items-center justify-center shadow-[3px_3px_0_0_#000]">
+                    <Award className="w-7 h-7 text-white" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between">
+                      <div>
+                        <h3 className="text-lg font-black text-black mb-1 uppercase">Higher Diploma In Computing and Software Engineering</h3>
+                        <p className="text-sm font-medium text-gray-700">ICBT Campus (Cardiff Metropolitan University)</p>
+                      </div>
+                      <div className="flex items-center gap-3 mt-2 sm:mt-0">
+                        <span className="bg-green-100 text-green-700 border border-green-200 text-xs font-bold px-2 py-1 rounded">COMPLETED</span>
+                        <span className="text-sm font-bold text-gray-500">Jul 2025</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               {/* Education Foundation - History File */}
               <div className="gsap-card bg-white border-4 border-black rounded-2xl shadow-[8px_8px_0_0_#000] overflow-hidden group hover:shadow-[12px_12px_0_0_#000] hover:-translate-y-2 transition-all duration-300">
                  <div className="h-8 border-b-2 border-black bg-green-50 flex items-center px-3 justify-between">
@@ -759,7 +751,7 @@ export default function About() {
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between">
                       <div>
                         <h3 className="text-lg font-black text-black mb-1 uppercase">St. Peter's College, Colombo – 4</h3>
-                        <p className="text-sm font-medium text-gray-700">Secondary Education</p>
+                        <p className="text-sm font-medium text-gray-700">Secondary Education (A/L's Completed: 2019 – Pass)</p>
                       </div>
                       <div className="flex items-center gap-3 mt-2 sm:mt-0">
                         <span className="bg-green-100 text-green-700 border border-green-200 text-xs font-bold px-2 py-1 rounded">COMPLETED</span>
@@ -816,7 +808,7 @@ export default function About() {
             </div>
 
             {/* Main Skills Grid - Toolbox Style */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-12">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 mb-12">
               
               {/* Design Tools Box */}
               <div className="gsap-card bg-white border-4 border-black rounded-2xl shadow-[8px_8px_0_0_#000] overflow-hidden group hover:-translate-y-2 transition-all duration-300">
@@ -962,6 +954,54 @@ export default function About() {
                   </div>
                 </div>
               </div>
+
+              {/* AI-First Design Box */}
+              <div className="gsap-card bg-white border-4 border-black rounded-2xl shadow-[8px_8px_0_0_#000] overflow-hidden group hover:-translate-y-2 transition-all duration-300">
+                <div className="bg-gray-50 border-b-2 border-black p-3 flex justify-between items-center">
+                   <span className="font-mono text-xs font-bold text-gray-500">TOOLBOX_04</span>
+                   <Sparkles className="w-4 h-4 text-gray-500" />
+                </div>
+                <div className="p-6 lg:p-8 relative">
+                   <div className="absolute right-[-20px] bottom-[-20px] text-gray-50 opacity-50">
+                      <Sparkles size={120} strokeWidth={1} />
+                   </div>
+                   
+                   <div className="relative z-10">
+                    <h3 className="text-2xl font-black text-black mb-1 uppercase">AI-First Design</h3>
+                    <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-6 border-b-2 border-black pb-2 inline-block">Human-AI UX</p>
+                    
+                    <div className="space-y-3">
+                      <div className="bg-white/80 backdrop-blur-sm border-2 border-black rounded-lg p-3 hover:translate-x-1 transition-transform cursor-default">
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 bg-purple-600 rounded border border-black flex items-center justify-center font-bold text-white shadow-sm">AI</div>
+                          <div>
+                            <h4 className="text-sm font-bold text-black leading-none">Human-AI Interaction</h4>
+                            <p className="text-[10px] uppercase font-bold text-gray-500 mt-1">CONVERSATIONAL UX</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="bg-white/80 backdrop-blur-sm border-2 border-black rounded-lg p-3 hover:translate-x-1 transition-transform cursor-default">
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 bg-pink-500 rounded border border-black flex items-center justify-center font-bold text-white shadow-sm">Rs</div>
+                          <div>
+                            <h4 className="text-sm font-bold text-black leading-none">AI-Assisted Research</h4>
+                            <p className="text-[10px] uppercase font-bold text-gray-500 mt-1">SYNTHESIS & DISCOVERY</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="bg-white/80 backdrop-blur-sm border-2 border-black rounded-lg p-3 hover:translate-x-1 transition-transform cursor-default">
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 bg-[#FFDE59] rounded border border-black flex items-center justify-center font-bold text-black shadow-sm">Wf</div>
+                          <div>
+                            <h4 className="text-sm font-bold text-black leading-none">Prompt-Driven Workflows</h4>
+                            <p className="text-[10px] uppercase font-bold text-gray-500 mt-1">CLAUDE · GPT · FIGMA AI</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
             {/* Skills Proficiency Section - System Status Style */}
@@ -1036,6 +1076,41 @@ export default function About() {
                 </div>
               </div>
             </div>
+            </div>
+
+            {/* Certifications Section */}
+            <div className="mt-16 lg:mt-24">
+              <div className="text-center mb-10">
+                <h2 className="gsap-heading text-3xl sm:text-4xl lg:text-[45px] font-black leading-none text-black mb-4 uppercase tracking-tight">
+                  Licenses & <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#007BFF] to-blue-600">Certifications</span>
+                </h2>
+                <div className="inline-block bg-[#FFDE59] text-black px-4 py-1 border-2 border-black shadow-[3px_3px_0_0_#000] text-xs font-bold tracking-widest">CERTIFICATIONS.SYS</div>
+              </div>
+
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {[
+                  { title: "Google UX Design Professional Certificate", issuer: "Google", color: "bg-[#FF6B6B]" },
+                  { title: "Certificate in Comprehensive UI/UX Design", issuer: "FSD Academy", color: "bg-[#FFDE59]" },
+                  { title: "Web Design for Beginners", issuer: "University of Moratuwa", color: "bg-[#A0E7E5]" },
+                  { title: "Front-End Web Development", issuer: "University of Moratuwa", color: "bg-[#B8C0FF]" },
+                  { title: "User Experience Design", issuer: "Georgia Institute of Technology", color: "bg-[#FF9F9F]" },
+                  { title: "Fundamentals of Digital Marketing", issuer: "Google Digital Garage", color: "bg-[#007BFF]", textLight: true },
+                  { title: "Technical Support Fundamentals", issuer: "Google", color: "bg-black", textLight: true },
+                ].map((cert, i) => (
+                  <div key={i} className="gsap-card bg-white border-4 border-black rounded-2xl shadow-[6px_6px_0_0_#000] hover:shadow-[10px_10px_0_0_#000] hover:-translate-y-2 transition-all duration-300 overflow-hidden flex flex-col justify-between p-6">
+                    <div>
+                      <div className={`inline-block ${cert.textLight ? 'text-white' : 'text-black'} text-[10px] font-black uppercase tracking-widest px-3 py-1 border-2 border-black rounded-lg ${cert.color} shadow-[2px_2px_0_0_#000] mb-4`}>
+                        {cert.issuer}
+                      </div>
+                      <h4 className="text-base font-black text-black leading-snug mb-2 uppercase">{cert.title}</h4>
+                    </div>
+                    <div className="mt-4 pt-4 border-t-2 border-dashed border-gray-200 flex items-center justify-between">
+                      <span className="text-[10px] font-mono text-gray-400">// VERIFIED_CREDENTIAL</span>
+                      <Award className="w-4 h-4 text-[#007BFF]" />
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
 
             {/* CTA Buttons */}

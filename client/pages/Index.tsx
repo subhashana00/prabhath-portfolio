@@ -32,6 +32,14 @@ export default function Index() {
   // Image loading states
   const [imagesLoaded, setImagesLoaded] = useState<{[key: string]: boolean}>({});
   
+  // Custom theme controls
+  const [shadowColor, setShadowColor] = useState("#000000");
+  const cycleShadowColor = () => {
+    const colors = ["#000000", "#007BFF", "#FF6B6B", "#FFDE59"];
+    const nextIdx = (colors.indexOf(shadowColor) + 1) % colors.length;
+    setShadowColor(colors[nextIdx]);
+  };
+  
   // Refs for scroll animations
   const heroRef = useRef<HTMLElement>(null);
   const statsRef = useRef<HTMLDivElement>(null);
@@ -56,7 +64,7 @@ export default function Index() {
   const [isHovering, setIsHovering] = useState<string | null>(null);
 
   // Static roles array to prevent re-renders
-  const roles = useMemo(() => ["Product Designer", "UI/UX Designer", "Front-end Developer"], []);
+  const roles = useMemo(() => ["AI-First Product Designer", "UI/UX Designer", "Front-end Developer"], []);
 
   // Project gallery data
   const projectGalleries = {
@@ -100,6 +108,9 @@ export default function Index() {
     ]
   };
 
+  // Ref-based guard so checkVisibility never needs isVisible in the dep array
+  const isVisibleRef = useRef<Record<string, boolean>>({});
+
   // Scroll handler for parallax and reveal animations
   useEffect(() => {
     let lastScrollY = window.scrollY;
@@ -130,13 +141,14 @@ export default function Index() {
       
       lastScrollY = scrollTop;
       
-      // Check visibility of elements
-      const checkVisibility = (ref: React.RefObject<HTMLElement>, key: keyof typeof isVisible) => {
-        if (ref.current) {
+      // Check visibility of elements — uses ref guard, no isVisible in closure needed
+      const checkVisibility = (ref: React.RefObject<HTMLElement>, key: string) => {
+        if (ref.current && !isVisibleRef.current[key]) {
           const rect = ref.current.getBoundingClientRect();
           const isInView = rect.top < window.innerHeight * 0.8 && rect.bottom > 0;
           
-          if (isInView && !isVisible[key]) {
+          if (isInView) {
+            isVisibleRef.current[key] = true; // mark synchronously to prevent duplicates
             setIsVisible(prev => ({ ...prev, [key]: true }));
           }
         }
@@ -156,7 +168,8 @@ export default function Index() {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleScroll);
     };
-  }, [isVisible]);
+  }, []); // ← empty dep array: handler registered once, ref guards visibility
+
 
   // GSAP scroll animations
   useEffect(() => {
@@ -792,20 +805,42 @@ export default function Index() {
           transform: `translateY(${window.innerWidth > 768 ? Math.min(scrollY * 0.03, 40) : 0}px)`,
         }}
       >
-        <div className="container max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-12">
+        {/* Ambient Glow Blobs */}
+        <div className="absolute top-10 left-10 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-blob pointer-events-none"></div>
+        <div className="absolute top-20 right-10 w-80 h-80 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000 pointer-events-none"></div>
+        <div className="absolute bottom-10 left-1/3 w-72 h-72 bg-orange-200 rounded-full mix-blend-multiply filter blur-3xl opacity-35 animate-blob animation-delay-4000 pointer-events-none"></div>
+
+        <div className="container max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
           <div className="max-w-full mx-auto">
             
             {/* Main Hero Card - Art Board Style */}
-            <div className={`relative bg-white border-4 border-black rounded-[30px] shadow-[10px_10px_0_0_#000] overflow-hidden mb-6 sm:mb-8 lg:mb-12 transition-all duration-1000 ${
-              isVisible.hero 
-                ? 'opacity-100 translate-y-0 scale-100' 
-                : 'opacity-0 translate-y-8 scale-95'
-            }`}>
+            <div 
+              className={`relative glassmorphism-hero border-4 border-black rounded-[30px] overflow-hidden mb-6 sm:mb-8 lg:mb-12 transition-all duration-1000 ${
+                isVisible.hero 
+                  ? 'opacity-100 translate-y-0 scale-100' 
+                  : 'opacity-0 translate-y-8 scale-95'
+              }`}
+              style={{
+                boxShadow: isVisible.hero ? `10px 10px 0px 0px ${shadowColor}` : 'none'
+              }}
+            >
               {/* Board Header / Window Controls */}
-              <div className="absolute top-0 left-0 w-full h-12 border-b-4 border-black bg-gray-100 flex items-center px-4 gap-2 z-20">
-                <div className="w-3 h-3 rounded-full bg-red-400 border border-black hover:bg-red-500 transition-colors"></div>
-                <div className="w-3 h-3 rounded-full bg-yellow-400 border border-black hover:bg-yellow-500 transition-colors"></div>
-                <div className="w-3 h-3 rounded-full bg-green-400 border border-black hover:bg-green-500 transition-colors"></div>
+              <div className="absolute top-0 left-0 w-full h-12 border-b-4 border-black bg-gray-100/80 backdrop-blur-sm flex items-center px-4 gap-2 z-20">
+                <button 
+                  onClick={() => alert("System message: Minimize protocol initiated. To exit, keep exploring.")}
+                  className="w-3.5 h-3.5 rounded-full bg-red-400 border border-black hover:scale-125 transition-transform hover:bg-red-500 cursor-pointer"
+                  title="Minimize"
+                />
+                <button 
+                  onClick={() => alert("System message: Maximize protocol active. You are viewing Prabhath's design dashboard.")}
+                  className="w-3.5 h-3.5 rounded-full bg-yellow-400 border border-black hover:scale-125 transition-transform hover:bg-yellow-500 cursor-pointer"
+                  title="Maximize"
+                />
+                <button 
+                  onClick={cycleShadowColor}
+                  className="w-3.5 h-3.5 rounded-full bg-green-400 border border-black hover:scale-125 transition-transform hover:bg-green-500 cursor-pointer animate-pulse"
+                  title="Cycle Shadow Theme"
+                />
                 <div className="ml-4 text-xs font-bold font-sans text-gray-500 uppercase tracking-widest hidden sm:block">Welcome.board</div>
                 <div className="ml-auto flex gap-2">
                    <div className="w-4 h-4 border-2 border-gray-400 rounded-sm"></div>
@@ -846,7 +881,7 @@ export default function Index() {
                     </div>
 
                     <p className="text-base sm:text-lg leading-relaxed text-gray-700 max-w-lg font-medium">
-                      BSc Software Engineering undergraduate passionate about creating engaging, user-centered digital experiences with modern technologies.
+                      Passionate independent UI/UX Designer creating high-impact digital experiences. Specialized in AI-first product design that balances visual excellence with intuitive interaction.
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-4 pt-4 sm:pt-6">
