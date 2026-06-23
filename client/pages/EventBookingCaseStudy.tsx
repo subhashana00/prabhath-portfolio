@@ -117,7 +117,7 @@ export default function EventBookingCaseStudy() {
         name: "Event Booking & Management Dashboard",
         description: "Festora is an event management dashboard that transforms complex organizational data into a clear, actionable visual hierarchy.",
         url: "/projects/event-booking-management-dashboard",
-        image: "https://prabhath-portfolio.vercel.app/images/projects/event_1.png",
+        image: "https://www.prabhath.live/images/projects/event_1.png",
         datePublished: "2026-06-15",
         keywords: ["Dashboard Design", "Event Booking", "Visual Hierarchy", "Figma", "UI/UX Design"],
         breadcrumbName: "Event Booking Dashboard"

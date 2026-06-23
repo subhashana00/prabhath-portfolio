@@ -116,7 +116,7 @@ export default function GymFitnessCaseStudy() {
         name: "Gym & Fitness Mobile App",
         description: "A sleek, dark-mode fitness app interface designed for peak performance, utilizing Electric Green accents to highlight progress metrics.",
         url: "/projects/gym-fitness-app",
-        image: "https://prabhath-portfolio.vercel.app/images/projects/gym_1.png",
+        image: "https://www.prabhath.live/images/projects/gym_1.png",
         datePublished: "2026-06-15",
         keywords: ["Mobile App UX", "Fitness App Design", "Dark Mode UI", "Figma", "UI/UX Design"],
         breadcrumbName: "Gym & Fitness App"

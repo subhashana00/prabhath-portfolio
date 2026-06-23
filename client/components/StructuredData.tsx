@@ -1,4 +1,4 @@
-const BASE_URL = "https://prabhath-portfolio.vercel.app";
+const BASE_URL = "https://www.prabhath.live";
 
 /* ------------------------------------------------------------------ */
 /*  Reusable JSON-LD renderer                                         */

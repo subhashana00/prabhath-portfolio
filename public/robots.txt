@@ -1,5 +1,5 @@
 # Robots.txt for Prabhath Subhashana Portfolio
-# https://prabhath-portfolio.vercel.app
+# https://www.prabhath.live
 
 User-agent: *
 Allow: /
@@ -10,7 +10,7 @@ Allow: /freelance
 Disallow: /api/
 
 # Sitemap
-Sitemap: https://prabhath-portfolio.vercel.app/sitemap.xml
+Sitemap: https://www.prabhath.live/sitemap.xml
 
 # Crawl-delay (optional, for polite bots)
 Crawl-delay: 1

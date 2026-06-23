@@ -10,7 +10,7 @@ interface SEOHeadProps {
   noindex?: boolean;
 }
 
-const BASE_URL = "https://prabhath-portfolio.vercel.app";
+const BASE_URL = "https://www.prabhath.live";
 const DEFAULT_OG_IMAGE = `${BASE_URL}/images/profile/profile.png`;
 
 /**

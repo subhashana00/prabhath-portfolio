@@ -123,7 +123,7 @@ export default function NovaMindCaseStudy() {
         name: "NovaMind AI: Decode The Cosmos",
         description: "A futuristic landing page for a specialized LLM tailored for astrophysicists and aerospace engineers, utilizing a NASA control-room aesthetic.",
         url: "/projects/novamind-ai-landingpage",
-        image: "https://prabhath-portfolio.vercel.app/images/projects/nova_1.png",
+        image: "https://www.prabhath.live/images/projects/nova_1.png",
         datePublished: "2026-06-15",
         keywords: ["AI Landing Page", "Astrophysics UX", "Futuristic Design", "Figma", "UI/UX Design"],
         breadcrumbName: "NovaMind AI Landing Page"

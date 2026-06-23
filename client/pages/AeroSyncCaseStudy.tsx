@@ -120,7 +120,7 @@ export default function AeroSyncCaseStudy() {
         name: "AeroSync: The Frictionless B2B Gateway",
         description: "Architecting a high-performance B2B SaaS gateway for aviation cargo agents, designed using Calm Tech principles to reduce cognitive load.",
         url: "/projects/aerosync-b2b-gateway",
-        image: "https://prabhath-portfolio.vercel.app/images/projects/aero_1.png",
+        image: "https://www.prabhath.live/images/projects/aero_1.png",
         datePublished: "2026-06-15",
         keywords: ["B2B SaaS", "Aviation Cargo UX", "Calm Tech", "Figma", "UI/UX Design"],
         breadcrumbName: "AeroSync B2B Gateway"
