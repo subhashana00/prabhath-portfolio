@@ -7,6 +7,8 @@ import { getAssetPath } from "@/lib/utils";
 import { Footer } from "@/components/Footer";
 import BuyMeACoffee from "@/components/BuyMeACoffee";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
+import SEOHead from "@/components/SEOHead";
+import { JsonLd, projectsPageSchema } from "@/components/StructuredData";
 
 // Custom Behance Icon Component - Moved to Footer.tsx
 
@@ -659,6 +661,15 @@ export default function Projects() {
 
   return (
     <div className="min-h-screen bg-white">
+      <SEOHead
+        title="UI/UX Design Portfolio | Prabhath Subhashana — Case Studies & Projects"
+        description="Explore 10+ premium UI/UX design projects including mobile apps, SaaS dashboards, and brand identity systems by Prabhath Subhashana. View detailed case studies with process breakdowns."
+        canonical="/projects"
+        keywords="UI/UX Design Portfolio, Design Case Studies, Mobile App Design, SaaS Dashboard Design, Brand Identity, Prabhath Subhashana Projects, Sri Lanka Designer Portfolio"
+      />
+      {projectsPageSchema().map((schema, i) => (
+        <JsonLd key={`projects-schema-${i}`} data={schema} />
+      ))}
       {/* Paint Brush Progress Bar */}
       <div className="fixed top-0 left-0 w-full h-2 bg-transparent z-50 pointer-events-none">
         <div 

@@ -9,6 +9,8 @@ import { Toaster } from "@/components/ui/toaster";
 import { Footer, BehanceIcon } from "@/components/Footer";
 import { WhatsAppIcon } from "@/components/WhatsAppFloat";
 import emailjs from '@emailjs/browser';
+import SEOHead from "@/components/SEOHead";
+import { JsonLd, contactPageSchema } from "@/components/StructuredData";
 
 export default function Contact() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -160,6 +162,15 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen bg-white">
+      <SEOHead
+        title="Hire a UI/UX Designer in Sri Lanka | Contact Prabhath Subhashana"
+        description="Looking to hire a top UI/UX designer in Sri Lanka? Contact Prabhath Subhashana for freelance UI/UX design, mobile app design, and AI-first product design services. Quick response guaranteed."
+        canonical="/contact"
+        keywords="Hire UI/UX Designer Sri Lanka, Contact UI Designer Colombo, Freelance Designer Contact, Prabhath Subhashana Contact, UI/UX Design Services Sri Lanka"
+      />
+      {contactPageSchema().map((schema, i) => (
+        <JsonLd key={`contact-schema-${i}`} data={schema} />
+      ))}
       {/* Header */}
       <header className={`bg-[#FCF9F8] px-4 sm:px-6 lg:px-12 py-4 sm:py-6 relative z-50 max-w-[1600px] mx-auto w-full ${isMobile ? 'sticky top-0' : 'relative'
         }`}>

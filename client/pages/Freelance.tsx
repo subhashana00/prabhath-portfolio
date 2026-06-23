@@ -53,6 +53,8 @@ import {
   Repeat
 } from 'lucide-react';
 import WhatsAppFloat from "@/components/WhatsAppFloat";
+import SEOHead from "@/components/SEOHead";
+import { JsonLd, freelancePageSchema } from "@/components/StructuredData";
 
 // Function to render description with Uvexzon link
 const renderDescriptionWithLinks = (description: string) => {
@@ -581,6 +583,15 @@ const Freelance = () => {
 
   return (
     <div className="min-h-screen bg-[#FCF9F8]">
+      <SEOHead
+        title="Freelance UI/UX Design Services | Prabhath Subhashana — Sri Lanka"
+        description="Hire Prabhath Subhashana for freelance UI/UX design services. Specializing in AI-first product design, mobile app UX, SaaS interfaces, and brand identity. Based in Sri Lanka, available worldwide."
+        canonical="/freelance"
+        keywords="Freelance UI/UX Designer Sri Lanka, Hire UI Designer, Mobile App Designer Freelance, Web Design Services Colombo, Product Design Freelancer, SaaS UI Designer"
+      />
+      {freelancePageSchema().map((schema, i) => (
+        <JsonLd key={`freelance-schema-${i}`} data={schema} />
+      ))}
       {/* CSS for paint drip animation */}
       <style dangerouslySetInnerHTML={{
         __html: `

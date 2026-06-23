@@ -1,0 +1,26 @@
+{
+  "name": "Prabhath Subhashana — UI/UX Designer & Software Engineer",
+  "short_name": "PS Portfolio",
+  "description": "Portfolio of Prabhath Subhashana, a top UI/UX designer from Sri Lanka specializing in AI-first product design, mobile app UX, and premium digital experiences. Available for freelance projects worldwide.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FCF9F8",
+  "theme_color": "#007BFF",
+  "orientation": "portrait-primary",
+  "lang": "en",
+  "categories": ["design", "portfolio", "business"],
+  "icons": [
+    {
+      "src": "/images/profile/profile.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/images/profile/profile.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

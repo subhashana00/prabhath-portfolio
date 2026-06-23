@@ -6,6 +6,8 @@ import WhatsAppFloat from "@/components/WhatsAppFloat";
 import DesignCarousel from "@/components/DesignCarousel";
 import { getAssetPath } from "@/lib/utils";
 import { Footer, BehanceIcon } from "@/components/Footer";
+import SEOHead from "@/components/SEOHead";
+import { JsonLd, homePageSchema } from "@/components/StructuredData";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
@@ -613,6 +615,15 @@ export default function Index() {
 
   return (
     <div className="min-h-screen bg-white">
+      <SEOHead
+        title="Prabhath Subhashana | UI/UX Designer & AI-First Product Designer | Sri Lanka"
+        description="Award-winning UI/UX designer from Sri Lanka specializing in AI-first product design, mobile app UX, and premium digital experiences. Explore 10+ case studies. Available for freelance projects worldwide."
+        canonical="/"
+        keywords="UI/UX Designer Sri Lanka, Best UI UX Designer Colombo, Freelance Product Designer, AI-First Product Designer, Hire UI/UX Designer Sri Lanka, Prabhath Subhashana"
+      />
+      {homePageSchema().map((schema, i) => (
+        <JsonLd key={`home-schema-${i}`} data={schema} />
+      ))}
       {/* CSS for paint drip animation */}
       <style dangerouslySetInnerHTML={{
         __html: `

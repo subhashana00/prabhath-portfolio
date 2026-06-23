@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 import { getAssetPath } from "@/lib/utils";
 import { Footer, BehanceIcon } from "@/components/Footer";
+import SEOHead from "@/components/SEOHead";
+import { JsonLd, aboutPageSchema } from "@/components/StructuredData";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
@@ -160,6 +162,16 @@ export default function About() {
 
   return (
     <div className="min-h-screen bg-white">
+      <SEOHead
+        title="About Prabhath Subhashana | UI/UX Designer Sri Lanka — Experience & Skills"
+        description="Learn about Prabhath Subhashana — a passionate UI/UX designer from Colombo, Sri Lanka with 1.5+ years of experience in AI-first product design, mobile UX, and brand identity systems."
+        canonical="/about"
+        ogType="profile"
+        keywords="About Prabhath Subhashana, UI/UX Designer Sri Lanka, AI Product Designer Colombo, ICBT Campus Software Engineering, UI Designer Experience, UX Designer Skills"
+      />
+      {aboutPageSchema().map((schema, i) => (
+        <JsonLd key={`about-schema-${i}`} data={schema} />
+      ))}
       {/* CSS for paint drip animation */}
       <style dangerouslySetInnerHTML={{
         __html: `
