@@ -403,4 +403,19 @@
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
   }
+
+  /* Custom Text Stroke Utilities for Brutalist Outlines */
+  .text-stroke-2 {
+    -webkit-text-stroke-width: 2px;
+  }
+  .text-stroke-3 {
+    -webkit-text-stroke-width: 3px;
+  }
+  .text-stroke-black {
+    -webkit-text-stroke-color: #000;
+  }
+  .text-stroke-white {
+    -webkit-text-stroke-color: #fff;
+  }
 }
+

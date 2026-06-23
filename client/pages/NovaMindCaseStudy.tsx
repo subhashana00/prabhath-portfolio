@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { getAssetPath } from "@/lib/utils";
 import { Footer } from "@/components/Footer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
+import SEOHead from "@/components/SEOHead";
+import { JsonLd, caseStudySchema } from "@/components/StructuredData";
 
 export default function NovaMindCaseStudy() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -111,6 +113,23 @@ export default function NovaMindCaseStudy() {
 
   return (
     <div className="min-h-screen bg-black text-white" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+      <SEOHead
+        title="NovaMind AI Astrophysics Landing Page Design Case Study | Prabhath Subhashana"
+        description="Read the UI/UX design case study for NovaMind AI, an specialized LLM landing page for astrophysicists. NASA control-room aesthetic with glassmorphism."
+        canonical="/projects/novamind-ai-landingpage"
+        keywords="NovaMind AI, Astrophysics LLM, Landing Page UX, Cyberpunk design, NASA control room aesthetic, Prabhath Subhashana, UI/UX Designer Sri Lanka"
+      />
+      {caseStudySchema({
+        name: "NovaMind AI: Decode The Cosmos",
+        description: "A futuristic landing page for a specialized LLM tailored for astrophysicists and aerospace engineers, utilizing a NASA control-room aesthetic.",
+        url: "/projects/novamind-ai-landingpage",
+        image: "https://prabhath-portfolio.vercel.app/images/projects/nova_1.png",
+        datePublished: "2026-06-15",
+        keywords: ["AI Landing Page", "Astrophysics UX", "Futuristic Design", "Figma", "UI/UX Design"],
+        breadcrumbName: "NovaMind AI Landing Page"
+      }).map((schema, i) => (
+        <JsonLd key={`novamind-schema-${i}`} data={schema} />
+      ))}
       {/* Scroll Progress Bar */}
       <div className="fixed top-0 left-0 w-full h-1.5 z-[60]" style={{ background: 'rgba(255,255,255,0.05)' }}>
         <div

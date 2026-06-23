@@ -582,7 +582,7 @@ const Freelance = () => {
   // Custom Behance Icon moved to Footer.tsx
 
   return (
-    <div className="min-h-screen bg-[#FCF9F8]">
+    <div className="min-h-screen bg-[#FCF9F8] overflow-x-hidden">
       <SEOHead
         title="Freelance UI/UX Design Services | Prabhath Subhashana — Sri Lanka"
         description="Hire Prabhath Subhashana for freelance UI/UX design services. Specializing in AI-first product design, mobile app UX, SaaS interfaces, and brand identity. Based in Sri Lanka, available worldwide."
@@ -808,11 +808,11 @@ const Freelance = () => {
                </div>
 
               {/* Excessive Title */}
-              <h1 className="text-4xl min-[480px]:text-5xl sm:text-7xl lg:text-8xl font-black text-black mb-8 leading-tight sm:leading-[0.9] tracking-tighter">
+              <h1 className="text-4xl min-[480px]:text-5xl sm:text-7xl lg:text-8xl font-black text-black mb-8 leading-[1.25] sm:leading-[0.9] tracking-tighter">
                 FREELANCE <br/>
-                <span className="text-white text-stroke-3 text-stroke-black relative inline-block">
+                <span className="text-white text-stroke-3 text-stroke-black relative inline-block my-2 sm:my-0">
                   DESIGN
-                  <div className="absolute -top-4 -right-4 sm:-top-6 sm:-right-8 w-8 h-8 sm:w-12 sm:h-12 bg-[#FF6B6B] rounded-full text-black text-[10px] sm:text-xs flex items-center justify-center font-bold border-2 border-black rotate-12 animate-bounce">
+                  <div className="absolute -top-2 -right-3 sm:-top-6 sm:-right-8 w-8 h-8 sm:w-12 sm:h-12 bg-[#FF6B6B] rounded-full text-black text-[10px] sm:text-xs flex items-center justify-center font-bold border-2 border-black rotate-12 animate-bounce">
                     WOW!
                   </div>
                 </span> <br/>

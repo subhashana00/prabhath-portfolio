@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { getAssetPath } from "@/lib/utils";
 import { Footer } from "@/components/Footer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
+import SEOHead from "@/components/SEOHead";
+import { JsonLd, caseStudySchema } from "@/components/StructuredData";
 
 export default function GymFitnessCaseStudy() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -104,6 +106,23 @@ export default function GymFitnessCaseStudy() {
 
   return (
     <div className="min-h-screen bg-white">
+      <SEOHead
+        title="Gym & Fitness Mobile App UI/UX Case Study | Prabhath Subhashana"
+        description="Read the UI/UX design case study for Gym & Fitness Mobile App. Dark mode fitness UI with Electric Green accents designed to maximize engagement."
+        canonical="/projects/gym-fitness-app"
+        keywords="Gym Fitness App, Mobile App UX, UI/UX Case Study, Fitness Tracker UI, Electric Green accents, Prabhath Subhashana, UI/UX Designer Sri Lanka"
+      />
+      {caseStudySchema({
+        name: "Gym & Fitness Mobile App",
+        description: "A sleek, dark-mode fitness app interface designed for peak performance, utilizing Electric Green accents to highlight progress metrics.",
+        url: "/projects/gym-fitness-app",
+        image: "https://prabhath-portfolio.vercel.app/images/projects/gym_1.png",
+        datePublished: "2026-06-15",
+        keywords: ["Mobile App UX", "Fitness App Design", "Dark Mode UI", "Figma", "UI/UX Design"],
+        breadcrumbName: "Gym & Fitness App"
+      }).map((schema, i) => (
+        <JsonLd key={`gym-schema-${i}`} data={schema} />
+      ))}
       {/* Scroll Progress Bar */}
       <div className="fixed top-0 left-0 w-full h-1.5 bg-gray-200 z-[60]">
         <div

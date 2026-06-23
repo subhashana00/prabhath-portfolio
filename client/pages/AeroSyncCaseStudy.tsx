@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { getAssetPath } from "@/lib/utils";
 import { Footer } from "@/components/Footer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
+import SEOHead from "@/components/SEOHead";
+import { JsonLd, caseStudySchema } from "@/components/StructuredData";
 
 export default function AeroSyncCaseStudy() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -108,6 +110,23 @@ export default function AeroSyncCaseStudy() {
 
   return (
     <div className="min-h-screen bg-white">
+      <SEOHead
+        title="AeroSync B2B SaaS Gateway UI/UX Case Study | Prabhath Subhashana"
+        description="Read the UI/UX design case study for AeroSync, a B2B SaaS gateway for aviation cargo management. Calm Tech design system reducing agent cognitive load."
+        canonical="/projects/aerosync-b2b-gateway"
+        keywords="AeroSync, B2B SaaS Gateway, UI/UX Case Study, Calm Tech, Prabhath Subhashana, UI/UX Designer Sri Lanka, Aviation Cargo UX"
+      />
+      {caseStudySchema({
+        name: "AeroSync: The Frictionless B2B Gateway",
+        description: "Architecting a high-performance B2B SaaS gateway for aviation cargo agents, designed using Calm Tech principles to reduce cognitive load.",
+        url: "/projects/aerosync-b2b-gateway",
+        image: "https://prabhath-portfolio.vercel.app/images/projects/aero_1.png",
+        datePublished: "2026-06-15",
+        keywords: ["B2B SaaS", "Aviation Cargo UX", "Calm Tech", "Figma", "UI/UX Design"],
+        breadcrumbName: "AeroSync B2B Gateway"
+      }).map((schema, i) => (
+        <JsonLd key={`aerosync-schema-${i}`} data={schema} />
+      ))}
       {/* Scroll Progress Bar */}
       <div className="fixed top-0 left-0 w-full h-1.5 bg-gray-200/30 z-[60]">
         <div

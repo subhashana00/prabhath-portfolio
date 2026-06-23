@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { getAssetPath } from "@/lib/utils";
 import { Footer } from "@/components/Footer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
+import SEOHead from "@/components/SEOHead";
+import { JsonLd, caseStudySchema } from "@/components/StructuredData";
 
 export default function EventBookingCaseStudy() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -105,6 +107,23 @@ export default function EventBookingCaseStudy() {
 
   return (
     <div className="min-h-screen bg-white">
+      <SEOHead
+        title="Festora Event Booking Dashboard UI/UX Case Study | Prabhath Subhashana"
+        description="Read the UI/UX design case study for Festora, an event booking and management dashboard. Visualizing complex data into a clear hierarchy for organizers."
+        canonical="/projects/event-booking-management-dashboard"
+        keywords="Festora, Event Booking Dashboard, UI/UX Case Study, Event Management UX, Prabhath Subhashana, UI/UX Designer Sri Lanka, Figma"
+      />
+      {caseStudySchema({
+        name: "Event Booking & Management Dashboard",
+        description: "Festora is an event management dashboard that transforms complex organizational data into a clear, actionable visual hierarchy.",
+        url: "/projects/event-booking-management-dashboard",
+        image: "https://prabhath-portfolio.vercel.app/images/projects/event_1.png",
+        datePublished: "2026-06-15",
+        keywords: ["Dashboard Design", "Event Booking", "Visual Hierarchy", "Figma", "UI/UX Design"],
+        breadcrumbName: "Event Booking Dashboard"
+      }).map((schema, i) => (
+        <JsonLd key={`event-schema-${i}`} data={schema} />
+      ))}
       {/* Scroll Progress Bar */}
       <div className="fixed top-0 left-0 w-full h-1.5 bg-gray-200 z-[60]">
         <div
