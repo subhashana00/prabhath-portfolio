@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://subhashana00.github.io/prabhath-portfolio/sitemap.xml
+Sitemap: https://prabhath-portfolio.vercel.app/sitemap.xml

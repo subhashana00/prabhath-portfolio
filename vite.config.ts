@@ -1,11 +1,11 @@
-﻿import { defineConfig, Plugin } from "vite";
+import { defineConfig, Plugin } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { createServer } from "./server";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: "/prabhath-portfolio",
+  base: process.env.VITE_BASE_PATH || "/",
   server: {
     host: "localhost",
     port: 5173,
@@ -24,7 +24,7 @@ export default defineConfig(({ mode }) => ({
     },
   },
   build: {
-    outDir: "dist/spa",
+    outDir: "dist",
     sourcemap: mode === "development",
   },
   define: {

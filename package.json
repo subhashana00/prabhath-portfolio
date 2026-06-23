@@ -2,10 +2,10 @@
   "name": "fusion-starter",
   "private": true,
   "type": "module",
-  "homepage": "https://subhashana00.github.io/prabhath-portfolio",
+  "homepage": "https://prabhath-portfolio.vercel.app",
   "pkg": {
     "assets": [
-      "dist/spa/*"
+      "dist/*"
     ],
     "scripts": [
       "dist/server/**/*.js"
@@ -20,7 +20,7 @@
     "format.fix": "prettier --write .",
     "typecheck": "tsc",
     "predeploy": "pnpm run build",
-    "deploy": "gh-pages -d dist/spa",
+    "deploy": "gh-pages -d dist",
     "optimize-images": "node scripts/optimize-images.mjs"
   },
   "dependencies": {
