@@ -829,7 +829,7 @@ const Freelance = () => {
               {/* Stats - Brutalist Boxes */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-12">
                  {[
-                   { label: "Projects", val: "10+" },
+                   { label: "Projects", val: "15+" },
                    { label: "Result", val: "100%" },
                    { label: "Reply", val: "24h" },
                    { label: "Speed", val: "2-3w" }
@@ -1084,7 +1084,8 @@ const Freelance = () => {
                   {/* Links */}
                   <div className="flex flex-wrap gap-3 mt-auto pt-6 border-t-2 border-black border-dashed shrink-0">
                       {project.links.design && (
-                        <a href={project.links.design} target="_blank" rel="noopener noreferrer" className="text-xs font-bold uppercase hover:underline text-gray-500 hover:text-black">
+                        <a href={project.links.design} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs font-bold uppercase hover:underline text-gray-500 hover:text-black">
+                           {project.links.design.includes('figma.com') && <img src="/images/logos/figma.png" alt="Figma" className="w-3.5 h-3.5 object-contain" />}
                            Figma
                         </a>
                       )}

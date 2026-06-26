@@ -106,7 +106,7 @@ export function aboutPageSchema() {
       "@type": "ProfilePage",
       name: "About Prabhath Subhashana",
       description:
-        "Learn about Prabhath Subhashana — a passionate UI/UX designer from Colombo, Sri Lanka with 1.5+ years of experience in AI-first product design.",
+        "Learn about Prabhath Subhashana — a passionate UI/UX designer from Colombo, Sri Lanka with 2+ years of experience in AI-first product design.",
       url: `${BASE_URL}/about`,
       mainEntity: {
         "@context": "https://schema.org",
@@ -128,7 +128,7 @@ export function projectsPageSchema() {
       "@type": "CollectionPage",
       name: "UI/UX Design Portfolio — Prabhath Subhashana",
       description:
-        "Explore 10+ premium UI/UX design projects including mobile apps, SaaS dashboards, and brand identity systems from Prabhath Subhashana.",
+        "Explore 15+ premium UI/UX design projects including mobile apps, SaaS dashboards, and brand identity systems from Prabhath Subhashana.",
       url: `${BASE_URL}/projects`,
       author: personEntity,
       about: {

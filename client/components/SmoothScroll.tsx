@@ -43,17 +43,23 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
 
   // Scroll to top on route change & refresh ScrollTrigger
   useEffect(() => {
-    if (lenisRef.current) {
-      lenisRef.current.scrollTo(0, { immediate: true });
-    }
+    // Delay scroll to top until after the exit animation completes (500ms)
+    // This prevents state updates on the exiting component from interrupting Framer Motion
+    const scrollTimer = setTimeout(() => {
+      if (lenisRef.current) {
+        lenisRef.current.scrollTo(0, { immediate: true });
+      }
+    }, 500);
 
     // Refresh ScrollTrigger after route change and page transitions are complete
-    // (AnimatePresence exit animation is 500ms, so 600ms is optimal)
-    const timer = setTimeout(() => {
+    const refreshTimer = setTimeout(() => {
       ScrollTrigger.refresh();
     }, 600);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(scrollTimer);
+      clearTimeout(refreshTimer);
+    };
   }, [pathname]);
 
   return <>{children}</>;

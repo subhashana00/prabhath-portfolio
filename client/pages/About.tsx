@@ -32,6 +32,8 @@ export default function About() {
     setShadowColor(colors[nextIdx]);
   };
 
+  const isVisibleRef = useRef<Record<string, boolean>>({});
+
   const heroRef = useRef<HTMLElement>(null);
   const experienceRef = useRef<HTMLElement>(null);
   const skillsRef = useRef<HTMLElement>(null);
@@ -66,12 +68,13 @@ export default function About() {
       lastScrollY = scrollTop;
       
       // Check visibility of elements
-      const checkVisibility = (ref: React.RefObject<HTMLElement>, key: keyof typeof isVisible) => {
-        if (ref.current) {
+      const checkVisibility = (ref: React.RefObject<HTMLElement>, key: string) => {
+        if (ref.current && !isVisibleRef.current[key]) {
           const rect = ref.current.getBoundingClientRect();
           const isInView = rect.top < window.innerHeight * 0.8 && rect.bottom > 0;
           
-          if (isInView && !isVisible[key]) {
+          if (isInView) {
+            isVisibleRef.current[key] = true;
             setIsVisible(prev => ({ ...prev, [key]: true }));
           }
         }
@@ -90,7 +93,7 @@ export default function About() {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleScroll);
     };
-  }, [isVisible]);
+  }, []);
 
   // GSAP scroll animations
   useEffect(() => {
@@ -164,7 +167,7 @@ export default function About() {
     <div className="min-h-screen bg-white">
       <SEOHead
         title="About Prabhath Subhashana | UI/UX Designer Sri Lanka — Experience & Skills"
-        description="Learn about Prabhath Subhashana — a passionate UI/UX designer from Colombo, Sri Lanka with 1.5+ years of experience in AI-first product design, mobile UX, and brand identity systems."
+        description="Learn about Prabhath Subhashana — a passionate UI/UX designer from Colombo, Sri Lanka with 2+ years of experience in AI-first product design, mobile UX, and brand identity systems."
         canonical="/about"
         ogType="profile"
         keywords="About Prabhath Subhashana, UI/UX Designer Sri Lanka, AI Product Designer Colombo, ICBT Campus Software Engineering, UI Designer Experience, UX Designer Skills"
@@ -521,14 +524,14 @@ export default function About() {
                     <div className="grid grid-cols-2 gap-4">
                       <div className="bg-white border-2 border-black rounded-xl shadow-[4px_4px_0_0_#000] p-4 group hover:-translate-y-1 transition-transform duration-300">
                         <div className="text-center">
-                          <div className="w-10 h-10 bg-[#007BFF] rounded-lg border-2 border-black flex items-center justify-center mx-auto mb-2 text-white font-bold group-hover:bg-black transition-colors">1.5+</div>
+                          <div className="w-10 h-10 bg-[#007BFF] rounded-lg border-2 border-black flex items-center justify-center mx-auto mb-2 text-white font-bold group-hover:bg-black transition-colors">2+</div>
                           <p className="text-xs font-bold text-black uppercase tracking-wide">Years Exp.</p>
                         </div>
                       </div>
                       
                       <div className="bg-white border-2 border-black rounded-xl shadow-[4px_4px_0_0_#000] p-4 group hover:-translate-y-1 transition-transform duration-300">
                         <div className="text-center">
-                           <div className="w-10 h-10 bg-[#007BFF] rounded-lg border-2 border-black flex items-center justify-center mx-auto mb-2 text-white font-bold group-hover:bg-black transition-colors">10+</div>
+                           <div className="w-10 h-10 bg-[#007BFF] rounded-lg border-2 border-black flex items-center justify-center mx-auto mb-2 text-white font-bold group-hover:bg-black transition-colors">15+</div>
                           <p className="text-xs font-bold text-black uppercase tracking-wide">Projects</p>
                         </div>
                       </div>
@@ -645,10 +648,96 @@ export default function About() {
               {/* Work Experience */}
               <div className="grid lg:grid-cols-2 gap-6">
                 
-                {/* Recent Work - Job File */}
+                {/* Astrolit Solutions */}
+                <div className="gsap-card bg-white border-4 border-black rounded-2xl shadow-[8px_8px_0_0_#000] overflow-hidden group hover:shadow-[12px_12px_0_0_#000] hover:-translate-y-2 transition-all duration-300">
+                  <div className="h-8 border-b-2 border-black bg-blue-50 flex items-center px-3 justify-between">
+                     <div className="text-[10px] font-bold font-mono">WORK_LOG_01.TXT</div>
+                     <div className="flex gap-1">
+                        <div className="w-2 h-2 border border-black bg-white"></div>
+                        <div className="w-2 h-2 border border-black bg-white"></div>
+                     </div>
+                  </div>
+                  <div className="p-6 md:p-8">
+                    <div className="flex items-center gap-4 mb-6">
+                      <div className="w-14 h-14 bg-blue-500 border-2 border-black rounded-xl flex items-center justify-center shadow-[3px_3px_0_0_#000]">
+                        <Briefcase className="w-7 h-7 text-white" />
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-black text-black uppercase leading-tight">UI/UX Engineer</h3>
+                        <p className="text-sm text-blue-600 font-bold bg-blue-100 px-2 py-0.5 rounded border border-blue-200 inline-block mt-1">Sep 2025 – Present</p>
+                      </div>
+                    </div>
+                    <div className="mb-4">
+                      <p className="font-bold text-black border-b-2 border-gray-100 pb-2 mb-3">Astrolit Solutions</p>
+                      <ul className="space-y-3">
+                        <li className="flex items-start gap-3 text-sm font-medium text-gray-700">
+                          <span className="text-blue-500 font-black mt-0.5">{`>`}</span>
+                          <span>Design AI-powered web applications and SaaS platforms with user-centered interfaces and end-to-end product experiences.</span>
+                        </li>
+                        <li className="flex items-start gap-3 text-sm font-medium text-gray-700">
+                          <span className="text-blue-500 font-black mt-0.5">{`>`}</span>
+                          <span>Translate complex AI capabilities into intuitive UIs through user research, wireframing, high-fidelity prototyping, and design systems.</span>
+                        </li>
+                        <li className="flex items-start gap-3 text-sm font-medium text-gray-700">
+                          <span className="text-blue-500 font-black mt-0.5">{`>`}</span>
+                          <span>Build responsive frontend interfaces using HTML, CSS, React, and Tailwind CSS with AI-assisted workflows.</span>
+                        </li>
+                        <li className="flex items-start gap-3 text-sm font-medium text-gray-700">
+                          <span className="text-blue-500 font-black mt-0.5">{`>`}</span>
+                          <span>Leverage AI tools (GPT, Claude, Figma AI) to accelerate research, prototyping, UX writing, and design validation.</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Freelance */}
+                <div className="gsap-card bg-white border-4 border-black rounded-2xl shadow-[8px_8px_0_0_#000] overflow-hidden group hover:shadow-[12px_12px_0_0_#000] hover:-translate-y-2 transition-all duration-300">
+                  <div className="h-8 border-b-2 border-black bg-pink-50 flex items-center px-3 justify-between">
+                     <div className="text-[10px] font-bold font-mono">WORK_LOG_02.TXT</div>
+                     <div className="flex gap-1">
+                        <div className="w-2 h-2 border border-black bg-white"></div>
+                        <div className="w-2 h-2 border border-black bg-white"></div>
+                     </div>
+                  </div>
+                  <div className="p-6 md:p-8">
+                    <div className="flex items-center gap-4 mb-6">
+                      <div className="w-14 h-14 bg-pink-500 border-2 border-black rounded-xl flex items-center justify-center shadow-[3px_3px_0_0_#000]">
+                        <Palette className="w-7 h-7 text-white" />
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-black text-black uppercase leading-tight">UI/UX & Graphic Designer</h3>
+                        <p className="text-sm text-pink-600 font-bold bg-pink-100 px-2 py-0.5 rounded border border-pink-200 inline-block mt-1">2023 – Present</p>
+                      </div>
+                    </div>
+                    <div className="mb-4">
+                      <p className="font-bold text-black border-b-2 border-gray-100 pb-2 mb-3">Freelance – International Clients</p>
+                      <ul className="space-y-3">
+                        <li className="flex items-start gap-3 text-sm font-medium text-gray-700">
+                          <span className="text-pink-500 font-black mt-0.5">{`>`}</span>
+                          <span>Delivered end-to-end digital products including mobile apps, web platforms, landing pages, and brand identities for international clients.</span>
+                        </li>
+                        <li className="flex items-start gap-3 text-sm font-medium text-gray-700">
+                          <span className="text-pink-500 font-black mt-0.5">{`>`}</span>
+                          <span>Conducted user research, competitor analysis, information architecture, and high-fidelity prototyping for SaaS, e-commerce, and fintech projects.</span>
+                        </li>
+                        <li className="flex items-start gap-3 text-sm font-medium text-gray-700">
+                          <span className="text-pink-500 font-black mt-0.5">{`>`}</span>
+                          <span>Built responsive UI systems with structured design systems and reusable components for seamless developer handoff.</span>
+                        </li>
+                        <li className="flex items-start gap-3 text-sm font-medium text-gray-700">
+                          <span className="text-pink-500 font-black mt-0.5">{`>`}</span>
+                          <span>Accelerated workflows using AI tools (GPT, Claude, Gemini, Perplexity, Figma AI) for research synthesis, ideation, and rapid prototyping.</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Uvexzon */}
                 <div className="gsap-card bg-white border-4 border-black rounded-2xl shadow-[8px_8px_0_0_#000] overflow-hidden group hover:shadow-[12px_12px_0_0_#000] hover:-translate-y-2 transition-all duration-300">
                   <div className="h-8 border-b-2 border-black bg-purple-50 flex items-center px-3 justify-between">
-                     <div className="text-[10px] font-bold font-mono">WORK_LOG_01.TXT</div>
+                     <div className="text-[10px] font-bold font-mono">WORK_LOG_03.TXT</div>
                      <div className="flex gap-1">
                         <div className="w-2 h-2 border border-black bg-white"></div>
                         <div className="w-2 h-2 border border-black bg-white"></div>
@@ -660,8 +749,8 @@ export default function About() {
                         <Code className="w-7 h-7 text-white" />
                       </div>
                       <div>
-                        <h3 className="text-lg font-black text-black uppercase">UI/UX Designer (Intern)</h3>
-                        <p className="text-sm text-purple-600 font-bold bg-purple-100 px-2 py-0.5 rounded border border-purple-200 inline-block mt-1">May 2025 - Aug 2025</p>
+                        <h3 className="text-lg font-black text-black uppercase leading-tight">UI/UX Designer (Intern)</h3>
+                        <p className="text-sm text-purple-600 font-bold bg-purple-100 px-2 py-0.5 rounded border border-purple-200 inline-block mt-1">May 2025 – Aug 2025</p>
                       </div>
                     </div>
                     <div className="mb-4">
@@ -669,25 +758,32 @@ export default function About() {
                       <ul className="space-y-3">
                         <li className="flex items-start gap-3 text-sm font-medium text-gray-700">
                           <span className="text-purple-500 font-black mt-0.5">{`>`}</span>
-                          <span>Designed Swish Strokes mobile app & landing page</span>
+                          <span>Designed Swish Strokes – a mandala art + music relaxation mobile app and landing page, approved on first draft.</span>
                         </li>
                         <li className="flex items-start gap-3 text-sm font-medium text-gray-700">
                           <span className="text-purple-500 font-black mt-0.5">{`>`}</span>
-                          <span>Created CulturaJoin event management platform</span>
+                          <span>Created CulturaJoin – a cultural and event management platform for locals, tourists, and event planners.</span>
                         </li>
                         <li className="flex items-start gap-3 text-sm font-medium text-gray-700">
                           <span className="text-purple-500 font-black mt-0.5">{`>`}</span>
-                          <span>Led complete Uvexzon website redesign</span>
+                          <span>Led full redesign of Uvexzon company website from research to high-fidelity prototyping.</span>
+                        </li>
+                        <li className="flex items-start gap-3 text-sm font-medium text-gray-700">
+                          <span className="text-purple-500 font-black mt-0.5">{`>`}</span>
+                          <span>Delivered responsive redesigns for Real Estate Germany, Messiah Foundation, and Aquarium websites.</span>
+                        </li>
+                        <li className="flex items-start gap-3 text-xs font-mono text-gray-500 mt-2">
+                          <span>Tools: Figma, FigJam, Figma AI, Perplexity/GPT.</span>
                         </li>
                       </ul>
                     </div>
                   </div>
                 </div>
 
-                {/* Previous Work - Job File */}
+                {/* Pharma Associates */}
                 <div className="gsap-card bg-white border-4 border-black rounded-2xl shadow-[8px_8px_0_0_#000] overflow-hidden group hover:shadow-[12px_12px_0_0_#000] hover:-translate-y-2 transition-all duration-300">
                   <div className="h-8 border-b-2 border-black bg-orange-50 flex items-center px-3 justify-between">
-                     <div className="text-[10px] font-bold font-mono">WORK_LOG_02.TXT</div>
+                     <div className="text-[10px] font-bold font-mono">WORK_LOG_04.TXT</div>
                      <div className="flex gap-1">
                         <div className="w-2 h-2 border border-black bg-white"></div>
                         <div className="w-2 h-2 border border-black bg-white"></div>
@@ -700,7 +796,7 @@ export default function About() {
                       </div>
                       <div>
                         <h3 className="text-lg font-black text-black uppercase leading-tight">Pharmacy Regulatory & IT Assistant</h3>
-                        <p className="text-sm text-orange-600 font-bold bg-orange-100 px-2 py-0.5 rounded border border-orange-200 inline-block mt-1">Aug 2022 - Dec 2024</p>
+                        <p className="text-sm text-orange-600 font-bold bg-orange-100 px-2 py-0.5 rounded border border-orange-200 inline-block mt-1">Aug 2022 – Dec 2024</p>
                       </div>
                     </div>
                     <div className="mb-4">
@@ -708,16 +804,21 @@ export default function About() {
                       <ul className="space-y-3">
                         <li className="flex items-start gap-3 text-sm font-medium text-gray-700">
                           <span className="text-orange-500 font-black mt-0.5">{`>`}</span>
-                          <span>Assisted NMRA with drug licensing & approval processes</span>
+                          <span>Assisted the National Medicines Regulatory Authority (NMRA) with drug licensing, approvals, and document submissions.</span>
                         </li>
                         <li className="flex items-start gap-3 text-sm font-medium text-gray-700">
                           <span className="text-orange-500 font-black mt-0.5">{`>`}</span>
-                          <span>Streamlined workflows through IT solutions</span>
+                          <span>Supported the Regulatory Department as IT assistant, streamlining workflows through technical solutions.</span>
+                        </li>
+                        <li className="flex items-start gap-3 text-sm font-medium text-gray-700">
+                          <span className="text-orange-500 font-black mt-0.5">{`>`}</span>
+                          <span>Contributed to timely delivery of regulatory documentation, balancing pharmacological and IT responsibilities.</span>
                         </li>
                       </ul>
                     </div>
                   </div>
                 </div>
+
               </div>
 
               {/* Higher Diploma - History File */}
@@ -778,11 +879,11 @@ export default function About() {
             {/* Summary Stats - Widgets */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
               <div className="gsap-stat text-center bg-[#007BFF] border-4 border-black rounded-2xl shadow-[6px_6px_0_0_#000] p-6 hover:shadow-[8px_8px_0_0_#000] hover:-translate-y-1 transition-all duration-300">
-                <div className="text-3xl lg:text-4xl font-black text-white mb-2 leading-none">1.5+</div>
+                <div className="text-3xl lg:text-4xl font-black text-white mb-2 leading-none">2+</div>
                 <div className="text-[11px] font-bold text-white/80 uppercase tracking-widest">Years Exp.</div>
               </div>
               <div className="gsap-stat text-center bg-[#FFDE59] border-4 border-black rounded-2xl shadow-[6px_6px_0_0_#000] p-6 hover:shadow-[8px_8px_0_0_#000] hover:-translate-y-1 transition-all duration-300">
-                <div className="text-3xl lg:text-4xl font-black text-black mb-2 leading-none">10+</div>
+                <div className="text-3xl lg:text-4xl font-black text-black mb-2 leading-none">15+</div>
                 <div className="text-[11px] font-bold text-black/70 uppercase tracking-widest">Projects</div>
               </div>
               <div className="gsap-stat text-center bg-black border-4 border-black rounded-2xl shadow-[6px_6px_0_0_#007BFF] p-6 hover:shadow-[8px_8px_0_0_#007BFF] hover:-translate-y-1 transition-all duration-300">
@@ -820,199 +921,193 @@ export default function About() {
             </div>
 
             {/* Main Skills Grid - Toolbox Style */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 mb-12">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-12">
               
-              {/* Design Tools Box */}
+              {/* UX & Product Design */}
               <div className="gsap-card bg-white border-4 border-black rounded-2xl shadow-[8px_8px_0_0_#000] overflow-hidden group hover:-translate-y-2 transition-all duration-300">
                 <div className="bg-gray-50 border-b-2 border-black p-3 flex justify-between items-center">
                    <span className="font-mono text-xs font-bold text-gray-500">TOOLBOX_01</span>
                    <Palette className="w-4 h-4 text-gray-500" />
                 </div>
-                <div className="p-6 lg:p-8 relative">
-                   {/* Background Decor */}
-                   <div className="absolute right-[-20px] bottom-[-20px] text-gray-50 opacity-50">
-                      <Palette size={120} strokeWidth={1} />
-                   </div>
-                   
-                   <div className="relative z-10">
-                    <h3 className="text-2xl font-black text-black mb-1 uppercase">Design Tools</h3>
-                    <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-6 border-b-2 border-black pb-2 inline-block">Visual Creation</p>
-                    
-                    <div className="space-y-3">
-                      <div className="bg-white/80 backdrop-blur-sm border-2 border-black rounded-lg p-3 hover:translate-x-1 transition-transform cursor-default">
-                        <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 bg-pink-500 rounded border border-black flex items-center justify-center font-bold text-white shadow-sm">Fi</div>
-                          <div>
-                            <h4 className="text-sm font-bold text-black leading-none">Figma & FigJam</h4>
-                            <p className="text-[10px] uppercase font-bold text-gray-500 mt-1">PROTOTYPING</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="bg-white/80 backdrop-blur-sm border-2 border-black rounded-lg p-3 hover:translate-x-1 transition-transform cursor-default">
-                        <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 bg-purple-500 rounded border border-black flex items-center justify-center font-bold text-white shadow-sm">Ai</div>
-                          <div>
-                            <h4 className="text-sm font-bold text-black leading-none">Figma AI & Make</h4>
-                            <p className="text-[10px] uppercase font-bold text-gray-500 mt-1">AUTOMATION</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="bg-white/80 backdrop-blur-sm border-2 border-black rounded-lg p-3 hover:translate-x-1 transition-transform cursor-default">
-                        <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 bg-blue-600 rounded border border-black flex items-center justify-center font-bold text-white shadow-sm">Ps</div>
-                          <div>
-                            <h4 className="text-sm font-bold text-black leading-none">Adobe Creative Suite</h4>
-                            <p className="text-[10px] uppercase font-bold text-gray-500 mt-1">GRAPHICS</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                <div className="p-6 lg:p-8">
+                  <h3 className="text-2xl font-black text-black mb-1 uppercase">UX & Product Design</h3>
+                  <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-6 border-b-2 border-black pb-2 inline-block">Design Thinking & Flows</p>
+                  <div className="flex flex-wrap gap-2">
+                    {["Design Thinking", "User Research", "Usability Testing", "Information Architecture", "Wireframing", "Prototyping", "Interaction Design", "User Flows", "Micro-interactions", "UX Writing"].map((skill, index) => (
+                      <span key={index} className="text-xs font-bold bg-[#FFF5F5] border-2 border-black px-2.5 py-1 rounded-lg shadow-[2px_2px_0_0_#000] hover:bg-black hover:text-white transition-colors cursor-default">{skill}</span>
+                    ))}
                   </div>
                 </div>
               </div>
 
-              {/* Frontend Box */}
+              {/* AI-First Design */}
               <div className="gsap-card bg-white border-4 border-black rounded-2xl shadow-[8px_8px_0_0_#000] overflow-hidden group hover:-translate-y-2 transition-all duration-300">
                 <div className="bg-gray-50 border-b-2 border-black p-3 flex justify-between items-center">
                    <span className="font-mono text-xs font-bold text-gray-500">TOOLBOX_02</span>
-                   <Code className="w-4 h-4 text-gray-500" />
+                   <Sparkles className="w-4 h-4 text-gray-500" />
                 </div>
-                <div className="p-6 lg:p-8 relative">
-                   <div className="absolute right-[-20px] bottom-[-20px] text-gray-50 opacity-50">
-                      <Code size={120} strokeWidth={1} />
-                   </div>
-                   
-                   <div className="relative z-10">
-                    <h3 className="text-2xl font-black text-black mb-1 uppercase">Frontend</h3>
-                    <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-6 border-b-2 border-black pb-2 inline-block">Client-Side</p>
-                    
-                    <div className="space-y-3">
-                      <div className="bg-white/80 backdrop-blur-sm border-2 border-black rounded-lg p-3 hover:translate-x-1 transition-transform cursor-default">
-                        <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 bg-orange-500 rounded border border-black flex items-center justify-center font-bold text-white shadow-sm">{`</>`}</div>
-                          <div>
-                            <h4 className="text-sm font-bold text-black leading-none">HTML & CSS</h4>
-                            <p className="text-[10px] uppercase font-bold text-gray-500 mt-1">STRUCTURE</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="bg-white/80 backdrop-blur-sm border-2 border-black rounded-lg p-3 hover:translate-x-1 transition-transform cursor-default">
-                        <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 bg-yellow-400 rounded border border-black flex items-center justify-center font-bold text-black shadow-sm">JS</div>
-                          <div>
-                            <h4 className="text-sm font-bold text-black leading-none">JavaScript</h4>
-                            <p className="text-[10px] uppercase font-bold text-gray-500 mt-1">LOGIC</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="bg-white/80 backdrop-blur-sm border-2 border-black rounded-lg p-3 hover:translate-x-1 transition-transform cursor-default">
-                        <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 bg-cyan-400 rounded border border-black flex items-center justify-center font-bold text-black shadow-sm">Re</div>
-                          <div>
-                            <h4 className="text-sm font-bold text-black leading-none">React & TypeScript</h4>
-                            <p className="text-[10px] uppercase font-bold text-gray-500 mt-1">FRAMEWORKS</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                <div className="p-6 lg:p-8">
+                  <h3 className="text-2xl font-black text-black mb-1 uppercase">AI-First Design</h3>
+                  <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-6 border-b-2 border-black pb-2 inline-block">Human-AI UX</p>
+                  <div className="flex flex-wrap gap-2">
+                    {["AI-Assisted Design", "Human-AI Interaction Design", "Conversational UX", "Prompt-Driven Workflows", "AI-Assisted Research Synthesis", "AI-Powered Ideation", "Human-in-the-Loop Experiences", "Designing for Trust and Explainability", "AI Agent Experience Design"].map((skill, index) => (
+                      <span key={index} className="text-xs font-bold bg-[#F3E8FF] border-2 border-black px-2.5 py-1 rounded-lg shadow-[2px_2px_0_0_#000] hover:bg-black hover:text-white transition-colors cursor-default">{skill}</span>
+                    ))}
                   </div>
                 </div>
               </div>
 
-              {/* Backend Box */}
+              {/* Design Systems */}
               <div className="gsap-card bg-white border-4 border-black rounded-2xl shadow-[8px_8px_0_0_#000] overflow-hidden group hover:-translate-y-2 transition-all duration-300">
                 <div className="bg-gray-50 border-b-2 border-black p-3 flex justify-between items-center">
                    <span className="font-mono text-xs font-bold text-gray-500">TOOLBOX_03</span>
-                   <CheckCircle className="w-4 h-4 text-gray-500" />
+                   <Award className="w-4 h-4 text-gray-500" />
                 </div>
-                <div className="p-6 lg:p-8 relative">
-                   <div className="absolute right-[-20px] bottom-[-20px] text-gray-50 opacity-50">
-                      <CheckCircle size={120} strokeWidth={1} />
-                   </div>
-                   
-                   <div className="relative z-10">
-                    <h3 className="text-2xl font-black text-black mb-1 uppercase">Backend</h3>
-                    <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-6 border-b-2 border-black pb-2 inline-block">Server-Side</p>
-                    
-                    <div className="space-y-3">
-                      <div className="bg-white/80 backdrop-blur-sm border-2 border-black rounded-lg p-3 hover:translate-x-1 transition-transform cursor-default">
-                        <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 bg-green-500 rounded border border-black flex items-center justify-center font-bold text-white shadow-sm">No</div>
-                          <div>
-                            <h4 className="text-sm font-bold text-black leading-none">Node.js & Express</h4>
-                            <p className="text-[10px] uppercase font-bold text-gray-500 mt-1">RUNTIME</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="bg-white/80 backdrop-blur-sm border-2 border-black rounded-lg p-3 hover:translate-x-1 transition-transform cursor-default">
-                        <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 bg-yellow-600 rounded border border-black flex items-center justify-center font-bold text-white shadow-sm">Py</div>
-                          <div>
-                            <h4 className="text-sm font-bold text-black leading-none">Python & Java</h4>
-                            <p className="text-[10px] uppercase font-bold text-gray-500 mt-1">LANGUAGES</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="bg-white/80 backdrop-blur-sm border-2 border-black rounded-lg p-3 hover:translate-x-1 transition-transform cursor-default">
-                        <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 bg-blue-500 rounded border border-black flex items-center justify-center font-bold text-white shadow-sm">SQL</div>
-                          <div>
-                            <h4 className="text-sm font-bold text-black leading-none">SQL & .NET MVC</h4>
-                            <p className="text-[10px] uppercase font-bold text-gray-500 mt-1">DATABASE</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                <div className="p-6 lg:p-8">
+                  <h3 className="text-2xl font-black text-black mb-1 uppercase">Design Systems</h3>
+                  <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-6 border-b-2 border-black pb-2 inline-block">UI Components & Handoff</p>
+                  <div className="flex flex-wrap gap-2">
+                    {["Component Libraries", "Style Guides", "Design Tokens", "Developer Handoff"].map((skill, index) => (
+                      <span key={index} className="text-xs font-bold bg-[#E6FFFA] border-2 border-black px-2.5 py-1 rounded-lg shadow-[2px_2px_0_0_#000] hover:bg-black hover:text-white transition-colors cursor-default">{skill}</span>
+                    ))}
                   </div>
                 </div>
               </div>
 
-              {/* AI-First Design Box */}
+              {/* Design & AI Tools */}
               <div className="gsap-card bg-white border-4 border-black rounded-2xl shadow-[8px_8px_0_0_#000] overflow-hidden group hover:-translate-y-2 transition-all duration-300">
                 <div className="bg-gray-50 border-b-2 border-black p-3 flex justify-between items-center">
                    <span className="font-mono text-xs font-bold text-gray-500">TOOLBOX_04</span>
                    <Sparkles className="w-4 h-4 text-gray-500" />
                 </div>
-                <div className="p-6 lg:p-8 relative">
-                   <div className="absolute right-[-20px] bottom-[-20px] text-gray-50 opacity-50">
-                      <Sparkles size={120} strokeWidth={1} />
-                   </div>
-                   
-                   <div className="relative z-10">
-                    <h3 className="text-2xl font-black text-black mb-1 uppercase">AI-First Design</h3>
-                    <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-6 border-b-2 border-black pb-2 inline-block">Human-AI UX</p>
-                    
-                    <div className="space-y-3">
-                      <div className="bg-white/80 backdrop-blur-sm border-2 border-black rounded-lg p-3 hover:translate-x-1 transition-transform cursor-default">
-                        <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 bg-purple-600 rounded border border-black flex items-center justify-center font-bold text-white shadow-sm">AI</div>
-                          <div>
-                            <h4 className="text-sm font-bold text-black leading-none">Human-AI Interaction</h4>
-                            <p className="text-[10px] uppercase font-bold text-gray-500 mt-1">CONVERSATIONAL UX</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="bg-white/80 backdrop-blur-sm border-2 border-black rounded-lg p-3 hover:translate-x-1 transition-transform cursor-default">
-                        <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 bg-pink-500 rounded border border-black flex items-center justify-center font-bold text-white shadow-sm">Rs</div>
-                          <div>
-                            <h4 className="text-sm font-bold text-black leading-none">AI-Assisted Research</h4>
-                            <p className="text-[10px] uppercase font-bold text-gray-500 mt-1">SYNTHESIS & DISCOVERY</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="bg-white/80 backdrop-blur-sm border-2 border-black rounded-lg p-3 hover:translate-x-1 transition-transform cursor-default">
-                        <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 bg-[#FFDE59] rounded border border-black flex items-center justify-center font-bold text-black shadow-sm">Wf</div>
-                          <div>
-                            <h4 className="text-sm font-bold text-black leading-none">Prompt-Driven Workflows</h4>
-                            <p className="text-[10px] uppercase font-bold text-gray-500 mt-1">CLAUDE · GPT · FIGMA AI</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                <div className="p-6 lg:p-8">
+                  <h3 className="text-2xl font-black text-black mb-1 uppercase">Design & AI Tools</h3>
+                  <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-6 border-b-2 border-black pb-2 inline-block">Accelerated Workflow</p>
+                  <div className="flex flex-wrap gap-2">
+                    {["Figma", "FigJam", "Figma AI", "Figma Make", "Figma Weave", "GPT", "Claude", "Gemini", "NotebookLM", "Perplexity", "Illustrator", "Canva"].map((skill, index) => (
+                      <span key={index} className="flex items-center gap-1.5 text-xs font-bold bg-[#FFFBEB] border-2 border-black px-2.5 py-1 rounded-lg shadow-[2px_2px_0_0_#000] hover:bg-black hover:text-white transition-colors cursor-default">
+                        {skill.includes("Figma") && <img src="/images/logos/figma.png" alt="Figma" className="w-3.5 h-3.5 object-contain" />}
+                        {skill}
+                      </span>
+                    ))}
                   </div>
                 </div>
+              </div>
+
+              {/* Front-End */}
+              <div className="gsap-card bg-white border-4 border-black rounded-2xl shadow-[8px_8px_0_0_#000] overflow-hidden group hover:-translate-y-2 transition-all duration-300">
+                <div className="bg-gray-50 border-b-2 border-black p-3 flex justify-between items-center">
+                   <span className="font-mono text-xs font-bold text-gray-500">TOOLBOX_05</span>
+                   <Code className="w-4 h-4 text-gray-500" />
+                </div>
+                <div className="p-6 lg:p-8">
+                  <h3 className="text-2xl font-black text-black mb-1 uppercase">Front-End</h3>
+                  <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-6 border-b-2 border-black pb-2 inline-block">Development & Logic</p>
+                  <div className="flex flex-wrap gap-2">
+                    {["HTML5", "CSS3", "Responsive Design", "Flexbox", "Grid", "JavaScript (ES6+)", "TypeScript", "ReactJS"].map((skill, index) => (
+                      <span key={index} className="text-xs font-bold bg-[#EBF8FF] border-2 border-black px-2.5 py-1 rounded-lg shadow-[2px_2px_0_0_#000] hover:bg-black hover:text-white transition-colors cursor-default">{skill}</span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Engineering Practices */}
+              <div className="gsap-card bg-white border-4 border-black rounded-2xl shadow-[8px_8px_0_0_#000] overflow-hidden group hover:-translate-y-2 transition-all duration-300">
+                <div className="bg-gray-50 border-b-2 border-black p-3 flex justify-between items-center">
+                   <span className="font-mono text-xs font-bold text-gray-500">TOOLBOX_06</span>
+                   <CheckCircle className="w-4 h-4 text-gray-500" />
+                </div>
+                <div className="p-6 lg:p-8">
+                  <h3 className="text-2xl font-black text-black mb-1 uppercase">Engineering</h3>
+                  <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-6 border-b-2 border-black pb-2 inline-block">Clean Code Practices</p>
+                  <div className="flex flex-wrap gap-2">
+                    {["REST APIs", "Git/GitHub"].map((skill, index) => (
+                      <span key={index} className="text-xs font-bold bg-[#F0FDF4] border-2 border-black px-2.5 py-1 rounded-lg shadow-[2px_2px_0_0_#000] hover:bg-black hover:text-white transition-colors cursor-default">{skill}</span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Collaboration */}
+              <div className="gsap-card bg-white border-4 border-black rounded-2xl shadow-[8px_8px_0_0_#000] overflow-hidden group hover:-translate-y-2 transition-all duration-300 md:col-span-2 lg:col-span-3">
+                <div className="bg-gray-50 border-b-2 border-black p-3 flex justify-between items-center">
+                   <span className="font-mono text-xs font-bold text-gray-500">TOOLBOX_07</span>
+                   <Briefcase className="w-4 h-4 text-gray-500" />
+                </div>
+                <div className="p-6 lg:p-8">
+                  <h3 className="text-2xl font-black text-black mb-1 uppercase">Collaboration</h3>
+                  <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-6 border-b-2 border-black pb-2 inline-block">Workflow & Communication</p>
+                  <div className="flex flex-wrap gap-2">
+                    {["Agile Workflow", "Stakeholder Communication", "Problem Solving", "Ownership"].map((skill, index) => (
+                      <span key={index} className="text-xs font-bold bg-[#FFF5F5] border-2 border-black px-2.5 py-1 rounded-lg shadow-[2px_2px_0_0_#000] hover:bg-black hover:text-white transition-colors cursor-default">{skill}</span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            {/* AI-Assisted Design Workflow Section */}
+            <div className="mt-16 lg:mt-24 mb-16">
+              <div className="text-center mb-12">
+                <h3 className="text-3xl lg:text-4xl font-black text-black mb-4 uppercase">
+                  AI-Assisted <span className="text-[#007BFF]">Design Workflow</span>
+                </h3>
+                <div className="inline-block bg-[#007BFF] text-white px-4 py-1 border-2 border-black shadow-[3px_3px_0_0_#000] text-xs font-bold tracking-widest">WORKFLOW_PIPELINE.LOG</div>
+              </div>
+
+              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {[
+                  {
+                    title: "Discovery & Research",
+                    tools: "Perplexity, Gemini, NotebookLM, GPT",
+                    desc: "Competitor analysis, research synthesis, user insights, and knowledge discovery.",
+                    color: "bg-[#E8F0FE]",
+                    textColor: "text-[#1A73E8]",
+                    borderColor: "border-[#1A73E8]"
+                  },
+                  {
+                    title: "Design Thinking & Ideation",
+                    tools: "Human-Centered AI",
+                    desc: "Apply human-centered design principles with AI-assisted brainstorming, journey mapping, UX writing, concept generation, and problem framing.",
+                    color: "bg-[#F3E8FF]",
+                    textColor: "text-[#9333EA]",
+                    borderColor: "border-[#9333EA]"
+                  },
+                  {
+                    title: "Design Execution",
+                    tools: "Figma AI, Make & Weave",
+                    desc: "Accelerated wireframing, component exploration, design systems, and rapid prototyping.",
+                    color: "bg-[#FFFBEB]",
+                    textColor: "text-[#D97706]",
+                    borderColor: "border-[#D97706]"
+                  },
+                  {
+                    title: "Validation",
+                    tools: "Heuristics & Usability",
+                    desc: "AI-supported heuristic reviews, accessibility checks, usability evaluation, and iterative design refinement while maintaining human-centered decision making.",
+                    color: "bg-[#ECFDF5]",
+                    textColor: "text-[#059669]",
+                    borderColor: "border-[#059669]"
+                  }
+                ].map((step, i) => (
+                  <div key={i} className="gsap-card bg-white border-4 border-black rounded-2xl shadow-[6px_6px_0_0_#000] hover:shadow-[10px_10px_0_0_#000] hover:-translate-y-2 transition-all duration-300 p-6 flex flex-col justify-between">
+                    <div>
+                      <div className="flex justify-between items-start mb-4">
+                        <span className="font-mono text-xs font-black text-gray-400">STAGE_0{i+1}</span>
+                        <div className={`text-[10px] font-black uppercase tracking-wider px-2 py-0.5 border-2 border-black rounded-md ${step.color} ${step.textColor} shadow-[1px_1px_0_0_#000]`}>
+                          {step.tools}
+                        </div>
+                      </div>
+                      <h4 className="text-lg font-black text-black leading-tight uppercase mb-3">{step.title}</h4>
+                      <p className="text-xs font-semibold text-gray-600 leading-relaxed">{step.desc}</p>
+                    </div>
+                    <div className="mt-6 pt-4 border-t-2 border-dashed border-gray-150 flex items-center justify-between">
+                      <span className="text-[9px] font-mono text-gray-400">// PIPELINE_ACTIVE</span>
+                      <Sparkles className={`w-4 h-4 ${step.textColor}`} />
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
 
@@ -1102,10 +1197,11 @@ export default function About() {
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {[
                   { title: "Google UX Design Professional Certificate", issuer: "Google", color: "bg-[#FF6B6B]" },
+                  { title: "Design Thinking in the Age of AI", issuer: "LinkedIn Learning", color: "bg-[#007BFF]", textLight: true },
                   { title: "Certificate in Comprehensive UI/UX Design", issuer: "FSD Academy", color: "bg-[#FFDE59]" },
-                  { title: "Web Design for Beginners", issuer: "University of Moratuwa", color: "bg-[#A0E7E5]" },
-                  { title: "Front-End Web Development", issuer: "University of Moratuwa", color: "bg-[#B8C0FF]" },
                   { title: "User Experience Design", issuer: "Georgia Institute of Technology", color: "bg-[#FF9F9F]" },
+                  { title: "Front-End Web Development", issuer: "University of Moratuwa", color: "bg-[#B8C0FF]" },
+                  { title: "Web Design for Beginners", issuer: "University of Moratuwa", color: "bg-[#A0E7E5]" },
                   { title: "Fundamentals of Digital Marketing", issuer: "Google Digital Garage", color: "bg-[#007BFF]", textLight: true },
                   { title: "Technical Support Fundamentals", issuer: "Google", color: "bg-black", textLight: true },
                 ].map((cert, i) => (
@@ -1160,7 +1256,11 @@ export default function About() {
               <div className="about-skills-track flex gap-10 w-max">
                 {["Figma","User Research","Prototyping","React","Branding","Design Systems","Wireframing","Motion Design","Tailwind CSS","Node.js","Adobe XD","Typography","UX Writing","Accessibility","Interaction Design","Figma","User Research","Prototyping","React","Branding","Design Systems","Wireframing","Motion Design","Tailwind CSS","Node.js","Adobe XD","Typography"].map((skill, i) => (
                   <span key={i} className="whitespace-nowrap text-sm font-black uppercase tracking-widest text-black flex items-center gap-3">
-                    <span className="w-2 h-2 bg-[#007BFF] rounded-full inline-block border border-black"/>
+                    {skill === "Figma" ? (
+                      <img src="/images/logos/figma.png" alt="Figma" className="w-4 h-4 object-contain" />
+                    ) : (
+                      <span className="w-2 h-2 bg-[#007BFF] rounded-full inline-block border border-black"/>
+                    )}
                     {skill}
                   </span>
                 ))}

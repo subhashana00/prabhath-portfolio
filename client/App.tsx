@@ -72,20 +72,18 @@ const AnimatedRoutes = () => {
   const location = useLocation();
   
   return (
-    <AnimatePresence mode="wait">
-      <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<PageTransition><Index /></PageTransition>} />
-        <Route path="/about" element={<PageTransition><About /></PageTransition>} />
-        <Route path="/projects" element={<PageTransition><Projects /></PageTransition>} />
-        <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
-        <Route path="/freelance" element={<PageTransition><Freelance /></PageTransition>} />
-        <Route path="/projects/event-booking-management-dashboard" element={<PageTransition><EventBookingCaseStudy /></PageTransition>} />
-        <Route path="/projects/gym-fitness-app" element={<PageTransition><GymFitnessCaseStudy /></PageTransition>} />
-        <Route path="/projects/aerosync-b2b-gateway" element={<PageTransition><AeroSyncCaseStudy /></PageTransition>} />
-        <Route path="/projects/novamind-ai-landingpage" element={<PageTransition><NovaMindCaseStudy /></PageTransition>} />
-        <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
-      </Routes>
-    </AnimatePresence>
+    <Routes location={location} key={location.pathname}>
+      <Route path="/" element={<PageTransition><Index /></PageTransition>} />
+      <Route path="/about" element={<PageTransition><About /></PageTransition>} />
+      <Route path="/projects" element={<PageTransition><Projects /></PageTransition>} />
+      <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
+      <Route path="/freelance" element={<PageTransition><Freelance /></PageTransition>} />
+      <Route path="/projects/event-booking-management-dashboard" element={<PageTransition><EventBookingCaseStudy /></PageTransition>} />
+      <Route path="/projects/gym-fitness-app" element={<PageTransition><GymFitnessCaseStudy /></PageTransition>} />
+      <Route path="/projects/aerosync-b2b-gateway" element={<PageTransition><AeroSyncCaseStudy /></PageTransition>} />
+      <Route path="/projects/novamind-ai-landingpage" element={<PageTransition><NovaMindCaseStudy /></PageTransition>} />
+      <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
+    </Routes>
   );
 };
 
@@ -98,13 +96,7 @@ const App = () => {
         <TooltipProvider>
           <Toaster />
           <Sonner />
-          <BrowserRouter
-            basename={import.meta.env.BASE_URL}
-            future={{
-              v7_startTransition: true,
-              v7_relativeSplatPath: true,
-            }}
-          >
+          <BrowserRouter>
             <SmoothScroll>
               <div className={`transition-all duration-500 relative min-h-screen ${
                 isLoadingComplete ? 'opacity-100' : 'opacity-0'

@@ -617,7 +617,7 @@ export default function Index() {
     <div className="min-h-screen bg-white">
       <SEOHead
         title="Prabhath Subhashana | UI/UX Designer & AI-First Product Designer | Sri Lanka"
-        description="Award-winning UI/UX designer from Sri Lanka specializing in AI-first product design, mobile app UX, and premium digital experiences. Explore 10+ case studies. Available for freelance projects worldwide."
+        description="Award-winning UI/UX designer from Sri Lanka specializing in AI-first product design, mobile app UX, and premium digital experiences. Explore 15+ case studies. Available for freelance projects worldwide."
         canonical="/"
         keywords="UI/UX Designer Sri Lanka, Best UI UX Designer Colombo, Freelance Product Designer, AI-First Product Designer, Hire UI/UX Designer Sri Lanka, Prabhath Subhashana"
       />
@@ -990,7 +990,7 @@ export default function Index() {
                 </div>
                 <div className="p-6 text-center flex-1 flex flex-col items-center justify-center">
                   <div className="w-16 h-16 bg-[#007BFF] rounded-xl border-2 border-black flex items-center justify-center mb-4 group-hover:bg-black group-hover:text-white transition-colors shadow-[4px_4px_0_0_#000]">
-                    <span className="text-white group-hover:text-white font-black text-2xl">1.5+</span>
+                    <span className="text-white group-hover:text-white font-black text-2xl">2+</span>
                   </div>
                   <h3 className="text-lg font-bold text-black mb-2 font-sans">Years Experience</h3>
                   <p className="text-sm text-gray-600 font-medium">
@@ -1017,7 +1017,7 @@ export default function Index() {
                 </div>
                 <div className="p-6 text-center flex-1 flex flex-col items-center justify-center">
                   <div className="w-16 h-16 bg-[#007BFF] rounded-xl border-2 border-black flex items-center justify-center mb-4 group-hover:bg-black group-hover:text-white transition-colors shadow-[4px_4px_0_0_#000]">
-                    <span className="text-white group-hover:text-white font-black text-2xl">10+</span>
+                    <span className="text-white group-hover:text-white font-black text-2xl">15+</span>
                   </div>
                   <h3 className="text-lg font-bold text-black mb-2 font-sans">Projects Completed</h3>
                   <p className="text-sm text-gray-600 font-medium">
@@ -1419,7 +1419,11 @@ export default function Index() {
             <div className="h-scroll-track flex gap-8 w-max">
               {["UI/UX Design","Figma","Prototyping","React","Branding","Motion Design","Design Systems","Wireframing","User Research","Typography","UI/UX Design","Figma","Prototyping","React","Branding","Motion Design","Design Systems","Wireframing","User Research","Typography"].map((skill, i) => (
                 <span key={i} className="whitespace-nowrap text-sm font-black uppercase tracking-widest text-black flex items-center gap-3">
-                  <span className="w-2 h-2 bg-[#007BFF] rounded-full inline-block border border-black"/>
+                  {skill === "Figma" ? (
+                    <img src="/images/logos/figma.png" alt="Figma" className="w-4 h-4 object-contain" />
+                  ) : (
+                    <span className="w-2 h-2 bg-[#007BFF] rounded-full inline-block border border-black"/>
+                  )}
                   {skill}
                 </span>
               ))}

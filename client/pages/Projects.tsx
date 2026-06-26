@@ -663,7 +663,7 @@ export default function Projects() {
     <div className="min-h-screen bg-white">
       <SEOHead
         title="UI/UX Design Portfolio | Prabhath Subhashana — Case Studies & Projects"
-        description="Explore 10+ premium UI/UX design projects including mobile apps, SaaS dashboards, and brand identity systems by Prabhath Subhashana. View detailed case studies with process breakdowns."
+        description="Explore 15+ premium UI/UX design projects including mobile apps, SaaS dashboards, and brand identity systems by Prabhath Subhashana. View detailed case studies with process breakdowns."
         canonical="/projects"
         keywords="UI/UX Design Portfolio, Design Case Studies, Mobile App Design, SaaS Dashboard Design, Brand Identity, Prabhath Subhashana Projects, Sri Lanka Designer Portfolio"
       />
@@ -1034,8 +1034,17 @@ export default function Projects() {
                             onClick={(e) => e.stopPropagation()}
                             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border-2 border-transparent hover:border-black hover:bg-gray-100 text-xs font-bold uppercase tracking-wider text-black transition-all"
                           >
-                            Design
-                            <ArrowRight className="w-3 h-3" />
+                            {project.links.design.includes('figma.com') ? (
+                              <>
+                                <img src="/images/logos/figma.png" alt="Figma" className="w-3.5 h-3.5 object-contain" />
+                                Figma
+                              </>
+                            ) : (
+                              <>
+                                Design
+                                <ArrowRight className="w-3 h-3" />
+                              </>
+                            )}
                           </a>
                         )}
                         {project.links.caseStudy && (
