@@ -663,7 +663,7 @@ export default function About() {
                         <Briefcase className="w-7 h-7 text-white" />
                       </div>
                       <div>
-                        <h3 className="text-lg font-black text-black uppercase leading-tight">UI/UX Engineer</h3>
+                        <h3 className="text-lg font-black text-black uppercase leading-tight">UI/UX Designer</h3>
                         <p className="text-sm text-blue-600 font-bold bg-blue-100 px-2 py-0.5 rounded border border-blue-200 inline-block mt-1">Sep 2025 – Present</p>
                       </div>
                     </div>
